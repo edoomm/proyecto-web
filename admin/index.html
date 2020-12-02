@@ -21,60 +21,55 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-    <style type="text/css">
-        header,
-        main,
-        footer {
-            padding-left: 300px;
-        }
-
-        @media only screen and (max-width : 992px) {
-
-            header,
-            main,
-            footer {
-                padding-left: 0;
-            }
-        }
-    </style>
+    <!-- local styles -->
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 
 <body>
-    <!-- Top navbar -->
-    <nav>
-        <div class="nav-wrapper blue">
-            <a href="#" class="left">
-                <h5>Adimn</h5>
-            </a>
-            <ul id="nav-mobile" class="right">
-                <li><a href="#">Acerca de</a></li>
-                <li><a href="#">Salir</a></li>
-            </ul>
+    <header>
+        <!-- Top navbar -->
+        <nav>
+            <div class="nav-wrapper blue">
+                <div class="menu-button">
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i
+                            class="material-icons">menu</i></a>
+                </div>
+                <ul id="nav-mobile" class="right">
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Salir</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Side navbar -->
+        <div class="row">
+            <div class="container">
+
+                <ul id="slide-out" class="side-nav fixed">
+                    <li>
+                        <div class="user-view">
+                            <!-- Podriamos poner un fondo chido -->
+                            <!-- <div class="background">
+                                <img src="images/office.jpg">
+                            </div> -->
+                            <div class="sidenav-header center">Admin</div>
+                        </div>
+                    </li>
+                    <li><div class="divider"></div></li>
+                    <li><a class="waves-effect" href="#!">Alumno</a></li>
+                    <li><a class="waves-effect" href="#!">Reportes</a></li>
+                </ul>
+
+            </div>
         </div>
-    </nav>
 
-    <!-- Side navbar -->
-    <div class="row">
-        <div class="container">
-
-            <ul id="slide-out" class="side-nav fixed">
-                <li><a class="waves-effect" href="#!">Alumno</a></li>
-                <li><a class="waves-effect" href="#!">Reportes</a></li>
-                <li><a class="waves-effect" href="#!"></a></li>
-            </ul>
-            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-
-        </div>
-    </div>
+    </main>
 
     <script>
         $(document).ready(function () {
-            // $('.sidenav').sidenav();
             $(".button-collapse").sideNav();
-            // Show sideNav
-            $('.button-collapse').sideNav('show');
-            // Hide sideNav
-            $('.button-collapse').sideNav('hide');
         });
     </script>
 </body>
