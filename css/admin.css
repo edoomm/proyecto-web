@@ -29,3 +29,19 @@ footer {
 .sidenav-buttons {
     padding-top: 10px;
 }
+
+.new-button-dashboard {
+    text-align: right;
+    margin-top: 15px;
+}
+
+@media only screen and (max-width : 600px) {
+    .new-button-dashboard, 
+    .header-dashboard-students {
+        text-align: center;
+    }
+
+    .new-button-dashboard {
+        margin-top: 5px;
+    }
+}
