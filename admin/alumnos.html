@@ -16,11 +16,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-
     <!-- local styles -->
     <link rel="stylesheet" href="../css/admin.css">
 </head>
@@ -76,15 +71,44 @@
                     <a class="waves-effect waves-light btn white blue-text">Nuevo</a>
                 </div>
             </div>
+            <table class="striped responsive-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha de registro</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><a href="#">Juan Pérez</a></td>
+                        <td>12-20-20 10:00:00AM</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Juana Sánchez</a></td>
+                        <td>13-20-20 11:00:00AM</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Juanito Martínez</a></td>
+                        <td>15-20-20 9:00:00AM</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </main>
 
-    <script>
-        $(document).ready(function () {
-            $(".button-collapse").sideNav();
-        });
-    </script>
+    
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    });
+</script>
