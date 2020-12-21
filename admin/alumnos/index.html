@@ -125,15 +125,15 @@
                 <tbody>
                     <!-- Aca iran las iteraciones con php -->
                     <tr>
-                        <td><a href="#">Juan Pérez</a></td>
+                        <td><a href="#" onclick="editar(this)">Juan Pérez</a></td>
                         <td>12-20-20 10:00:00AM</td>
                     </tr>
                     <tr>
-                        <td><a href="#">Juana Sánchez</a></td>
+                        <td><a href="#" onclick="editar(this)">Juana Sánchez</a></td>
                         <td>13-20-20 11:00:00AM</td>
                     </tr>
                     <tr>
-                        <td><a href="#">Juanito Martínez</a></td>
+                        <td><a href="#" onclick="editar(this)">Carlos Martínez</a></td>
                         <td>15-20-20 9:00:00AM</td>
                     </tr>
                 </tbody>
@@ -147,6 +147,14 @@
 
     </main>
 
+    <!-- Form escondido para poder obtener los datos necesarios para editar posteriormente -->
+    <form action="./editar.html" hidden>
+        <!-- En lugar de su nombre tendra que ser su clave de registro o boleta -->
+        <input type="text" name="txtName" id="txtName">
+        <button class="btn waves-effect waves-light" type="submit" name="action" id="btnEditSubmit">Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -183,5 +191,10 @@
                 }
             }
         }
+    }
+
+    function editar(a) {
+        document.getElementById("txtName").value = a.innerHTML;
+        document.getElementById("btnEditSubmit").click();
     }
 </script>
