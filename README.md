@@ -87,6 +87,3 @@ Yo, como propietario del repo, podré ir viendo lo que vayan mandando, ir revisa
 Tampoco olviden andarle dando `push` a lo que vayan trabajando, para que todos podamos ver que todos vamos avanzando
 
 Tambien para las partes de los `&acute`, se me ocurria que trabajaramos con acentos y ya hasta al final hacemos <b> <i> refactor </i> </b> de los caracteres (á, é, ñ, etc) con sus respectivos `&acute` (`&aacute`, `&eacute`, `&ntilde`, etc)
-
-# GRACIAS POR USAR LA BRANCH fend
-Tenia que modificar algo para poder crear esta branch xd
