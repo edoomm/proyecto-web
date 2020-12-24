@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Examples</title>
+    <meta name='viewport'
+        content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- local styles -->
+    <!--<link rel="stylesheet" href="../css/admin.css">-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!--Import jQuery before materialize.js-->
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Validetta-->
+    <link rel="stylesheet" href="../validetta-1.0.1/dist/validetta.min.css">
+    <script src="../validetta-1.0.1/dist/validetta.min.js"></script>
+    <script src="../validetta-1.0.1/localization/validettaLang-es-ES.js"></script>
+    <script src="./formulario.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <!-- Top navbar 
+        <div class="container" style="width: 100%; height: 100%;"> 
+            <nav>
+                <div class="nav-wrapper blue">
+                    <div class="menu-button">
+                        <a href="#" data-activates="slide-out" class="button-collapse"><i
+                                class="material-icons">menu</i></a>
+                    </div>
+                    <ul id="nav-mobile" class="right">
+                        <li><a href="#">Acerca de</a></li>
+                        <li><a href="#">Salir</a></li>
+                    </ul>
+                </div>
+            </nav>    
+        </div>-->
+        
+    </header>
+
+    <main>
+        <!-- Side navbar 
+        <div class="row">
+            <div class="container">
+
+                <ul id="slide-out" class="side-nav fixed">
+                    <li>
+                        <div class="user-view">
+                            <div class="sidenav-header center">Alumno</div>
+                        </div>
+                    </li>
+                    <li><div class="divider"></div></li>
+                    
+                    <div class="sidenav-buttons">
+                        <li><a class="waves-effect" href="">.</a></li>
+                        
+                        <div class="blue lighten-5">
+                            <li><a class="waves-effect blue-text" href="">.</a></li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>-->
+
+        <div class="container">
+
+            <ul id="tabs-swipe-demo" class="tabs">
+                <li class="tab col s3"><a class="blue-text" href="#test-swipe-1">Datos personales</a></li>
+                <li class="tab col s3"><a class="blue-text" href="#test-swipe-2">Datos de domicilio</a></li>
+                <li class="tab col s3"><a class="blue-text" href="#test-swipe-3">Escuela de procedencia</a></li>
+                <li class="tab col s3"><a class="blue-text" href="#test-swipe-4">Programa acad&eacute;mico</a></li>
+            </ul>
+
+            <div id="test-swipe-1" class="col s12">
+                <form autocomplete="off">
+                    <div class="row">
+                        <div class="col s12 m12 input-field">
+                            <label for="curp">Curp</label>
+                            <input type="text" id="curp" name="curp" data-validetta="required,minLength[18],maxLength[18]">
+                        </div>
+    
+                        <div class="col s12 m12 l4 input-field">
+                            <label for="nombre">Nombre(s)</label>
+                            <input type="text" id="nombre" name="nombre" data-validetta="required">
+                        </div>
+    
+                        <div class="col s12 m6 l4 input-field">
+                            <label for="primer_ape">Primer apellido</label>
+                            <input type="text" id="primer_ape" name="primer_ape" data-validetta="required">
+                        </div>
+    
+                        <div class="col s12 m6 l4 input-field">
+                            <label for="segundo_ape">Segundo apellido</label>
+                            <input type="text" id="segundo_ape" name="segundo_ape" data-validetta="required">
+                        </div>
+    
+                        <div class="col s12 m6 l6 input-field">
+                            <label for="fecha-nac">Fecha de nacimiento</label>
+                            <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" data-validetta="required">
+                        </div>
+    
+                        <div class="input-field col s12 m6 l6">
+                            <select>
+                              <option value="" disabled selected>G&eacute;nero</option>
+                              <option value="1">Masculino</option>
+                              <option value="2">Femenino</option>
+                            </select>
+                        </div>
+    
+                        <div class="col s12 m12 input-field">
+                            <label for="correo">Correo electr&oacute;nico</label>
+                            <input type="text" id="correo" name="correo"data-validetta="required,email" >
+                        </div>
+    
+                        <div class="col s12 m6 input-field">
+                            <label for="telefono-fijo">Tel&eacute;fono fijo (opcional)</label>
+                            <input type="text" id="telefono-fijo" name="telefono-fijo" data-validetta="number">
+                        </div>
+    
+                        <div class="col s12 m6 input-field">
+                            <label for="telefono-cel">Tel&eacute;fono celular</label>
+                            <input type="text" id="telefono-cel" name="telefono-cel" data-validetta="required,number">
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <input type="submit" class="btn blue" style="width: 100%;" value="Siguiente">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="test-swipe-2" class="col s12">
+                <form autocomplete="off">
+                    <div class="row">
+                        <div class="col s12 input-field">
+                            <label for="calle">Calle</label>
+                            <input type="text" id="calle" name="calle" data-validetta="required">
+                        </div>  
+
+                        <div class="col s12 m6 input-field">
+                            <label for="numero-int">N&uacute;mero interior (opcional)</label>
+                            <input type="text" id="numero-int" name="numero-int" data-validetta="number">
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <label for="numero-ext">N&uacute;mero exterior</label>
+                            <input type="text" id="numero-ext" name="numero-ext" data-validetta="required,number">
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <label for="cp">C&oacute;digo postal</label>
+                            <input type="text" id="cp" name="cp" data-validetta="required,number">
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <label for="colonia">Colonia</label>
+                            <input type="text" id="colonia" name="colonia" data-validetta="required">
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <label for="municipio">Municipio</label>
+                            <input type="text" id="municipio" name="municipio" data-validetta="required">
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <label for="estado">Estado</label>
+                            <input type="text" id="estado" name="estado" data-validetta="required">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="test-swipe-3" class="col s12">
+                <form autocomplete="off">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <select>
+                              <option value="" disabled selected>Tipo de bachillerato</option>
+                              <option value="1">Bachillerato general</option>
+                              <option value="2">Bachillerato t&eacute;cnico</option>
+                              <option value="3">Bachillerato en l&iacute;nea</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <select>
+                              <option value="" disabled selected>Escuela</option>
+                              <option value="1">CECyT No. 1 "Gonzalo V&aacute;zquez Vela"</option>
+                              <option value="2">CECyT No. 2 "Miguel Bernard"</option>
+                              <option value="3">CECyT No. 3 "Estanislao Ram&iacute;rez Ruiz"</option>
+                              <option value="4">CECyT No. 4 Lázaro Cárdenas</option>
+                              <option value="5">CECyT No. 5 Benito Juárez</option>
+                              <option value="6">CECyT No. 6 Miguel Othón de Mendizábal</option>
+                              <option value="7">CECyT No. 7 Cuauhtémoc</option>
+                              <option value="8">CECyT No. 8 Narciso Bassols</option>
+                              <option value="9">CECyT No. 9 Juan de Dios Bátiz</option>
+                              <option value="10">CECyT No. 10 Carlos Vallejo Márquez</option>
+                              <option value="11">CECyT No. 11 Wilfrido Massieu</option>
+                              <option value="12">CECyT No. 12 José María Morelos</option>
+                              <option value="13">CECyT No. 13 Ricardo Flores Magón</option>
+                              <option value="14">CECyT No. 14 Luis Enrique Erro</option>
+                              <option value="15">CECyT No. 15 Diódoro Antúnez Echegaray</option>
+                              <option value="16">CECyT No. 16 Hidalgo</option>
+                              <option value="17">CECyT No. 17 León, Guanajuato</option>
+                              <option value="18">CECyT No. 18 Zacatecas</option>
+                              <option value="19">CECyT No. 19 Leona Vicario</option>
+                              <option value="20">CET 1 Walter Cross Buchanan</option>
+                              <option value="21">Otra</option>
+                            </select>
+                        </div>    
+                        
+                        <div class="col s12 input-field">
+                            <label for="localidad">Localidad</label>
+                            <input type="text" name="localidad" id="localidad" data-validetta="required">
+                        </div>
+
+                        <div class="col s12 input-field">
+                            <label for="formacion-tecnica">Formaci&oacute;n t&eacute;cnica obtenida</label>
+                            <input type="text" name="formacion-tecnica" id="formacion-tecnica" data-validetta="required">
+                        </div>
+
+                        <div class="col s12 input-field">
+                            <label for="promedio">Promedio obtenido</label>
+                            <input type="text" name="promedio" id="promedio" data-validetta="required,number">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="test-swipe-4" class="col s12">
+                <form autocomplete="off">
+                    <div class="row">
+                        <div class="col s12 m6 input-field">
+                            <label for="semestre">Semestre</label>
+                            <input disabled value="2021-1" type="text" id="semestre" name="semestre">
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <!--<label for="programa-academico">Programa acad&eacute;mico</label>-->
+                            <select>
+                                <option value="" disabled selected>Programa acad&eacute;mico</option>
+                                <option value="1">Ing. en Sistemas Computacionales (ISC)</option>
+                                <option value="2">Ing. en Inteligencia Artificial (IIA)</option>
+                                <option value="3">Lic. en Ciencia de Datos (LCD)</option>
+                            </select>
+                            <!--<input type="text" id="programa-academico" name="programa-academico">-->
+                        </div>
+
+                        <div class="col s12 m6 input-field">
+                            <!--<label for="opcion">N&uacute;mero de opci&oacute;n asignada del examen</label>
+                            <input type="text" id="opcion" name="opcion">-->
+                            <select>
+                                <option value="" disabled selected>N&uacute;mero de opci&oacute;n asignada del examen</option>
+                                <option value="1">ESCOM fue mi primer opci&oacute;n</option>
+                                <option value="2">ESCOM fue mi segunda opci&oacute;n</option>
+                                <option value="3">ESCOM fue mi tercer opci&oacute;n</option>
+                                <option value="4">ESCOM no estuvo en mis opciones</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            
+
+        </div>
+    </main>
+</body>
+
+</html>
