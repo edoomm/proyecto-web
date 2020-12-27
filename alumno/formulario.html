@@ -166,30 +166,35 @@
                 </form>
             </div>
 
-            <div id="test-swipe-3" class="col s12">
+            <div id="test-swipe-3" class="col s12 m6">
                 <form autocomplete="off">
                     <div class="row">
-                        <div class="input-field col s12 m6 l6">
-                            <select>
-                                <option value="" disabled selected>Tipo de bachillerato</option>
+                        <div class="input-field col s12 m6" data-default-value="0">
+                            <select id="bachillerato">
+                                <option value="0" disabled selected="selected">Tipo de bachillerato</option>
                                 <option value="1">Bachillerato general</option>
                                 <option value="2">Bachillerato t&eacute;cnico</option>
                                 <option value="3">Bachillerato en l&iacute;nea</option>
                             </select>
                         </div>
 
-                        <div class="input-field col s12 m6 l6">
-                            <select id="escuela" class="escuela">
-                                <option value="" disabled selected>Escuela</option>
-                                <option value="1">CECyT No. 1 "Gonzalo V&aacute;zquez Vela"</option>
+                        <div id="nombre_escuela" class="col s12 m6 input-field">
+                            <label for="nombre_Escuela">Nombre de la escuela</label>
+                            <input type="text" name="nombre_Escuela" id="nombre_Escuela" data-validetta="required">
+                        </div>
+
+                        <div id="box_escuela" class="input-field col s12 m6" style="display:none;">
+                            <select id="escuela">
+                                <option value="0" disabled selected>Escuela</option>
+                                <option value="1">CECyT No. 1 "Gonzalo Vázquez Vela"</option>
                                 <option value="2">CECyT No. 2 "Miguel Bernard"</option>
-                                <option value="3">CECyT No. 3 "Estanislao Ram&iacute;rez Ruiz"</option>
+                                <option value="3">CECyT No. 3 "Estanislao Ramírez Ruiz"</option>
                                 <option value="4">CECyT No. 4 Lázaro Cárdenas</option>
                                 <option value="5">CECyT No. 5 Benito Juárez</option>
                                 <option value="6">CECyT No. 6 Miguel Othón de Mendizábal</option>
                                 <option value="7">CECyT No. 7 Cuauhtémoc</option>
                                 <option value="8">CECyT No. 8 Narciso Bassols</option>
-                                <option value="9">CECyT No. 9 Juan de Dios Bátiz</option>
+                                <option id="virtual" value="9">CECyT No. 9 Juan de Dios Bátiz</option>
                                 <option value="10">CECyT No. 10 Carlos Vallejo Márquez</option>
                                 <option value="11">CECyT No. 11 Wilfrido Massieu</option>
                                 <option value="12">CECyT No. 12 José María Morelos</option>
@@ -201,13 +206,13 @@
                                 <option value="18">CECyT No. 18 Zacatecas</option>
                                 <option value="19">CECyT No. 19 Leona Vicario</option>
                                 <option value="20">CET 1 Walter Cross Buchanan</option>
-                                <option value="21">Otra</option>
+                                <option id="virtual" value="21">Otra</option>
                             </select>
                         </div>
 
-                        <div id="nombre_escuela" class="col s12 input-field" style="display:none;">
-                            <label for="nombre_Escuela">Nombre de la escuela</label>
-                            <input type="text" name="nombre_Escuela" id="nombre_Escuela" data-validetta="required">
+                        <div id="nombre_escuela2" class="col s12 input-field" style="display:none;">
+                            <label for="nombre_Escuela2">Nombre de la escuela</label>
+                            <input type="text" name="nombre_Escuela" id="nombre_Escuela2" data-validetta="required">
                         </div>
 
                         <div class="col s12 input-field">

@@ -22,13 +22,40 @@ $(document).ready(function () {
         bubbleGapLeft: -5
     });
 
-    $("#escuela").change(function(){
-        var escuela = $("#escuela option:selected").text();
-        if (escuela == 'Otra'){
+    $("#bachillerato").change(function(){
+        var bachillerato = $("#bachillerato option:selected").text();
+
+        if (bachillerato == 'Bachillerato técnico'){
+            $("#box_escuela").css("display","block");
+            $("#nombre_escuela").css("display","none");
+            $("#localidad").prop('disabled', false);
+            $('#escuela').val(false);
+        }
+        else if (bachillerato == 'Bachillerato general'){
+            $("#nombre_Escuela").val("");
+            $("#box_escuela").css("display","none");
             $("#nombre_escuela").css("display","block");
+            $("#localidad").prop('disabled', false);
         }
         else{
+            $("#box_escuela").css("display","block");
             $("#nombre_escuela").css("display","none");
+            $("#localidad").prop('disabled', false);
+            $("#escuela").find($("#virtual")).show();
+        }
+    });
+
+    $("#escuela").change(function(){
+        var escuela = $("#escuela option:selected").text();
+
+        if (escuela == 'Otra'){
+            $("#nombre_escuela2").css("display","block");
+            $("#localidad").prop('disabled', false);
+        }
+        else{
+            $("#localidad").val('');
+            $("#nombre_escuela2").css("display","none");
+            $("#localidad").prop('disabled', true);
         }
       });
     
