@@ -22,14 +22,75 @@ $(document).ready(function () {
         bubbleGapLeft: -5
     });
 
-    $("#bachillerato").change(function(){
+    $("#bachillerato").change(function () {
+        cambiarSelect();
+        $("#nombre_Escuela").val('');
+    });
+
+    $("#escuelas").change(function () {
+        cambiarCarreras();
+    });
+
+    function cambiarSelect() {
+        var bachillerato = $("#bachillerato option:selected").text();
+
+        if (bachillerato == 'Bachillerato técnico') {
+            $("#box_escuela_1").css("display", "block");
+            $("#box_escuela_2").css("display", "none");
+            $("#nombre_escuela").css("display", "none");
+            $("#nombre_escuela2").css("display", "none");
+        } else if (bachillerato == 'Bachillerato general') {
+            $("#nombre_escuela").css("display", "block");
+            $("#nombre_escuela2").css("display", "none");
+            $("#box_escuela_1").css("display", "none");
+            $("#box_escuela_2").css("display", "none");
+        } else if (bachillerato == 'Bachillerato en línea') {
+            $("#nombre_escuela").css("display", "none");
+            $("#nombre_escuela2").css("display", "none");
+            $("#box_escuela_1").css("display", "none");
+            $("#box_escuela_2").css("display", "block");
+        }
+    }
+
+    function cambiarCarreras() {
+        var escuela = $("#escuelas").val(); //esta variable debe de ir al servidor
+        $.ajax({
+            url: "../php/formulario/carreras.php",
+            method: "POST",
+            cache: false,
+            data:{escuela:escuela},
+            success: function (carreras) {
+                let AX = JSON.parse(carreras);
+                alert(AX.length);
+                // for (i = 0; i < Ax; i++) {
+                //     $('#seg').append($('<option value="' + String(i) + '">' + 'hola</option>'));
+                //     $('#seg').formSelect();
+                // }
+                // AX.forEach(logArrayElements);
+                // function logArrayElements(element, index, array) {
+                //     $('#formacion_tecnica').append($('<option value="' + String(index) + '">'+String(element)+'</option>'));
+                //     $('#formacion_tecnica').formSelect();
+                // }
+            }
+        });
+    }
+
+
+
+    /*$("#bachillerato").change(function(){
         var bachillerato = $("#bachillerato option:selected").text();
 
         if (bachillerato == 'Bachillerato técnico'){
-            $("#box_escuela").css("display","block");
-            $("#nombre_escuela").css("display","none");
+           
             $("#localidad").prop('disabled', false);
-            $('#escuela').val(false);
+
+            $.ajax({
+                url:"../php/formulario.php",
+                success:function(escuelas){
+                    alert(escuelas);
+                    $("#escuela").html(escuelas);
+                }
+              });
         }
         else if (bachillerato == 'Bachillerato general'){
             $("#nombre_Escuela").val("");
@@ -41,7 +102,6 @@ $(document).ready(function () {
             $("#box_escuela").css("display","block");
             $("#nombre_escuela").css("display","none");
             $("#localidad").prop('disabled', false);
-            $("#escuela").find($("#virtual")).show();
         }
     });
 
@@ -57,6 +117,6 @@ $(document).ready(function () {
             $("#nombre_escuela2").css("display","none");
             $("#localidad").prop('disabled', true);
         }
-      });
-    
+      });*/
+
 });

@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Examples</title>
+    <title>Registro - ESCOM</title>
     <meta name='viewport'
         content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
     <meta name="description" content="">
     <meta name="keywords" content="">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>    
     <!-- local styles -->
     <!--<link rel="stylesheet" href="../css/admin.css">-->
     <!-- Compiled and minified CSS -->
@@ -17,9 +18,6 @@
     <!-- Font awesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <!--Import jQuery before materialize.js-->
-    <script src="https://code.jquery.com/jquery-2.2.4.js"
-        integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!--Validetta-->
@@ -167,11 +165,11 @@
             </div>
 
             <div id="test-swipe-3" class="col s12 m6">
-                <form autocomplete="off">
+                <form autocomplete="off" method="POST">
                     <div class="row">
-                        <div class="input-field col s12 m6" data-default-value="0">
+                        <div class="input-field col s12 m6">
                             <select id="bachillerato">
-                                <option value="0" disabled selected="selected">Tipo de bachillerato</option>
+                                <option value="0" disabled selected>Tipo de bachillerato</option>
                                 <option value="1">Bachillerato general</option>
                                 <option value="2">Bachillerato t&eacute;cnico</option>
                                 <option value="3">Bachillerato en l&iacute;nea</option>
@@ -183,30 +181,38 @@
                             <input type="text" name="nombre_Escuela" id="nombre_Escuela" data-validetta="required">
                         </div>
 
-                        <div id="box_escuela" class="input-field col s12 m6" style="display:none;">
-                            <select id="escuela">
-                                <option value="0" disabled selected>Escuela</option>
+                        <div id="box_escuela_1" class="input-field col s12 m6" style="display:none;">
+                            <select id="escuelas" name="escuelas">
+                                <option value="" disabled selected>Selecciona escuela</option>
+                                <option value="0">CET 1 "Walter Cross Buchanan"</option>
                                 <option value="1">CECyT No. 1 "Gonzalo Vázquez Vela"</option>
                                 <option value="2">CECyT No. 2 "Miguel Bernard"</option>
                                 <option value="3">CECyT No. 3 "Estanislao Ramírez Ruiz"</option>
-                                <option value="4">CECyT No. 4 Lázaro Cárdenas</option>
-                                <option value="5">CECyT No. 5 Benito Juárez</option>
-                                <option value="6">CECyT No. 6 Miguel Othón de Mendizábal</option>
-                                <option value="7">CECyT No. 7 Cuauhtémoc</option>
-                                <option value="8">CECyT No. 8 Narciso Bassols</option>
-                                <option id="virtual" value="9">CECyT No. 9 Juan de Dios Bátiz</option>
-                                <option value="10">CECyT No. 10 Carlos Vallejo Márquez</option>
-                                <option value="11">CECyT No. 11 Wilfrido Massieu</option>
-                                <option value="12">CECyT No. 12 José María Morelos</option>
-                                <option value="13">CECyT No. 13 Ricardo Flores Magón</option>
-                                <option value="14">CECyT No. 14 Luis Enrique Erro</option>
-                                <option value="15">CECyT No. 15 Diódoro Antúnez Echegaray</option>
-                                <option value="16">CECyT No. 16 Hidalgo</option>
-                                <option value="17">CECyT No. 17 León, Guanajuato</option>
-                                <option value="18">CECyT No. 18 Zacatecas</option>
-                                <option value="19">CECyT No. 19 Leona Vicario</option>
-                                <option value="20">CET 1 Walter Cross Buchanan</option>
-                                <option id="virtual" value="21">Otra</option>
+                                <option value="4">CECyT No. 4 "Lázaro Cárdenas"</option>
+                                <option value="5">CECyT No. 5 "Benito Juárez"</option>
+                                <option value="6">CECyT No. 6 "Miguel Othón de Mendizábal"</option>
+                                <option value="7">CECyT No. 7 "Cuauhtémoc"</option>
+                                <option value="8">CECyT No. 8 "Narciso Bassols"</option>
+                                <option value="9">CECyT No. 9 "Juan de Dios Bátiz"</option>
+                                <option value="10">CECyT No. 10 "Carlos Vallejo Márquez"</option>
+                                <option value="11">CECyT No. 11 "Wilfrido Massieu"</option>
+                                <option value="12">CECyT No. 12 "José María Morelos"</option>
+                                <option value="13">CECyT No. 13 "Ricardo Flores Magón"</option>
+                                <option value="14">CECyT No. 14 "Luis Enrique Erro"</option>
+                                <option value="15">CECyT No. 15 "Diódoro Antúnez Echegaray"</option>
+                                <option value="16">CECyT No. 16 "Hidalgo"</option>
+                                <option value="17">CECyT No. 17 "León, Guanajuato"</option>
+                                <option value="18">CECyT No. 18 "Zacatecas"</option>
+                                <option value="19">CECyT No. 19 "Leona Vicario"</option>
+                                <option value="20">Otra</option>
+                            </select>
+                        </div>
+
+                        <div id="box_escuela_2" class="input-field col s12 m6" style="display:none;">
+                            <select id="escuelas2">
+                                <option value="" disabled selected>Selecciona escuela</option>
+                                <option value="9">Polivirtual CECyT No. 9 "Juan de Dios Bátiz"</option>
+                                <option value="20">Otra</option>
                             </select>
                         </div>
 
@@ -221,9 +227,9 @@
                         </div>
 
                         <div class="col s12 input-field">
-                            <label for="formacion-tecnica">Formaci&oacute;n t&eacute;cnica obtenida</label>
-                            <input type="text" name="formacion-tecnica" id="formacion-tecnica"
-                                data-validetta="required">
+                            <select name="formacion_tecnica" id="">
+                                <option value="" disabled selected>Formaci&oacute;n t&eacute;cnica obtenida</option>
+                            </select>
                         </div>
 
                         <div class="col s12 input-field">
