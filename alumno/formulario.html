@@ -46,10 +46,10 @@
 
         <div class="container">
             <ul id="tabs-swipe-demo" class="tabs">
-                <li class="tab col s3"><a class="blue-text active" href="#test-swipe-1">Datos personales</a></li>
-                <li class="tab col s3"><a class="blue-text" href="#test-swipe-2">Datos de domicilio</a></li>
-                <li class="tab col s3"><a class="blue-text" href="#test-swipe-3">Escuela de procedencia</a></li>
-                <li class="tab col s3"><a class="blue-text" href="#test-swipe-4">Programa acad&eacute;mico</a>
+                <li class="tab col s3" id="tab1"><a class="blue-text active" href="#test-swipe-1">Datos personales</a></li>
+                <li class="tab col s3" id="tab2"><a class="blue-text" href="#test-swipe-2">Datos de domicilio</a></li>
+                <li class="tab col s3" id="tab3"><a class="blue-text" href="#test-swipe-3">Escuela de procedencia</a></li>
+                <li class="tab col s3" id="tab4"><a class="blue-text" href="#test-swipe-4">Programa acad&eacute;mico</a>
                 </li>
             </ul>
 
@@ -107,8 +107,8 @@
                             <input type="text" id="telefono-cel" name="telefono-cel" data-validetta="required,number">
                         </div>
 
-                        <div class="col s6 m3 input-field" style="float:right;">
-                            <input type="button" class="btn blue" style="width: 100%;" onclick="" value="Siguiente">
+                        <div class="col s6 m3" style="float:right;">
+                            <a class="btn blue" id="btnContinue1" style="width: 100%;">Siguiente</a>
                         </div>
                     </div>
                 </form>
@@ -153,12 +153,12 @@
                             <input type="text" id="estado" name="estado" data-validetta="required">
                         </div>
 
-                        <div class="col s6 m3 input-field" style="float:right;">
-                            <input type="button" class="btn blue" style="width: 100%;" onclick="" value="Siguiente">
+                        <div class="col s6 m3" style="float:right;">
+                            <a class="btn blue" id="btnContinue2" style="width: 100%;">Siguiente</a>
                         </div>
 
-                        <div class="col s6 m3 input-field" style="float:right;">
-                            <input type="button" class="btn blue" style="width: 100%;" onclick="" value="Anterior">
+                        <div class="col s6 m3" style="float:right;">
+                            <a class="btn blue" id="btnPrevious2" style="width: 100%;">Anterior</a>
                         </div>
                     </div>
                 </form>
@@ -177,8 +177,8 @@
                         </div>
 
                         <div id="nombre_escuela" class="col s12 m6 input-field">
-                            <label for="nombre_Escuela">Nombre de la escuela</label>
-                            <input type="text" name="nombre_Escuela" id="nombre_Escuela" data-validetta="required">
+                            <label id="label_nombre_escuela" for="nombre_Escuela">Nombre de la escuela</label>
+                            <input disabled type="text" name="nombre_Escuela" id="nombre_Escuela" data-validetta="required">
                         </div>
 
                         <div id="box_escuela_1" class="input-field col s12 m6" style="display:none;">
@@ -204,30 +204,30 @@
                                 <option value="17">CECyT No. 17 "León, Guanajuato"</option>
                                 <option value="18">CECyT No. 18 "Zacatecas"</option>
                                 <option value="19">CECyT No. 19 "Leona Vicario"</option>
-                                <option value="20">Otra</option>
+                                <option value="Otra">Otra</option>
                             </select>
                         </div>
 
                         <div id="box_escuela_2" class="input-field col s12 m6" style="display:none;">
-                            <select id="escuelas2">
+                            <select id="escuelas2" name="escuelas">
                                 <option value="" disabled selected>Selecciona escuela</option>
                                 <option value="9">Polivirtual CECyT No. 9 "Juan de Dios Bátiz"</option>
-                                <option value="20">Otra</option>
+                                <option value="Otra">Otra</option>
                             </select>
                         </div>
 
                         <div id="nombre_escuela2" class="col s12 input-field" style="display:none;">
-                            <label for="nombre_Escuela2">Nombre de la escuela</label>
+                            <label id="label_nombre_escuela2" for="nombre_Escuela2">Nombre de la escuela</label>
                             <input type="text" name="nombre_Escuela" id="nombre_Escuela2" data-validetta="required">
                         </div>
 
                         <div class="col s12 input-field">
-                            <label for="localidad">Localidad</label>
-                            <input type="text" name="localidad" id="localidad" data-validetta="required">
+                            <label id="label_localidad" class="" for="localidad">Localidad</label>
+                            <input disabled type="text" name="localidad" id="localidad" value="" data-validetta="required">
                         </div>
 
-                        <div class="col s12 input-field">
-                            <select name="formacion_tecnica" id="">
+                        <div id="box_formacion_tecnica" class="col s12 input-field" style="display:none;">
+                            <select name="formacion_tecnica" id="formacion_tecnica">
                                 <option value="" disabled selected>Formaci&oacute;n t&eacute;cnica obtenida</option>
                             </select>
                         </div>
@@ -237,12 +237,12 @@
                             <input type="text" name="promedio" id="promedio" data-validetta="required,number">
                         </div>
 
-                        <div class="col s6 m3 input-field" style="float:right;">
-                            <input type="button" class="btn blue" style="width: 100%;" onclick="" value="Siguiente">
+                        <div class="col s6 m3" style="float:right;">
+                            <a class="btn blue" id="btnContinue3" style="width: 100%;">Siguiente</a>
                         </div>
 
-                        <div class="col s6 m3 input-field" style="float:right;">
-                            <input type="button" class="btn blue" style="width: 100%;" onclick="" value="Anterior">
+                        <div class="col s6 m3" style="float:right;">
+                            <a class="btn blue" id="btnPrevious3" style="width: 100%;">Anterior</a>
                         </div>
                     </div>
                 </form>
@@ -282,7 +282,7 @@
                             </div>
     
                             <div class="col s6 m3 input-field" style="float:right;">
-                                <input type="button" class="btn blue" style="width: 100%;" onclick="" value="Anterior">
+                                <a class="btn blue" id="btnPrevious4" style="width: 100%;">Anterior</a>
                             </div>
                         </div>
                     </div>
