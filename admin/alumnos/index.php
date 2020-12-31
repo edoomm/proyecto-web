@@ -147,20 +147,12 @@
                     ?>
                     <tr>
                         <td><?php echo $row["curp"]; ?></td>
-                        <td><a href="#" onclick="editar(this)" class="truncate"><?php echo $row["nombre"] . " " . $row["apellidopat"] . " " . $row["apellidomat"]; ?></a></td>
+                        <td><a href="javascript:void(0)" onclick="editar(this)" class="truncate"><?php echo $row["nombre"] . " " . $row["apellidopat"] . " " . $row["apellidomat"]; ?></a></td>
                         <td><p class="grey-text"><?php echo $row["fecha"]; ?></p></td>
                     </tr>
                     <?php
                         }
                     ?>
-                    <!-- <tr>
-                        <td><a href="#" onclick="editar(this)">Juana Sánchez</a></td>
-                        <td>13-20-20 11:00:00AM</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" onclick="editar(this)">Carlos Martínez</a></td>
-                        <td>15-20-20 9:00:00AM</td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -173,7 +165,7 @@
     </main>
 
     <!-- Form escondido para poder obtener los datos necesarios para editar posteriormente -->
-    <form action="./editar.html" hidden>
+    <form action="./editar/" hidden>
         <!-- En lugar de su nombre tendra que ser su clave de registro o boleta -->
         <input type="text" name="txtCurp" id="txtCurp">
         <button class="btn waves-effect waves-light" type="submit" name="action" id="btnEditSubmit">Submit
@@ -224,5 +216,7 @@
 
         $("#txtCurp").val(curp);
         $("#btnEditSubmit").click();
+
+        return false;
     }
 </script>
