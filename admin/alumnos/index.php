@@ -146,9 +146,9 @@
                         while ($row = mysqli_fetch_array($result)) {
                     ?>
                     <tr>
-                        <td class="truncate"><p class="grey-text"><?php echo $row["curp"]; ?></p></td>
+                        <td><?php echo $row["curp"]; ?></td>
                         <td><a href="#" onclick="editar(this)" class="truncate"><?php echo $row["nombre"] . " " . $row["apellidopat"] . " " . $row["apellidomat"]; ?></a></td>
-                        <td><?php echo $row["fecha"]; ?></td>
+                        <td><p class="grey-text"><?php echo $row["fecha"]; ?></p></td>
                     </tr>
                     <?php
                         }
@@ -175,7 +175,7 @@
     <!-- Form escondido para poder obtener los datos necesarios para editar posteriormente -->
     <form action="./editar.html" hidden>
         <!-- En lugar de su nombre tendra que ser su clave de registro o boleta -->
-        <input type="text" name="txtName" id="txtName">
+        <input type="text" name="txtCurp" id="txtCurp">
         <button class="btn waves-effect waves-light" type="submit" name="action" id="btnEditSubmit">Submit
             <i class="material-icons right">send</i>
         </button>
@@ -218,8 +218,11 @@
     }
 
     function editar(a) {
-        
-        // document.getElementById("txtName").value = a.innerHTML;
-        // document.getElementById("btnEditSubmit").click();
+        var table = document.getElementById("tblAlumnos");
+        var rowNumber = a.parentNode.parentNode.rowIndex;
+        var curp = table.rows[rowNumber].cells[0].innerHTML
+
+        $("#txtCurp").val(curp);
+        $("#btnEditSubmit").click();
     }
 </script>
