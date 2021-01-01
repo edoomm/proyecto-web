@@ -19,7 +19,19 @@ $(document).ready(function () {
     $("form").validetta({
         bubblePosition: 'bottom',
         bubbleGapTop: 10,
-        bubbleGapLeft: -5
+        bubbleGapLeft: -5,
+        // onValid:function(e){
+        //     e.preventDefault();
+        //     $.ajax({
+        //         url:"../php/formulario/formulario.php",
+        //         method: "POST",
+        //         data: $("#formularioAlumnos").serialize(),
+        //         cache:false,
+        //         success:function(respuesta){
+        //             alert(respuesta);
+        //         }
+        //     });
+        //}
     });
 
     $("#bachillerato").change(function () {
@@ -29,6 +41,7 @@ $(document).ready(function () {
         $("#label_localidad").prop('class', '');
         $("#nombre_Escuela2").val('');
         $("#label_nombre_escuela2").prop('class', '');
+        resetCarreras();
         cambiarSelect();
         //$(".disabled").prop('class', 'disabled selected'); para resetear las escuelas
     });
@@ -36,12 +49,15 @@ $(document).ready(function () {
     $("#escuelas").change(function (){
         var esc = $("#escuelas").val();
         $("#localidad").prop('value', '');
+        resetCarreras();
+        cambiarCarreras(esc);
         mismoSelect(esc);
     });
 
     $("#escuelas2").change(function (){
         var esc = $("#escuelas2").val();
         $("#localidad").prop('value', '');
+        resetCarreras();
         mismoSelect(esc);
     });
 
@@ -52,9 +68,9 @@ $(document).ready(function () {
     });
 
     $("#btnContinue1, #btnPrevious3").click(function(){
-        var el = document.getElementById("tabs-swipe-demo"); 
-        var instance = M.Tabs.getInstance(el); 
-        instance.select('test-swipe-2'); 
+            var el = document.getElementById("tabs-swipe-demo"); 
+            var instance = M.Tabs.getInstance(el); 
+            instance.select('test-swipe-2');
     });
 
     $("#btnContinue2, #btnPrevious4").click(function(){
@@ -133,7 +149,6 @@ function mismoSelect(esc){
         $("#localidad").prop('disabled', true);
         $("#nombre_Escuela2").val('');
         $("#label_nombre_escuela2").prop('class', '');
-        cambiarCarreras(esc);
         cambiarUbicacion(esc);
     }
     else{
@@ -142,3 +157,12 @@ function mismoSelect(esc){
         $("#nombre_escuela2").css("display", "block");
     }
 }
+
+function resetCarreras(){
+    var num_carreras = document.getElementById("formacion_tecnica");
+    if(num_carreras.length > 1){
+        num_carreras.length = 1;
+    }
+}
+
+
