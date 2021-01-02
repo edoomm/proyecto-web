@@ -208,9 +208,10 @@
     });
 
     function editar(a) {
-        var table = document.getElementById("tblAlumnos");
+        var tableAux = a.parentNode.parentNode.parentNode.parentNode;
         var rowNumber = a.parentNode.parentNode.rowIndex;
-        var curp = table.rows[rowNumber].cells[0].innerHTML
+        alert(tableAux);
+        var curp = tableAux.rows[rowNumber].cells[0].innerHTML;
 
         $("#txtCurp").val(curp);
         $("#btnEditSubmit").click();
