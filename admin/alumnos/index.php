@@ -110,21 +110,20 @@
 
             <div class="row">
                 <div class="col l12 m12 s12">
-                    <input type="text" id="txtBuscar" onkeyup="filtrar()" placeholder="Buscar...">
+                    <input type="text" id="txtBuscar" placeholder="Buscar...">
                 </div>
             </div>
 
             <table id="tblAlumnos" class="striped responsive-table">
                 <thead>
                     <tr>
-                        <th>CURP</th>
-                        <th>Nombre</th>
-                        <th>Registro</th>
+                        <th style="width: 30%;">CURP</th>
+                        <th style="width: 40%;">Nombre</th>
+                        <th style="width: 30%;">Registro</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <!-- Aca iran las iteraciones con php -->
                     <?php
                     include '../../php/db.php';
                     $conn = open_database();
@@ -146,20 +145,15 @@
                         while ($row = mysqli_fetch_array($result)) {
                     ?>
                     <tr>
-                        <td><?php echo $row["curp"]; ?></td>
-                        <td><a href="javascript:void(0)" onclick="editar(this)" class="truncate"><?php echo $row["nombre"] . " " . $row["apellidopat"] . " " . $row["apellidomat"]; ?></a></td>
-                        <td><p class="grey-text"><?php echo $row["fecha"]; ?></p></td>
+                        <td style="width: 30%;"><?php echo $row["curp"]; ?></td>
+                        <td style="width: 40%;"><a href="javascript:void(0)" onclick="editar(this)"><?php echo $row["nombre"] . " " . $row["apellidopat"] . " " . $row["apellidomat"]; ?></a></td>
+                        <td style="width: 30%;"><p class="grey-text"><?php echo $row["fecha"]; ?></p></td>
                     </tr>
                     <?php
                         }
                     ?>
                 </tbody>
             </table>
-        </div>
-
-        <div class="container right-align" style="padding-top: 20px;">
-            Exportar como <br>
-            <a href="#" class="waves-effect waves-light blue btn">CSV</a>
         </div>
 
     </main>
@@ -185,29 +179,33 @@
         $(".button-collapse").sideNav();
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
+
+        // Searching in table
+        $('#txtBuscar').keyup(function(){
+            search_table($(this).val());
+        });
+        function search_table(value){
+        $('#tblAlumnos tbody tr').each(function(){
+            var found = 'false';
+            $(this).each(function(){
+                if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                    found = 'true';
+            });
+            if(found == 'true')
+                $(this).show();
+            else
+                $(this).hide();
+        });
+        // This function makes a responsive bug
+
+        $('#trSts').show();
+        }
     });
 
-    function filtrar() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("txtBuscar");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tblAlumnos");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
+    // Bug fixer
+    $(window).on('resize', function(){
+        $("#tblAlumnos").load("index.php #tblAlumnos");
+    });
 
     function editar(a) {
         var table = document.getElementById("tblAlumnos");
