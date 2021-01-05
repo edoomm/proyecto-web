@@ -159,7 +159,7 @@
     </main>
 
     <!-- Form escondido para poder obtener los datos necesarios para editar posteriormente -->
-    <form action="./editar/" hidden>
+    <form method="POST" action="./editar/" hidden>
         <!-- En lugar de su nombre tendra que ser su clave de registro o boleta -->
         <input type="text" name="txtCurp" id="txtCurp">
         <button class="btn waves-effect waves-light" type="submit" name="action" id="btnEditSubmit">Submit
@@ -210,7 +210,6 @@
     function editar(a) {
         var tableAux = a.parentNode.parentNode.parentNode.parentNode;
         var rowNumber = a.parentNode.parentNode.rowIndex;
-        alert(tableAux);
         var curp = tableAux.rows[rowNumber].cells[0].innerHTML;
 
         $("#txtCurp").val(curp);

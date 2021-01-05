@@ -1,3 +1,27 @@
+<?php
+
+$curp = $_POST["txtCurp"];
+
+include '../../../php/db.php';
+$conn = open_database();
+
+// retrieving personal info
+$query = "SELECT * FROM Alumno WHERE curp = '$curp'";
+$resultPersonal = mysqli_query($conn, $query);
+$personal = mysqli_fetch_array($resultPersonal);
+$nombre = $personal["nombre"];
+$primer_apellido = $personal["primer_apellido"];
+$segundo_apellido = $personal["segundo_apellido"];
+$genero = $personal["genero"];
+$fecha_nacimiento = $personal["fecha_nacimiento"];
+$correo = $personal["correo"];
+$telefono_celular = $personal["telefono_celular"];
+$telefono_casa = $personal["telefono_casa"];
+$direccion = $personal["direccion"];
+$fecha_registro = $personal["fecha_registro"];
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -45,6 +69,20 @@
     </header>
 
     <main>
+        
+        <div class="container" style="padding-top: 10px;">
+            <div class="row">
+            <label for="grupo">Grupo</label>
+                <select id="grupo">
+                    <option value="" selected>Sin grupo asignado</option>
+                    <!-- DB groups -->
+
+
+
+                </select>
+            </div>
+        </div>
+
         <ul class="collapsible expandable">
             <!-- Datos personales -->
             <li class="active">
@@ -53,20 +91,20 @@
                     <div class="form-field">
                         <div class="row input-field">
                             <label for="curp">CURP</label>
-                            <input type="text" name="curp" id="curp" disabled>
+                            <input type="text" name="curp" id="curp" disabled value="<?php echo $curp; ?>">
                         </div>
                         <div class="row input-field">
                             <label for="nombre">Nombre(s)</label>
-                            <input type="text" name="nombre" id="nombre">
+                            <input type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>">
                         </div>
                         <div class="row">
                             <div class="col l6 m6 s12 input-field">
                                 <label for="apellidopat">Primer apellido</label>
-                                <input type="text" name="apellidopat" id="apellidopat">
+                                <input type="text" name="apellidopat" id="apellidopat" value="<?php echo $primer_apellido; ?>">
                             </div>
                             <div class="col l6 m6 s12 input-field">
                                 <label for="apellidomat">Segundo apellido</label>
-                                <input type="text" name="apellidomat" id="apellidomat">
+                                <input type="text" name="apellidomat" id="apellidomat" value="<?php echo $segundo_apellido; ?>">
                             </div>
                         </div>
                         <div class="row">
@@ -85,16 +123,16 @@
                         </div>
                         <div class="row input-field">
                             <label for="correo">Correo electronico</label>
-                            <input type="text" name="correo" id="correo">
+                            <input type="text" name="correo" id="correo" value="<?php echo $correo; ?>">
                         </div>
                         <div class="row">
                             <div class="col l6 m6 s12 input-field">
                                 <label for="telfijo">Teléfono fijo</label>
-                                <input type="text" name="telfijo" id="telfijo">
+                                <input type="text" name="telfijo" id="telfijo" value="<?php echo $telefono_casa; ?>">
                             </div>
                             <div class="col l6 m6 s12 input-field">
                                 <label for="telcelular">Teléfono celular</label>
-                                <input type="text" name="telcelular" id="telcelular">
+                                <input type="text" name="telcelular" id="telcelular" value="<?php echo $telefono_celular; ?>">
                             </div>
                         </div>
                     </div>
@@ -107,7 +145,7 @@
                     <div class="form-field">
                         <div class="row input-field">
                             <label for="direccion">Dirección</label>
-                            <input type="text" name="direccion" id="direccion">
+                            <input type="text" name="direccion" id="direccion" value="<?php echo $direccion; ?>">
                         </div>
                     </div>
                 </div>
@@ -213,7 +251,20 @@
                 weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"]
             }
         });
-        $('#fecha-nac').val("");
+        // Student info
+        $('#fecha-nac').val("<?php echo $fecha_nacimiento; ?>");
+        $("#genero").val("<?php echo $genero; ?>");
+        $("#genero").formSelect();
+
+        cargarDatos();
+
         M.updateTextFields();
     });
+
+    function cargarDatos() {
+        // jQuery(function($) {
+        //     $('#curp').val("<?php echo $curp; ?>");
+        //     $('#nombre').val("<?php echo $nombre; ?>");
+        // });
+    }
 </script>
