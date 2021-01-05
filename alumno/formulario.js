@@ -16,49 +16,51 @@ $(document).ready(function () {
     });
     $('select').formSelect();
     $('.tabs').tabs();
+    M.updateTextFields();
     $("form").validetta({
         bubblePosition: 'bottom',
         bubbleGapTop: 10,
         bubbleGapLeft: -5,
-        // onValid:function(e){
-        //     e.preventDefault();
-        //     $.ajax({
-        //         url:"../php/formulario/formulario.php",
-        //         method: "POST",
-        //         data: $("#formularioAlumnos").serialize(),
-        //         cache:false,
-        //         success:function(respuesta){
-        //             alert(respuesta);
-        //         }
-        //     });
-        //}
+        onValid:function(e){
+            e.preventDefault();
+            $.ajax({
+                url:"../php/formulario/formulario.php",
+                method: "POST",
+                data: $("#formulario_alumno").serialize(),
+                cache:false,
+                success:function(respuesta){
+                    alert(respuesta);
+                }
+            });
+        }
     });
 
     $("#bachillerato").change(function () {
         $("#nombre_Escuela").val('');
-        $("#label_nombre_escuela").prop('class', '');
-        $("#localidad").prop('value', '');
-        $("#label_localidad").prop('class', '');
+        $("#localidad").val('');
         $("#nombre_Escuela2").val('');
-        $("#label_nombre_escuela2").prop('class', '');
+        $("#formacion_tecnica2").val('');
+        M.updateTextFields();
+        //FALTA RESETEAR LOS SELECT de las escuelas
         resetCarreras();
         cambiarSelect();
-        //$(".disabled").prop('class', 'disabled selected'); para resetear las escuelas
     });
 
     $("#escuelas").change(function (){
         var esc = $("#escuelas").val();
         $("#localidad").prop('value', '');
+        $("#formacion_tecnica2").val('');
         resetCarreras();
-        cambiarCarreras(esc);
-        mismoSelect(esc);
+        if(esc != 'Otra'){
+            cambiarCarreras(esc);
+        }
+        mismoSelect(esc, 1);
     });
 
     $("#escuelas2").change(function (){
         var esc = $("#escuelas2").val();
         $("#localidad").prop('value', '');
-        resetCarreras();
-        mismoSelect(esc);
+        mismoSelect(esc, 2);
     });
 
     $("#btnPrevious2").click(function(){
@@ -94,7 +96,8 @@ function cambiarSelect() {
         $("#box_escuela_2").css("display", "none");
         $("#nombre_escuela").css("display", "none");
         $("#nombre_escuela2").css("display", "none");
-        $("#box_formacion_tecnica").css("display", "block");
+        $("#box_formacion_tecnica").css("display", "none");
+        $("#input_formacion_tecnica").css("display", "none");
         $("#localidad").prop('disabled', true);
     } else if (bachillerato == 'Bachillerato general') {
         $("#nombre_escuela").css("display", "block");
@@ -102,6 +105,7 @@ function cambiarSelect() {
         $("#box_escuela_1").css("display", "none");
         $("#box_escuela_2").css("display", "none");
         $("#box_formacion_tecnica").css("display", "none");
+        $("#input_formacion_tecnica").css("display", "none");
         $("#localidad").prop('disabled', false);
         $("#nombre_Escuela").prop('disabled', false);
     } else if (bachillerato == 'Bachillerato en línea') {
@@ -110,6 +114,7 @@ function cambiarSelect() {
         $("#box_escuela_1").css("display", "none");
         $("#box_escuela_2").css("display", "block");
         $("#box_formacion_tecnica").css("display", "none");
+        $("#input_formacion_tecnica").css("display", "none");
         $("#localidad").prop('disabled', true);
     }
 }
@@ -123,7 +128,7 @@ function cambiarCarreras(escuela) {
         success: function (carreras) {
             let AX = JSON.parse(carreras);
             for (i = 0; i < AX.length; i++) {
-                $('#formacion_tecnica').append($('<option value="' + String(i) + '">'+AX[i]+'</option>'));
+                $('#formacion_tecnica').append($('<option value="' + AX[i] + '">'+AX[i]+'</option>'));
                 $('#formacion_tecnica').formSelect();
             }
         }
@@ -137,24 +142,32 @@ function cambiarUbicacion(escuela){
         cache: false,
         data:{escuela:escuela},
         success: function (ubicacion) {
-            $("#localidad").prop('value', ubicacion);
-            $("#label_localidad").prop('class',"active");
+            $("#localidad").val('"'+ubicacion+'"');
+            M.updateTextFields();
         }
     });
 }
 
-function mismoSelect(esc){
+function mismoSelect(esc, n){
     if(esc!="Otra"){
         $("#nombre_escuela2").css("display", "none");
         $("#localidad").prop('disabled', true);
         $("#nombre_Escuela2").val('');
-        $("#label_nombre_escuela2").prop('class', '');
+        M.updateTextFields();
+        if (n == 1){
+            $("#box_formacion_tecnica").css("display", "block");
+            $("#input_formacion_tecnica").css("display", "none");
+        }
         cambiarUbicacion(esc);
     }
     else{
-        $("#label_localidad").prop('class', '');
+        M.updateTextFields();
         $("#localidad").prop('disabled', false);
         $("#nombre_escuela2").css("display", "block");
+        if (n == 1){
+            $("#box_formacion_tecnica").css("display", "none");
+            $("#input_formacion_tecnica").css("display", "block");
+        }
     }
 }
 
