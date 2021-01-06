@@ -117,9 +117,11 @@
             <table id="tblAlumnos" class="striped responsive-table">
                 <thead>
                     <tr>
-                        <th style="width: 30%;">CURP</th>
-                        <th style="width: 40%;">Nombre</th>
-                        <th style="width: 30%;">Registro</th>
+                        <th>CURP</th>
+                        <th>Nombre</th>
+                        <th>Registro</th>
+                        <th>Grupo</th>
+                        <th>Aciertos</th>
                     </tr>
                 </thead>
 
@@ -130,7 +132,6 @@
 
                     $query = "SELECT curp, nombre, primer_apellido AS apellidopat, segundo_apellido AS apellidomat, fecha_registro AS fecha FROM Alumno ORDER BY fecha DESC";
                     $result = mysqli_query($conn, $query);
-                    mysqli_close($conn);
 
                     if (mysqli_num_rows($result) == 0) {
                     ?>
@@ -138,19 +139,41 @@
                         <td>-</td>
                         <td>Sin registros disponibles</td>
                         <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
                     </tr>
                     <?php
                     }
                     else
                         while ($row = mysqli_fetch_array($result)) {
+                            $curp = $row["curp"];
+                            $grupo = "-";
+                            $aciertos = "-";
+
+                            // retrieving grupo
+                            $query_grupo = "SELECT clave_grupo FROM Alumno_has_Grupo WHERE curp_alumno = '$curp'";
+                            $result_grupo = mysqli_query($conn, $query_grupo);
+                            if (mysqli_num_rows($result_grupo) != 0) {
+                                $grupo = mysqli_fetch_array($result_grupo)["clave_grupo"];
+                            }
+
+                            // retrieving aciertos
+                            $query_aciertos = "SELECT aciertos FROM Examen WHERE curp_alumno = '$curp'";
+                            $result_aciertos = mysqli_query($conn, $query_aciertos);
+                            if (mysqli_num_rows($result_aciertos) != 0) {
+                                $aciertos = mysqli_fetch_array($result_aciertos)["aciertos"];
+                            }
                     ?>
                     <tr>
-                        <td style="width: 30%;"><?php echo $row["curp"]; ?></td>
-                        <td style="width: 40%;"><a href="javascript:void(0)" onclick="editar(this)"><?php echo $row["nombre"] . " " . $row["apellidopat"] . " " . $row["apellidomat"]; ?></a></td>
-                        <td style="width: 30%;"><p class="grey-text"><?php echo $row["fecha"]; ?></p></td>
+                        <td><?php echo $curp; ?></td>
+                        <td><a href="javascript:void(0)" onclick="editar(this)"><?php echo $row["nombre"] . " " . $row["apellidopat"] . " " . $row["apellidomat"]; ?></a></td>
+                        <td><p class="grey-text"><?php echo $row["fecha"]; ?></p></td>
+                        <td><?php echo $grupo; ?></td>
+                        <td><?php echo $aciertos; ?></td>
                     </tr>
                     <?php
                         }
+                        mysqli_close($conn);
                     ?>
                 </tbody>
             </table>
