@@ -19,7 +19,6 @@ $telefono_celular = $personal["telefono_celular"];
 $telefono_casa = $personal["telefono_casa"];
 $direccion = $personal["direccion"];
 $fecha_registro = $personal["fecha_registro"];
-
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +40,8 @@ $fecha_registro = $personal["fecha_registro"];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Validetta -->
+    <link rel="stylesheet" href="../../../css/validetta.min.css">
     <style>
         /* Con esto se puede cambiar el color del texto de los select
         input.select-dropdown.dropdown-trigger {
@@ -69,152 +70,162 @@ $fecha_registro = $personal["fecha_registro"];
     </header>
 
     <main>
-        
-        <div class="container" style="padding-top: 10px;">
-            <div class="row">
-            <label for="grupo">Grupo</label>
-                <select id="grupo">
-                    <option value="" selected>Sin grupo asignado</option>
-                    <!-- DB groups -->
-
-
-
-                </select>
+        <form id="studentData">
+            <div class="container" style="padding-top: 10px;">
+                <div class="row">
+                    <div class="col l6 m6 s12">
+                        <label for="grupo">Grupo</label>
+                        <select id="grupo">
+                            <option value="" selected>Sin grupo asignado</option>
+                        </select>
+                    </div>
+                    <div class="col l6 m6 s12">
+                        <label for="aciertos">Aciertos</label>
+                        <input type="text" name="aciertos" id="aciertos" data-validetta="regExp[aciertos]">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <ul class="collapsible expandable">
-            <!-- Datos personales -->
-            <li class="active">
-                <div class="collapsible-header"><i class="material-icons">person</i>Datos personales</div>
-                <div class="collapsible-body">
-                    <div class="form-field">
-                        <div class="row input-field">
-                            <label for="curp">CURP</label>
-                            <input type="text" name="curp" id="curp" disabled value="<?php echo $curp; ?>">
-                        </div>
-                        <div class="row input-field">
-                            <label for="nombre">Nombre(s)</label>
-                            <input type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>">
-                        </div>
-                        <div class="row">
-                            <div class="col l6 m6 s12 input-field">
-                                <label for="apellidopat">Primer apellido</label>
-                                <input type="text" name="apellidopat" id="apellidopat" value="<?php echo $primer_apellido; ?>">
+            <ul class="collapsible expandable">
+                <!-- Datos personales -->
+                <li class="active">
+                    <div class="collapsible-header"><i class="material-icons">person</i>Datos personales</div>
+                    <div class="collapsible-body">
+                        <div class="form-field">
+                            <div class="row input-field">
+                                <label for="curp">CURP</label>
+                                <input type="text" name="curp" id="curp" disabled value="<?php echo $curp; ?>">
                             </div>
-                            <div class="col l6 m6 s12 input-field">
-                                <label for="apellidomat">Segundo apellido</label>
-                                <input type="text" name="apellidomat" id="apellidomat" value="<?php echo $segundo_apellido; ?>">
+                            <div class="row input-field">
+                                <label for="nombre">Nombre(s)</label>
+                                <input type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>">
+                            </div>
+                            <div class="row">
+                                <div class="col l6 m6 s12 input-field">
+                                    <label for="apellidopat">Primer apellido</label>
+                                    <input type="text" name="apellidopat" id="apellidopat" value="<?php echo $primer_apellido; ?>">
+                                </div>
+                                <div class="col l6 m6 s12 input-field">
+                                    <label for="apellidomat">Segundo apellido</label>
+                                    <input type="text" name="apellidomat" id="apellidomat" value="<?php echo $segundo_apellido; ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m6 l6 input-field">
+                                    <label for="fecha-nac">Fecha de nacimiento</label>
+                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac">
+                                </div>
+                                <div class="input-field col s12 m6 l6">
+                                    <select id="genero">
+                                        <option value="" disabled selected>G&eacute;nero</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                        <option value="N">No binario</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row input-field">
+                                <label for="correo">Correo electronico</label>
+                                <input type="text" name="correo" id="correo" value="<?php echo $correo; ?>">
+                            </div>
+                            <div class="row">
+                                <div class="col l6 m6 s12 input-field">
+                                    <label for="telfijo">Teléfono fijo</label>
+                                    <input type="text" name="telfijo" id="telfijo" value="<?php echo $telefono_casa; ?>">
+                                </div>
+                                <div class="col l6 m6 s12 input-field">
+                                    <label for="telcelular">Teléfono celular</label>
+                                    <input type="text" name="telcelular" id="telcelular" value="<?php echo $telefono_celular; ?>">
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col s12 m6 l6 input-field">
-                                <label for="fecha-nac">Fecha de nacimiento</label>
-                                <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac">
+                    </div>
+                </li>
+                <!-- Datos de domicilio -->
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">home</i>Datos de domicilio</div>
+                    <div class="collapsible-body">
+                        <div class="form-field">
+                            <div class="row input-field">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" name="direccion" id="direccion" value="<?php echo $direccion; ?>">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Escuela de procedencia -->
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">school</i>Escuela de procedencia</div>
+                    <div class="collapsible-body">
+                        <div class="form-field">
+                            <div class="row input-field">
+                                <label for="nombreEscuela">Nombre de la escuela</label>
+                                <input type="text" name="nombreEscuela" id="nombreEscuela">
                             </div>
                             <div class="input-field col s12 m6 l6">
-                                <select id="genero">
-                                    <option value="" disabled selected>G&eacute;nero</option>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                    <option value="N">No binario</option>
+                                <select id="bachillerato">
+                                    <option value="0" disabled selected>Tipo de bachillerato</option>
+                                    <option value="1">Bachillerato general</option>
+                                    <option value="2">Bachillerato t&eacute;cnico</option>
+                                    <option value="3">Bachillerato en l&iacute;nea</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row input-field">
-                            <label for="correo">Correo electronico</label>
-                            <input type="text" name="correo" id="correo" value="<?php echo $correo; ?>">
-                        </div>
-                        <div class="row">
-                            <div class="col l6 m6 s12 input-field">
-                                <label for="telfijo">Teléfono fijo</label>
-                                <input type="text" name="telfijo" id="telfijo" value="<?php echo $telefono_casa; ?>">
+                            <div class="row input-field">
+                                <label for="localidad">Localidad</label>
+                                <input type="text" name="localidad" id="localidad">
                             </div>
-                            <div class="col l6 m6 s12 input-field">
-                                <label for="telcelular">Teléfono celular</label>
-                                <input type="text" name="telcelular" id="telcelular" value="<?php echo $telefono_celular; ?>">
+                            <div class="row input-field">
+                                <label for="promedio">Promedio</label>
+                                <input type="text" name="promedio" id="promedio">
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-            <!-- Datos de domicilio -->
-            <li>
-                <div class="collapsible-header"><i class="material-icons">home</i>Datos de domicilio</div>
-                <div class="collapsible-body">
-                    <div class="form-field">
-                        <div class="row input-field">
-                            <label for="direccion">Dirección</label>
-                            <input type="text" name="direccion" id="direccion" value="<?php echo $direccion; ?>">
+                </li>
+                <!-- Programa academico -->
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">book</i>Programa académico</div>
+                    <div class="collapsible-body">
+                        <div class="form-field">
+                            <div class="row input-field">
+                                <label for="semestre">Semestre</label>
+                                <input type="text" name="semestre" id="semestre">
+                            </div>
+                            <div class="row input-field">
+                                <label for="programaacad">Programa academico</label>
+                                <input type="text" name="programaacad" id="programaacad">
+                            </div>
+                            <div class="row input-field">
+                                <label for="opción">Opción</label>
+                                <input type="text" name="opción" id="opción">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </li>
-            <!-- Escuela de procedencia -->
-            <li>
-                <div class="collapsible-header"><i class="material-icons">school</i>Escuela de procedencia</div>
-                <div class="collapsible-body">
-                    <div class="form-field">
-                        <div class="row input-field">
-                            <label for="nombreEscuela">Nombre de la escuela</label>
-                            <input type="text" name="nombreEscuela" id="nombreEscuela">
-                        </div>
-                        <div class="input-field col s12 m6 l6">
-                            <select id="bachillerato">
-                                <option value="0" disabled selected>Tipo de bachillerato</option>
-                                <option value="1">Bachillerato general</option>
-                                <option value="2">Bachillerato t&eacute;cnico</option>
-                                <option value="3">Bachillerato en l&iacute;nea</option>
-                            </select>
-                        </div>
-                        <div class="row input-field">
-                            <label for="localidad">Localidad</label>
-                            <input type="text" name="localidad" id="localidad">
-                        </div>
-                        <div class="row input-field">
-                            <label for="promedio">Promedio</label>
-                            <input type="text" name="promedio" id="promedio">
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <!-- Programa academico -->
-            <li>
-                <div class="collapsible-header"><i class="material-icons">book</i>Programa académico</div>
-                <div class="collapsible-body">
-                    <div class="form-field">
-                        <div class="row input-field">
-                            <label for="semestre">Semestre</label>
-                            <input type="text" name="semestre" id="semestre">
-                        </div>
-                        <div class="row input-field">
-                            <label for="programaacad">Programa academico</label>
-                            <input type="text" name="programaacad" id="programaacad">
-                        </div>
-                        <div class="row input-field">
-                            <label for="opción">Opción</label>
-                            <input type="text" name="opción" id="opción">
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="form-field">
-            <button class="btn-large waves-effect waves-dark blue" style="width: 100%;">Guardar</button>
-        </div><br>
-        <div class="form-field">
-            <button class="btn-large waves-effect waves-dark white red-text" style="width: 100%;">Eliminar</button>
-        </div><br>
+                </li>
+            </ul>
+            <div class="form-field">
+                <button class="btn-large waves-effect waves-dark blue" style="width: 100%;">Guardar</button>
+            </div><br>
+            <div class="form-field">
+                <button class="btn-large waves-effect waves-dark white red-text" style="width: 100%;" id="btnDelete">Eliminar</button>
+            </div><br>
+        </form>
     </main>
 
     <footer>
 
     </footer>
 
-    <!--Import jQuery before materialize.js-->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <div class="scripts">
+        <!--Import jQuery before materialize.js-->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- Validetta -->
+        <script src="../../../js/validetta.min.js"></script>
+    </div>
+    <?php
+    mysqli_close($conn);
+    ?>
 </body>
 
 </html>
@@ -259,6 +270,18 @@ $fecha_registro = $personal["fecha_registro"];
         cargarDatos();
 
         M.updateTextFields();
+
+        // validetta
+        $("#studentData").validetta({
+            validators: {
+                regExp: {
+                    aciertos : {
+                        pattern: /10|([0-9](.[0-9]{1,2}){1})/,
+                        errorMessage: "Aciertos no validos"
+                    }
+                }
+            }
+        });
     });
 
     function cargarDatos() {
@@ -267,4 +290,8 @@ $fecha_registro = $personal["fecha_registro"];
         //     $('#nombre').val("<?php echo $nombre; ?>");
         // });
     }
+
+    $("#btnDelete").click(function(e) {
+        e.preventDefault();
+    })
 </script>
