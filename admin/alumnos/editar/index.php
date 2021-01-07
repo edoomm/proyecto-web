@@ -276,7 +276,7 @@ $fecha_registro = $personal["fecha_registro"];
             validators: {
                 regExp: {
                     aciertos : {
-                        pattern: /10|([0-9](.[0-9]{1,2}){1})/,
+                        pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
                         errorMessage: "Aciertos no validos"
                     }
                 }
