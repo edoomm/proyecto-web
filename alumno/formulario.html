@@ -115,13 +115,13 @@
                             </div>
 
                             <div class="col s12 m6 input-field">
-                                <label for="numero-int">N&uacute;mero interior (opcional)</label>
-                                <input type="text" id="numero-int" name="numero-int" data-validetta="number">
+                                <label for="numero_int">N&uacute;mero interior (opcional)</label>
+                                <input type="text" id="numero_int" name="numero_int" data-validetta="number">
                             </div>
 
                             <div class="col s12 m6 input-field">
-                                <label for="numero-ext">N&uacute;mero exterior</label>
-                                <input type="text" id="numero-ext" name="numero-ext" data-validetta="required,number">
+                                <label for="numero_ext">N&uacute;mero exterior</label>
+                                <input type="text" id="numero_ext" name="numero_ext" data-validetta="required,number">
                             </div>
 
                             <div class="col s12 m6 input-field">
@@ -167,66 +167,32 @@
 
                             <div id="nombre_escuela" class="col s12 m6 input-field">
                                 <label for="nombre_Escuela">Nombre de la escuela</label>
-                                <input disabled type="text" name="nombre_Escuela" id="nombre_Escuela"
-                                    data-validetta="required">
+                                <input readonly type="text" name="nombre_Escuela" id="nombre_Escuela"> 
                             </div>
 
                             <div id="box_escuela_1" class="input-field col s12 m6" style="display:none;">
                                 <select id="escuelas" name="escuelas">
-                                    <option value="" disabled selected>Selecciona escuela</option>
-                                    <option value="0">CET 1 "Walter Cross Buchanan"</option>
-                                    <option value="1">CECyT No. 1 "Gonzalo Vázquez Vela"</option>
-                                    <option value="2">CECyT No. 2 "Miguel Bernard"</option>
-                                    <option value="3">CECyT No. 3 "Estanislao Ramírez Ruiz"</option>
-                                    <option value="4">CECyT No. 4 "Lázaro Cárdenas"</option>
-                                    <option value="5">CECyT No. 5 "Benito Juárez"</option>
-                                    <option value="6">CECyT No. 6 "Miguel Othón de Mendizábal"</option>
-                                    <option value="7">CECyT No. 7 "Cuauhtémoc"</option>
-                                    <option value="8">CECyT No. 8 "Narciso Bassols"</option>
-                                    <option value="9">CECyT No. 9 "Juan de Dios Bátiz"</option>
-                                    <option value="10">CECyT No. 10 "Carlos Vallejo Márquez"</option>
-                                    <option value="11">CECyT No. 11 "Wilfrido Massieu"</option>
-                                    <option value="12">CECyT No. 12 "José María Morelos"</option>
-                                    <option value="13">CECyT No. 13 "Ricardo Flores Magón"</option>
-                                    <option value="14">CECyT No. 14 "Luis Enrique Erro"</option>
-                                    <option value="15">CECyT No. 15 "Diódoro Antúnez Echegaray"</option>
-                                    <option value="16">CECyT No. 16 "Hidalgo"</option>
-                                    <option value="17">CECyT No. 17 "León, Guanajuato"</option>
-                                    <option value="18">CECyT No. 18 "Zacatecas"</option>
-                                    <option value="19">CECyT No. 19 "Leona Vicario"</option>
-                                    <option value="Otra">Otra</option>
+                                    <option value="" onlyread selected>Selecciona escuela</option>
+                                   
                                 </select>
-                            </div>
-
-                            <div id="box_escuela_2" class="input-field col s12 m6" style="display:none;">
-                                <select id="escuelas2" name="escuelas">
-                                    <option value="" disabled selected>Selecciona escuela</option>
-                                    <option value="9">Polivirtual CECyT No. 9 "Juan de Dios Bátiz"</option>
-                                    <option value="Otra">Otra</option>
-                                </select>
-                            </div>
-
-                            <div id="nombre_escuela2" class="col s12 input-field" style="display:none;">
-                                <label for="nombre_Escuela2">Nombre de la escuela</label>
-                                <input type="text" name="nombre_Escuela" id="nombre_Escuela2" data-validetta="required">
                             </div>
 
                             <div class="col s12 input-field">
                                 <label for="localidad">Localidad</label>
-                                <input disabled type="text" name="localidad" id="localidad" value=""
+                                <input readonly type="text" name="localidad" id="localidad"
                                     data-validetta="required">
                             </div>
 
                             <div id="box_formacion_tecnica" class="col s12 input-field" style="display:none;">
                                 <select name="formacion_tecnica" id="formacion_tecnica">
-                                    <option value="" disabled selected>Formaci&oacute;n t&eacute;cnica obtenida
+                                    <option value="" onlyread selected>Formaci&oacute;n t&eacute;cnica obtenida
                                     </option>
                                 </select>
                             </div>
 
                             <div id="input_formacion_tecnica" class="col s12 input-field" style="display:none;">
                                 <label for="formacion_tecnica2">Formaci&oacute;n t&eacute;cnica obtenida</label>
-                                <input type="text" name="formacion_tecnica" id="formacion_tecnica2" data-validetta="required">
+                                <input type="text" name="formacion_tecnica2" id="formacion_tecnica2">
                             </div>
 
                             <div class="col s12 input-field">
@@ -249,15 +215,15 @@
                             <br>
                             <div class="col s12 m6 input-field">
                                 <label for="semestre">Semestre</label>
-                                <input disabled value="2021-1" type="text" id="semestre" name="semestre">
+                                <input readonly value="2021-1" type="text" id="semestre" name="semestre">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <select name="programa_academico">
                                     <option value="" disabled selected>Programa acad&eacute;mico</option>
-                                    <option value="0">Ing. en Sistemas Computacionales (ISC)</option>
-                                    <option value="1">Ing. en Inteligencia Artificial (IIA)</option>
-                                    <option value="2">Lic. en Ciencia de Datos (LCD)</option>
+                                    <option value="1">Ing. en Sistemas Computacionales (ISC)</option>
+                                    <option value="2">Ing. en Inteligencia Artificial (IIA)</option>
+                                    <option value="3">Lic. en Ciencia de Datos (LCD)</option>
                                 </select>
                             </div>
 

@@ -1,17 +1,22 @@
 <?php
-    // include "./db.php";
-    // $conexion = open_database();
+    include "./db.php";
+    $conexion = open_database();
+
+    $bachillerato = $_POST["bachillerato"];
     
-    // $sqlInsAlumno = "SELECT nombre FROM escuela";
-    // $resInsAlumno = mysqli_query($conexion,$sqlInsAlumno);
-    // $escuelas = "";
-    // $cont = 1;
-    // while($filas = mysqli_fetch_array($resInsAlumno,MYSQLI_BOTH)){
-    //     $escuelas = $escuelas.'<option value="'.$cont.'">'."$filas[0]".'</option>';
-    //     $cont++;
-    // }
-    // $escuelas .= '<option value='.'Otro'.'>'.'Otro'.'</option>';
-    // echo $escuelas; 
-    // ESTE CODIGO AUN NO SE OCUPA, PERO SE PUEDE OCUPAR PARA CONSULTAR LAS ESCUELAS Y NO TENER 
-    // UN SELESCT OCULTO EN EL HTML
+    if($bachillerato == "Bachillerato técnico"){
+        $sqlInsAlumno = "SELECT nombre FROM escuela WHERE id_escuela >= 1 and id_escuela <= 21";
+    }
+
+    else if($bachillerato == "Bachillerato en línea"){
+        $sqlInsAlumno = "SELECT nombre FROM escuela WHERE id_escuela = 10 or id_escuela = 21";
+    }
+    
+    $resInsAlumno = mysqli_query($conexion,$sqlInsAlumno);
+    $escuelas = [];
+    while($filas = mysqli_fetch_array($resInsAlumno,MYSQLI_BOTH)){
+        $escuelas[] = $filas[0];
+    }
+    
+    echo json_encode($escuelas); 
 ?>
