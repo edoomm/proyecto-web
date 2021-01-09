@@ -266,9 +266,7 @@ $fecha_registro = $personal["fecha_registro"];
         $('#fecha-nac').val("<?php echo $fecha_nacimiento; ?>");
         $("#genero").val("<?php echo $genero; ?>");
         $("#genero").formSelect();
-
-        cargarDatos();
-
+        
         M.updateTextFields();
 
         // validetta
@@ -283,13 +281,6 @@ $fecha_registro = $personal["fecha_registro"];
             }
         });
     });
-
-    function cargarDatos() {
-        // jQuery(function($) {
-        //     $('#curp').val("<?php echo $curp; ?>");
-        //     $('#nombre').val("<?php echo $nombre; ?>");
-        // });
-    }
 
     $("#btnDelete").click(function(e) {
         e.preventDefault();

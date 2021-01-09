@@ -150,18 +150,14 @@
                             $grupo = "-";
                             $aciertos = "-";
 
-                            // retrieving grupo
-                            $query_grupo = "SELECT clave_grupo FROM Alumno_has_Grupo WHERE curp_alumno = '$curp'";
+                            // retrieving grupo & aciertos
+                            $query_grupo = "SELECT clave_grupo, aciertos FROM Alumno_has_Grupo WHERE curp_alumno = '$curp'";
                             $result_grupo = mysqli_query($conn, $query_grupo);
                             if (mysqli_num_rows($result_grupo) != 0) {
-                                $grupo = mysqli_fetch_array($result_grupo)["clave_grupo"];
-                            }
+                                $rowAG = mysqli_fetch_array($result_grupo);
 
-                            // retrieving aciertos
-                            $query_aciertos = "SELECT aciertos FROM Examen WHERE curp_alumno = '$curp'";
-                            $result_aciertos = mysqli_query($conn, $query_aciertos);
-                            if (mysqli_num_rows($result_aciertos) != 0) {
-                                $aciertos = mysqli_fetch_array($result_aciertos)["aciertos"];
+                                $grupo = $rowAG["clave_grupo"];
+                                $aciertos = $rowAG["aciertos"];
                             }
                     ?>
                     <tr>
