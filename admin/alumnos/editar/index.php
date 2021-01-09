@@ -19,6 +19,84 @@ $telefono_celular = $personal["telefono_celular"];
 $telefono_casa = $personal["telefono_casa"];
 $direccion = $personal["direccion"];
 $fecha_registro = $personal["fecha_registro"];
+
+// aciertos & grupo
+$aciertos = "";
+$grupo_alumno = "NULL";
+
+$queryAG = "SELECT clave_grupo, aciertos FROM Alumno_has_Grupo WHERE curp_alumno = '$curp'";
+$resultAG = mysqli_query($conn, $queryAG);
+if (mysqli_num_rows($resultAG) != 0) {
+    $rowAG = mysqli_fetch_array($resultAG);
+
+    $aciertos = $rowAG["aciertos"];
+    $grupo_alumno = $rowAG["clave_grupo"];
+}
+
+// escuela
+define('TIPO_ESCUELA_TEC', 'Bachillerato Técnico');
+define('TIPO_ESCUELA_GEN', 'Bachillerato general');
+define('TIPO_ESCUELA_LIN', 'Bachillerato en línea');
+
+$nombre_escuela = "";
+$tipo_escuela = 0;
+$localidad_escuela = "";
+$promedio = "";
+
+$queryAE = "SELECT * FROM Alumno_has_Escuela WHERE curp_alumno = '$curp'";
+$resultAE = mysqli_query($conn, $queryAE);
+if (mysqli_num_rows($resultAE) != 0) {
+    $rowAE = mysqli_fetch_array($resultAE);
+
+    $id_escuela = $rowAE["id_escuela"];
+    $id_formacion = $rowAE["id_formacion_tecnica"];
+    $promedio = $rowAE["promedio"];
+
+    // retrieving school info
+    $query_escuela = "SELECT * from Escuela WHERE id_escuela = $id_escuela";
+    $result_escuela = mysqli_query($conn, $query_escuela);
+    $row_escuela = mysqli_fetch_array($result_escuela);
+    $nombre_escuela = $row_escuela["nombre"];
+    $localidad_escuela = $row_escuela["localidad"];
+    $tipo = $row_escuela["tipo"];
+
+    switch ($tipo) {
+        case TIPO_ESCUELA_GEN:
+            $tipo_escuela = 1;
+            break;
+        case TIPO_ESCUELA_TEC:
+            $tipo_escuela = 2;
+            break;
+        case TIPO_ESCUELA_LIN:
+            $tipo_escuela = 3;
+            break;
+        
+        default:
+            $tipo_escuela = 0;
+            break;
+    }
+}
+
+// programa
+$semestre = "";
+$programa_academico = "";
+$opcion = null;
+
+$queryAP = "SELECT * FROM Alumno_has_Programa WHERE curp_alumno = '$curp'";
+$resultAP = mysqli_query($conn, $queryAP);
+if (mysqli_num_rows($resultAP) != 0) {
+    $rowAP = mysqli_fetch_array($resultAP);
+
+    $semestre = $rowAP["semestre"];
+    $opcion = $rowAP["opcion"];
+    $id_programa_academico = $rowAP["id_programa_academico"];
+
+    $query_programa = "SELECT nombre FROM Programa_Academico WHERE id_programa_academico = $id_programa_academico";
+    $result_programa = mysqli_query($conn, $query_programa);
+    $row_programa = mysqli_fetch_array($result_programa);
+    $programa_academico = $row_programa["nombre"];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -71,17 +149,34 @@ $fecha_registro = $personal["fecha_registro"];
 
     <main>
         <form id="studentData">
+            <!-- Grupos y aciertos -->
             <div class="container" style="padding-top: 10px;">
                 <div class="row">
+
+                    <?php
+                    // retrieving grupos
+                    $queryGrupos = "SELECT clave FROM Grupo";
+                    $resultGrupos = mysqli_query($conn, $queryGrupos);
+                    ?>
+
                     <div class="col l6 m6 s12">
                         <label for="grupo">Grupo</label>
                         <select id="grupo">
-                            <option value="" selected>Sin grupo asignado</option>
+                            <option value="NULL" selected>Sin grupo asignado</option>
+                            <?php
+                            // fetch Grupo array
+                            while ($rowGrupos = mysqli_fetch_array($resultGrupos)) {
+                                $grupo = $rowGrupos["clave"];
+                            ?>
+                            <option value="<?php echo $grupo; ?>"><?php echo $grupo; ?></option>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="col l6 m6 s12">
                         <label for="aciertos">Aciertos</label>
-                        <input type="text" name="aciertos" id="aciertos" data-validetta="regExp[aciertos]">
+                        <input type="number" name="aciertos" id="aciertos" data-validetta="required, regExp[aciertos]" value="<?php echo $aciertos; ?>">
                     </div>
                 </div>
             </div>
@@ -160,7 +255,7 @@ $fecha_registro = $personal["fecha_registro"];
                         <div class="form-field">
                             <div class="row input-field">
                                 <label for="nombreEscuela">Nombre de la escuela</label>
-                                <input type="text" name="nombreEscuela" id="nombreEscuela">
+                                <input type="text" name="nombreEscuela" id="nombreEscuela" value="<?php echo $nombre_escuela; ?>">
                             </div>
                             <div class="input-field col s12 m6 l6">
                                 <select id="bachillerato">
@@ -170,13 +265,17 @@ $fecha_registro = $personal["fecha_registro"];
                                     <option value="3">Bachillerato en l&iacute;nea</option>
                                 </select>
                             </div>
+
+                            <!-- TODO: Poner select escondido para escoger carrera -->
+
+
                             <div class="row input-field">
                                 <label for="localidad">Localidad</label>
-                                <input type="text" name="localidad" id="localidad">
+                                <input type="text" name="localidad" id="localidad" value="<?php echo $localidad_escuela; ?>">
                             </div>
                             <div class="row input-field">
                                 <label for="promedio">Promedio</label>
-                                <input type="text" name="promedio" id="promedio">
+                                <input type="text" name="promedio" id="promedio" value="<?php echo $promedio; ?>">
                             </div>
                         </div>
                     </div>
@@ -188,15 +287,16 @@ $fecha_registro = $personal["fecha_registro"];
                         <div class="form-field">
                             <div class="row input-field">
                                 <label for="semestre">Semestre</label>
-                                <input type="text" name="semestre" id="semestre">
+                                <input type="text" name="semestre" id="semestre" value="<?php echo $semestre; ?>">
                             </div>
                             <div class="row input-field">
+                                <!-- TODO: Cambiarlo a select -->
                                 <label for="programaacad">Programa academico</label>
-                                <input type="text" name="programaacad" id="programaacad">
+                                <input type="text" name="programaacad" id="programaacad" value="<?php echo $programa_academico; ?>">
                             </div>
                             <div class="row input-field">
                                 <label for="opción">Opción</label>
-                                <input type="text" name="opción" id="opción">
+                                <input type="text" name="opción" id="opción" value="<?php echo $opcion; ?>">
                             </div>
                         </div>
                     </div>
@@ -232,57 +332,87 @@ $fecha_registro = $personal["fecha_registro"];
 
 <script>
     $(document).ready(function(){
-        // Intializing controls
-        $('.collapsible').collapsible();
-        var elem = document.querySelector('.collapsible.expandable');
-        var instance = M.Collapsible.init(elem, {
-            accordion: false
-        });
-        $('select').formSelect();
-
-        // Intializing datepicker
-        var today = new Date();
-        var minFecha = today.getFullYear() - 70;
-        var maxFecha = today.getFullYear() - 10;
-
-        var rango = [minFecha+1, maxFecha];
-        $('.datepicker').datepicker({
-            format: "yyyy-mm-dd",
-            autoClose: true,
-            minDate: new Date(minFecha, 0, 1),
-            maxDate: new Date(maxFecha, 11, 31),
-            yearRange: rango,
-            defaultDate: new Date(2000, 0, 1),
-            setDefaultDate: true,
-            i18n: {
-                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-                weekdays: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-                weekdaysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-                weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"]
-            }
-        });
-        // Student info
-        $('#fecha-nac').val("<?php echo $fecha_nacimiento; ?>");
-        $("#genero").val("<?php echo $genero; ?>");
-        $("#genero").formSelect();
-        
-        M.updateTextFields();
-
-        // validetta
-        $("#studentData").validetta({
-            validators: {
-                regExp: {
-                    aciertos : {
-                        pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
-                        errorMessage: "Aciertos no validos"
-                    }
-                }
-            }
-        });
+        // Intializing 
+        intializeControls();
+        intializeData();
     });
 
+    function intializeControls() {
+        $(function(){
+            $('.collapsible').collapsible();
+            var elem = document.querySelector('.collapsible.expandable');
+            var instance = M.Collapsible.init(elem, {
+                accordion: false
+            });
+            $('select').formSelect();
+
+            intializeDatePicker();
+            intializeValidetta();
+
+            // update [input=text]
+            M.updateTextFields();
+        });
+    }
+
+    function intializeDatePicker() {
+        $(function(){
+            var today = new Date();
+            var minFecha = today.getFullYear() - 70;
+            var maxFecha = today.getFullYear() - 10;
+
+            var rango = [minFecha+1, maxFecha];
+            $('.datepicker').datepicker({
+                format: "yyyy-mm-dd",
+                autoClose: true,
+                minDate: new Date(minFecha, 0, 1),
+                maxDate: new Date(maxFecha, 11, 31),
+                yearRange: rango,
+                defaultDate: new Date(2000, 0, 1),
+                setDefaultDate: true,
+                i18n: {
+                    months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'AG', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                    monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                    weekdays: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+                    weekdaysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                    weekdaysAbbrev: ["D", "L", "M", "M", "J", "V", "S"]
+                }
+            });
+        });
+    }
+
+    function intializeValidetta() {
+        $(function(){
+            // validetta
+            $("#studentData").validetta({
+                validators: {
+                    regExp: {
+                        aciertos : {
+                            pattern: /(^[1-3][0-9]{2}$)|(^[1-9][0-9]$)|(^[0-9]$)|(^-1$)/,
+                            errorMessage: "Rango de aciertos aceptados [-1, 399]"
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    function intializeData () {
+        $(function(){
+            // Student info
+            $('#fecha-nac').val("<?php echo $fecha_nacimiento; ?>");
+
+            $("#grupo").val("<?php echo $grupo_alumno; ?>");
+            $("#grupo").formSelect();
+
+            $("#genero").val("<?php echo $genero; ?>");
+            $("#genero").formSelect();
+
+            $("#bachillerato").val("<?php echo $tipo_escuela; ?>");
+            $("#bachillerato").formSelect();
+        });
+    }
+
     $("#btnDelete").click(function(e) {
-        e.preventDefault();
+        // e.preventDefault();
     })
 </script>
