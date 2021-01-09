@@ -3,7 +3,7 @@
       $host = "localhost";
       $user = "root";
       $pwd = "";
-      $db = "sistema_registro";
+      $db = "sistema_registro2";
 
       $conn = mysqli_connect($host, $user, $pwd, $db);
       mysqli_set_charset($conn, "utf8");

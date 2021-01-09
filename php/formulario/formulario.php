@@ -28,6 +28,7 @@
     $semestre = $_POST["semestre"];
     $programa_academico = $_POST["programa_academico"];
     $opcion = $_POST["opcion"];
+    $respAX = [];
 
     
     if(mysqli_num_rows(mysqli_query($conexion,"SELECT curp FROM alumno WHERE curp ="."'".$curp."'")) == 0){ //validamos que no esten ya registrados los datos de un alumno
@@ -37,7 +38,9 @@
         $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
 
         if($resInsAlumno != 1){ //valida que la instancia de la tabla alumno si se haya creado
-            echo "Ocurrio un error al crear tu registro 1";
+            $respAX["cod"] = 0;
+            $respAX["msj"] = "(1) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+            echo json_encode($respAX);
             exit(0);
         }
         $sqlInsAlumno = "";
@@ -51,7 +54,9 @@
             $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
 
             if($resInsAlumno != 1){ //Valida que la instancia de la tabla escuela se haya creado correctamente
-                echo "Ocurrio un error con el registro 2";
+                $respAX["cod"] = 0;
+                $respAX["msj"] = "(2) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                echo json_encode($respAX);
                 exit(0);
             }
             $sqlInsAlumno = "";
@@ -71,7 +76,9 @@
             $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
 
             if($resInsAlumno != 1){ //Valida que la instancia de la tabla alumno_has_escuela se haya creado correctamente
-                echo "Ocurrio un error con el registro 3";
+                $respAX["cod"] = 0;
+                $respAX["msj"] = "(3) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                echo json_encode($respAX);
                 exit(0);
             }
             $sqlInsAlumno = "";
@@ -86,7 +93,9 @@
             $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
 
             if($resInsAlumno != 1){ //Valida que la instancia de la tabla alumno_has_escuela se haya creado correctamente
-                echo "Ocurrio un error con el registro 4";
+                $respAX["cod"] = 0;
+                $respAX["msj"] = "(4) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                echo json_encode($respAX);
                 exit(0);
             }
             $sqlInsAlumno = "";
@@ -103,7 +112,9 @@
                 $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
 
                 if($resInsAlumno != 1){ //Valida que se haya creado correctamente una nueva carrera tecnica
-                    echo "Ocurrio un error con el registro 5";
+                    $respAX["cod"] = 0;
+                    $respAX["msj"] = "(5) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                    echo json_encode($respAX);
                     exit(0);
                 }
                 $sqlInsAlumno = "";
@@ -119,7 +130,9 @@
 
             if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM escuela_has_formacion WHERE id_escuela ="."'".$resInsEscuela[0]."'"." and id_formacion_tecnica ="."'".$resInsFormacion[0]."'")) == 0){   //Checar que no exista la instancia en la tabla escuela_has_formacion
                 if(mysqli_real_query($conexion,"INSERT INTO escuela_has_formacion VALUES ("."'".$resInsEscuela[0]."','".$resInsFormacion[0]."')") != 1){
-                    echo "Ocurrio un error con el registro 6";
+                    $respAX["cod"] = 0;
+                    $respAX["msj"] = "(6) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                    echo json_encode($respAX);
                     exit(0);
                 }
             }
@@ -130,7 +143,9 @@
                 $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
     
                 if($resInsAlumno != 1){ //Valida que la instancia de la tabla alumno_has_escuela se haya creado correctamente
-                    echo "Ocurrio un error con el registro 7";
+                    $respAX["cod"] = 0;
+                    $respAX["msj"] = "(7) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                    echo json_encode($respAX);
                     exit(0);
                 }
                 $sqlInsAlumno = "";
@@ -143,14 +158,16 @@
                 $sqlID_FORMACIONT = "SELECT id_formacion_tecnica FROM formacion_tecnica WHERE nombre ="."'".$formacion_tecnica."'";
                 $resID_FORMACIONT = mysqli_query($conexion,$sqlID_FORMACIONT);
                 $unicoResID_FORMACIONT = mysqli_fetch_row($resID_FORMACIONT);
-                //echo "$unicoResID_FORMACIONT[0]"."<br>";
+                
         
                 $sqlInsAlumno = "INSERT INTO alumno_has_escuela
                 VALUES ("."'".$curp."','".$escuelas."','".$unicoResID_FORMACIONT[0]."','".$promedio."')";
                 $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
     
                 if($resInsAlumno != 1){ //Valida que la instancia de la tabla alumno_has_escuela se haya creado correctamente
-                    echo "Ocurrio un error con el registro 8";
+                    $respAX["cod"] = 0;
+                    $respAX["msj"] = "(8) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                    echo json_encode($respAX);
                     exit(0);
                 }
                 $sqlInsAlumno = "";
@@ -165,18 +182,13 @@
         $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
 
         if($resInsAlumno != 1){ //Valida que la instancia de la tabla alumno_has_formacion se haya creado correctamente
-            echo "Ocurrio un error con el registro 9";
+            $respAX["cod"] = 0;
+            $respAX["msj"] = "(9) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+            echo json_encode($respAX);
             exit(0);
         }
         $sqlInsAlumno = "";
         //mysqli_free_result($resInsAlumno);
-    }
-
-    if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM examen WHERE curp_alumno ="."'".$curp."'")) == 0){
-        if(mysqli_real_query($conexion,"INSERT INTO examen (curp_alumno) VALUES ("."'".$curp."')") != 1){
-            echo "Ocurrio un error con el registro 10";
-            exit(0);
-        }
     }
 
     //ASIGNACION DEL GRUPO
@@ -191,18 +203,25 @@
                 for($k = 0; $k < count($grupos); $k++){
                     if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM grupo WHERE clave ="."'".$grupos[$k]."-".$i.$j."' and horario ="."'".$dias[$i]." ".$horas[$j]."'")) == 0){ // valida que el grupo no exista en la tabla grupo
                         if(mysqli_real_query($conexion,"INSERT INTO grupo VALUES ("."'".$grupos[$k]."-".$i.$j."','".$dias[$i]." ".$horas[$j]."','20')") != 1){ // crea un nuevo grupo
-                            echo "Ocurrio un error al crear el registro 11";
+                            $respAX["cod"] = 0;
+                            $respAX["msj"] = "(11) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                            echo json_encode($respAX);
                             exit(0);
                         }
                     }
     
                     if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM alumno_has_grupo WHERE clave_grupo ="."'".$grupos[$k]."-".$i.$j."'")) < 20){ ///Revisa si todavia hay cupo en un grupo existente
-                        if(mysqli_real_query($conexion, "INSERT INTO alumno_has_grupo VALUES ("."'".$curp."','".$grupos[$k]."-".$i.$j."')") != 1){ //inserta al alumno en un grupo con cupo
-                            echo "Ocurrio un error al crear el registro 12";
+                        if(mysqli_real_query($conexion, "INSERT INTO alumno_has_grupo VALUES ("."'".$curp."','".$grupos[$k]."-".$i.$j."','-1')") != 1){ //inserta al alumno en un grupo con cupo
+                            $respAX["cod"] = 0;
+                            $respAX["msj"] = "(12) Ocurrio un error al crear tu registro. Por favor prueba enviando nuevamente el formulario, si el problema persiste, comunícate con nosotros al correo...";
+                            echo json_encode($respAX);
                             exit(0);
                         }
                         else{
-                            echo "El registro se realizo correctamente";
+                            $respAX["cod"] = 1;
+                            $respAX["msj"] = "¡El registro se realizo correctamente!";
+                            $respAX["curp"] = $curp;
+                            echo json_encode($respAX);
                             exit(0);
                         }
                     }
@@ -210,6 +229,10 @@
             }
         }
     }
-    echo "El registro se realizo correctamente";   
+    $respAX["cod"] = 2;
+    $respAX["msj"] = "Ya existe un registro asociado al curp: "."$curp"." si no fuiste tu quien realizo el registro por favor
+    comunícate al corroeo... para ayudarte a resolver tu situación, si solo deseas actualizar alguno de tus datos, 
+    debes iniciar sesión y desde tu perfil puedes hacerlo.";
+    echo json_encode($respAX);   
 ?>
 

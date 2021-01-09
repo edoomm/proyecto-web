@@ -29,21 +29,99 @@ $(document).ready(function () {
                 data: $("#formulario_alumno").serialize(),
                 cache:false,
                 success:function(respuesta){
-                    alert(respuesta);
-                    // $.alert({
-                    //     title:"TWeb 2021-1",
-                    //     content:"<h5 class='blue-text'>"+respuesta+"</h5>",
-                    //     theme:"supervan",
-                    //     onDestroy:function(){
-                    //         location.reload();
-                    //     }
-                    // });
+                    let AX = JSON.parse(respuesta);
+                    if(AX.cod == 0){
+                        $.alert({
+                            title: "¡Error!",
+                            content: AX.msj,
+                            buttons:{
+                                Ok: {
+                                    btnClass: 'btn-blue'
+                                }
+                            }
+                        });
+                    }
+                    else if(AX.cod == 1){
+                        $.alert({
+                            title:AX.msj,
+                            content:""+
+                            "<h7>Valida que tu curp sea CORRECTO, si no es así, puedes editarlo y crea una contraseña para que puedas acceder al sistema.</h7>"+
+                            "<form>"+
+                                "<br><div class='row'>"+
+                                    "<div class='col s12 input-field'>"+
+                                        "<label class='active' for='confirma_curp'>Curp</label>"+
+                                        "<input readonly type='text' id='confirma_curp' name='confirma_curp' value='"+AX.curp+"'>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='row'>"+
+                                    "<div class='col s12 input-field'>"+
+                                        "<label for='contrasena'>Contraseña</label>"+
+                                        "<input type='password' id='contrasena' name='contrasena'>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='row'>"+
+                                    "<div class='col s12 input-field'>"+
+                                        "<label for='confirma_contrasena'>Confirma la contraseña</label>"+
+                                        "<input type='password' id='confirma_contrasena' name='confirma_contrasena'>"+
+                                    "</div>"+
+                                "</div>"+
+                            "</form>",
+                            buttons:{
+                                formConfirm:{
+                                    text: 'Confirmar',
+                                    btnClass: 'btn-blue',
+                                    action:function(){
+                                        var contrasena = this.$content.find('#contrasena').val();
+                                        var confirma_contrasena = this.$content.find('#confirma_contrasena').val();
+                                        if(!contrasena){
+                                            $.alert('Debes de crear una contraseña');
+                                            return false;
+                                        }
+                                        if(!confirma_contrasena){
+                                            $.alert('Debes de confirmar la contraseña');
+                                            return false;
+                                        }
+                                        if(contrasena != confirma_contrasena){
+                                            $.alert('La contraseña no coincide');
+                                            return false;
+                                        }
+                                        location.reload();
+                                    }
+                                }
+                            },
+                            onContentReady: function(){
+                                var jc = this;
+                                this.$content.find('form').on('submit',function(e){
+                                    e.preventDefault();
+                                    jc.$$formConfirm.trigger('click');
+                                });
+                            }
+                        });
+                    }
+                    else{
+                        $.alert({
+                            title:"¡¡Atención!!",
+                            content: AX.msj,
+                            buttons:{
+                                incioSesion: {
+                                    btnClass: 'btn-blue',
+                                    text: "Iniciar sesión",
+                                    action: function(){
+                                        alert("Nos lleva a la pagina de inicio de sesion");
+                                    }
+                                },
+                                confirmar: function(){
+                                    location.reload();
+                                }
+                            },
+                        });
+                    }
                 }
             });
         },
         onError:function(e){
             e.preventDefault();
-            alert("aun te faltan campos por completar");
+            alert("Aun te faltan campos por completar");
         }
     });
 
