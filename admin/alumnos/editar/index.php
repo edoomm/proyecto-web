@@ -91,10 +91,10 @@ if (mysqli_num_rows($resultAP) != 0) {
     $opcion = $rowAP["opcion"];
     $id_programa_academico = $rowAP["id_programa_academico"];
 
-    $query_programa = "SELECT nombre FROM Programa_Academico WHERE id_programa_academico = $id_programa_academico";
+    $query_programa = "SELECT id_programa_academico FROM Programa_Academico WHERE id_programa_academico = $id_programa_academico";
     $result_programa = mysqli_query($conn, $query_programa);
     $row_programa = mysqli_fetch_array($result_programa);
-    $programa_academico = $row_programa["nombre"];
+    $programa_academico = $row_programa["id_programa_academico"];
 }
 
 ?>
@@ -267,7 +267,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             </div>
 
                             <!-- TODO: Poner select escondido para escoger carrera -->
-
+                            
 
                             <div class="row input-field">
                                 <label for="localidad">Localidad</label>
@@ -290,9 +290,24 @@ if (mysqli_num_rows($resultAP) != 0) {
                                 <input type="text" name="semestre" id="semestre" value="<?php echo $semestre; ?>">
                             </div>
                             <div class="row input-field">
-                                <!-- TODO: Cambiarlo a select -->
-                                <label for="programaacad">Programa academico</label>
-                                <input type="text" name="programaacad" id="programaacad" value="<?php echo $programa_academico; ?>">
+                                <?php
+                                // retrieving programas
+                                $query_programa = "SELECT id_programa_academico AS id, nombre FROM Programa_Academico";
+                                $result_programa = mysqli_query($conn, $query_programa);
+
+                                ?>
+                                <!-- No puedo poner el label): -->
+                                <!-- <label for="programaacad">Programa academico</label> -->
+                                <select name="programaacad" id="programaacad">
+                                    <?php
+                                    while ($row = mysqli_fetch_array($result_programa)) {
+                                    ?>
+                                    <option value="<?php echo $row["id"]; ?>"><?php echo $row["nombre"]; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                <!-- <input type="text" name="programaacad" id="programaacad" value="<?php echo $programa_academico; ?>"> -->
                             </div>
                             <div class="row input-field">
                                 <label for="opción">Opción</label>
@@ -335,6 +350,8 @@ if (mysqli_num_rows($resultAP) != 0) {
         // Intializing 
         intializeControls();
         intializeData();
+        // update [input=text]
+        M.updateTextFields();
     });
 
     function intializeControls() {
@@ -348,9 +365,6 @@ if (mysqli_num_rows($resultAP) != 0) {
 
             intializeDatePicker();
             intializeValidetta();
-
-            // update [input=text]
-            M.updateTextFields();
         });
     }
 
@@ -409,6 +423,9 @@ if (mysqli_num_rows($resultAP) != 0) {
 
             $("#bachillerato").val("<?php echo $tipo_escuela; ?>");
             $("#bachillerato").formSelect();
+
+            $("#programaacad").val("<?php echo $programa_academico; ?>");
+            $("#programaacad").formSelect();
         });
     }
 
