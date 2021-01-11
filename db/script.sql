@@ -444,3 +444,8 @@ ALTER TABLE `alumno_has_programa`
 ALTER TABLE `escuela_has_formacion`
   ADD CONSTRAINT `FK1` FOREIGN KEY (`id_escuela`) REFERENCES `escuela` (`id_escuela`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK2` FOREIGN KEY (`id_formacion_tecnica`) REFERENCES `formacion_tecnica` (`id_formacion_tecnica`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- Update todo a mayusculas
+UPDATE escuela SET nombre = upper(nombre), localidad = upper(localidad), tipo = upper(tipo);
+UPDATE formacion_tecnica SET nombre = upper(nombre);
+UPDATE programa_academico SET nombre = upper(nombre);
