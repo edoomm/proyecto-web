@@ -176,14 +176,14 @@ if (mysqli_num_rows($resultAP) != 0) {
                     </div>
                     <div class="col l6 m6 s12">
                         <label for="aciertos">Aciertos</label>
-                        <input type="number" name="aciertos" id="aciertos" data-validetta="required, regExp[aciertos]" value="<?php echo $aciertos; ?>">
+                        <input type="number" name="aciertos" id="aciertos" value="<?php echo $aciertos; ?>" data-validetta="regExp[aciertos]" required>
                     </div>
                 </div>
             </div>
 
             <ul class="collapsible expandable">
                 <!-- Datos personales -->
-                <li class="active">
+                <li>
                     <div class="collapsible-header"><i class="material-icons">person</i>Datos personales</div>
                     <div class="collapsible-body">
                         <div class="form-field">
@@ -193,22 +193,22 @@ if (mysqli_num_rows($resultAP) != 0) {
                             </div>
                             <div class="row input-field">
                                 <label for="nombre">Nombre(s)</label>
-                                <input type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>">
+                                <input type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>" required>
                             </div>
                             <div class="row">
                                 <div class="col l6 m6 s12 input-field">
                                     <label for="apellidopat">Primer apellido</label>
-                                    <input type="text" name="apellidopat" id="apellidopat" value="<?php echo $primer_apellido; ?>">
+                                    <input type="text" name="apellidopat" id="apellidopat" value="<?php echo $primer_apellido; ?>" required>
                                 </div>
                                 <div class="col l6 m6 s12 input-field">
                                     <label for="apellidomat">Segundo apellido</label>
-                                    <input type="text" name="apellidomat" id="apellidomat" value="<?php echo $segundo_apellido; ?>">
+                                    <input type="text" name="apellidomat" id="apellidomat" value="<?php echo $segundo_apellido; ?>" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col s12 m6 l6 input-field">
                                     <label for="fecha-nac">Fecha de nacimiento</label>
-                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac">
+                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" required>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
                                     <select id="genero">
@@ -220,8 +220,11 @@ if (mysqli_num_rows($resultAP) != 0) {
                                 </div>
                             </div>
                             <div class="row input-field">
-                                <label for="correo">Correo electronico</label>
-                                <input type="text" name="correo" id="correo" value="<?php echo $correo; ?>">
+                                <!-- <label for="correo">Correo electronico</label>
+                                <input type="email" name="correo" id="correo" value="<?php echo $correo; ?>" required> -->
+                                <input id="email" type="email" class="validate" value="<?php echo $correo; ?>">
+                                <label for="email">Correo electronico</label>
+                                <span class="helper-text" data-error="Incorrecto" data-success="Correcto"></span>
                             </div>
                             <div class="row">
                                 <div class="col l6 m6 s12 input-field">
@@ -230,7 +233,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                                 </div>
                                 <div class="col l6 m6 s12 input-field">
                                     <label for="telcelular">Teléfono celular</label>
-                                    <input type="text" name="telcelular" id="telcelular" value="<?php echo $telefono_celular; ?>">
+                                    <input type="text" name="telcelular" id="telcelular" value="<?php echo $telefono_celular; ?>" required>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +246,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                         <div class="form-field">
                             <div class="row input-field">
                                 <label for="direccion">Dirección</label>
-                                <input type="text" name="direccion" id="direccion" value="<?php echo $direccion; ?>">
+                                <input type="text" name="direccion" id="direccion" value="<?php echo $direccion; ?>" required>
                             </div>
                         </div>
                     </div>
@@ -255,7 +258,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                         <div class="form-field">
                             <div class="row input-field">
                                 <label for="nombreEscuela">Nombre de la escuela</label>
-                                <input type="text" name="nombreEscuela" id="nombreEscuela" value="<?php echo $nombre_escuela; ?>">
+                                <input type="text" name="nombreEscuela" id="nombreEscuela" value="<?php echo $nombre_escuela; ?>" required>
                             </div>
                             <div class="input-field col s12 m6 l6">
                                 <select id="bachillerato">
@@ -271,11 +274,11 @@ if (mysqli_num_rows($resultAP) != 0) {
 
                             <div class="row input-field">
                                 <label for="localidad">Localidad</label>
-                                <input type="text" name="localidad" id="localidad" value="<?php echo $localidad_escuela; ?>">
+                                <input type="text" name="localidad" id="localidad" value="<?php echo $localidad_escuela; ?>" required>
                             </div>
                             <div class="row input-field">
                                 <label for="promedio">Promedio</label>
-                                <input type="text" name="promedio" id="promedio" value="<?php echo $promedio; ?>">
+                                <input type="number" name="promedio" id="promedio" value="<?php echo $promedio; ?>" data-validetta="regExp[promedio]" step=".01" required>
                             </div>
                         </div>
                     </div>
@@ -287,7 +290,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                         <div class="form-field">
                             <div class="row input-field">
                                 <label for="semestre">Semestre</label>
-                                <input type="text" name="semestre" id="semestre" value="<?php echo $semestre; ?>">
+                                <input type="text" name="semestre" id="semestre" value="<?php echo $semestre; ?>" required>
                             </div>
                             <div class="row input-field">
                                 <?php
@@ -311,7 +314,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             </div>
                             <div class="row input-field">
                                 <label for="opción">Opción</label>
-                                <input type="text" name="opción" id="opción" value="<?php echo $opcion; ?>">
+                                <input type="text" name="opción" id="opción" value="<?php echo $opcion; ?>" required>
                             </div>
                         </div>
                     </div>
@@ -396,15 +399,34 @@ if (mysqli_num_rows($resultAP) != 0) {
 
     function intializeValidetta() {
         $(function(){
-            // validetta
+            // intializing validetta
             $("#studentData").validetta({
                 validators: {
                     regExp: {
                         aciertos : {
                             pattern: /(^[1-3][0-9]{2}$)|(^[1-9][0-9]$)|(^[0-9]$)|(^-1$)/,
-                            errorMessage: "Rango de aciertos aceptados [-1, 399]"
+                            errorMessage: "Rango aceptado valido: [-1, 399]"
+                        },
+                        promedio : {
+                            pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
+                            errorMessage: "Promedio no valido"
+                        },
+                        fecha : {
+                            pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
+                            errorMessage: "Fecha no valida"
                         }
                     }
+                },
+                realTime : true,
+                bubblePosition: 'bottom'
+            });
+
+            // hiding when control gets focus
+            $("form input").focus(function(){
+                let parent = $(this).parent();
+                if(parent.hasClass("validetta-error") == true){
+                    parent.removeClass("validetta-error");
+                    parent.find("span.validetta-bubble").remove();
                 }
             });
         });
