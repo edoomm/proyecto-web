@@ -10,5 +10,6 @@
     while($filas = mysqli_fetch_array($resInsAlumno,MYSQLI_BOTH)){
         $carreras[] = $filas[0];
     }
+    mysqli_close ($conexion);
     echo json_encode($carreras);
 ?>

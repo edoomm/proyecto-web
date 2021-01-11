@@ -50,23 +50,23 @@
                             <br>
                             <div class="col s12 input-field">
                                 <label for="curp">Curp</label>
-                                <input type="text" id="curp" name="curp" value="CERI000722HDFRVNA9"
-                                    data-validetta="required,minLength[18],maxLength[18]">
+                                <input type="text" id="curp" name="curp" value="CERI000722HDFRVNA9" onkeyup="mayuscula(this)"
+                                    data-validetta="required">
                             </div>
 
                             <div class="col s12 m12 l4 input-field">
                                 <label for="nombre">Nombre(s)</label>
-                                <input type="text" id="nombre" name="nombre" value="Ian" data-validetta="required">
+                                <input type="text" id="nombre" name="nombre" value="Ian" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 l4 input-field">
                                 <label for="primer_ape">Primer apellido</label>
-                                <input type="text" id="primer_ape" name="primer_ape" value="Ceron" data-validetta="required">
+                                <input type="text" id="primer_ape" name="primer_ape" value="Ceron" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 l4 input-field">
                                 <label for="segundo_ape">Segundo apellido</label>
-                                <input type="text" id="segundo_ape" name="segundo_ape" value="Rivera" data-validetta="required">
+                                <input type="text" id="segundo_ape" name="segundo_ape" value="Rivera" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 l6 input-field">
@@ -76,22 +76,22 @@
                             </div>
 
                             <div class="input-field col s12 m6 l6">
-                                <select id="genero" name="genero">
-                                    <option value="">G&eacute;nero</option>
-                                    <option selected value="Masculino">Masculino</option>
-                                    <option value="Femenino">Femenino</option>
+                                <select id="genero" name="genero" data-validetta="required">
+                                    <option value="">G&Eacute;NERO</option>
+                                    <option value="M">MASCULINO</option>
+                                    <option value="F">FEMENINO</option>
+                                    <option value="ND">PREFIERO NO DECIRLO</option>
                                 </select>
                             </div>
 
                             <div class="col s12 m12 input-field">
                                 <label for="correo">Correo electr&oacute;nico</label>
-                                <input type="text" id="correo" name="correo" value="Ian.cr@outlook.com" data-validetta="required,email">
+                                <input type="text" id="correo" name="correo" value="Ian.cr@outlook.com" onkeyup="mayuscula(this)" data-validetta="required,email">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="telefono_fijo">Tel&eacute;fono fijo (opcional)</label>
                                 <input type="text" id="telefono_fijo" name="telefono_fijo" data-validetta="number">
-                                <!--/^(?:(?:\+|00)?34)?[6-9]\d{8}$-->
                             </div>
 
                             <div class="col s12 m6 input-field">
@@ -111,7 +111,7 @@
                             <br>
                             <div class="col s12 input-field">
                                 <label for="calle">Calle</label>
-                                <input type="text" id="calle" name="calle" value="Avenida Colinas" data-validetta="required">
+                                <input type="text" id="calle" name="calle" value="Avenida Colinas" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 input-field">
@@ -131,17 +131,17 @@
 
                             <div class="col s12 m6 input-field">
                                 <label for="colonia">Colonia</label>
-                                <input type="text" id="colonia" name="colonia" value="Colinas de San Mateo" data-validetta="required">
+                                <input type="text" id="colonia" name="colonia" value="Colinas de San Mateo" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="municipio">Municipio</label>
-                                <input type="text" id="municipio" name="municipio" value="Naucalpan" data-validetta="required">
+                                <input type="text" id="municipio" name="municipio" value="Naucalpan" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="estado">Estado</label>
-                                <input type="text" id="estado" name="estado" value="Estado de México" data-validetta="required">
+                                <input type="text" id="estado" name="estado" value="Estado de México" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s6 m3" style="float:right;">
@@ -157,47 +157,47 @@
                     <div id="test-swipe-3" class="col s12">
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <select id="bachillerato" name="bachillerato">
-                                    <option value="" disabled selected>Tipo de bachillerato</option>
-                                    <option value="Bachillerato general">Bachillerato general</option>
-                                    <option value="Bachillerato técnico">Bachillerato t&eacute;cnico</option>
-                                    <option value="Bachillerato en línea">Bachillerato en l&iacute;nea</option>
+                                <select id="bachillerato" name="bachillerato" data-validetta="required">
+                                    <option value="" selected>TIPO DE BACHILLERATO</option>
+                                    <option value="BACHILLERATO GENERAL">BACHILLERATO GENERAL</option>
+                                    <option value="BACHILLERATO TÉCNICO">BACHILLERATO T&Eacute;CNICO</option>
+                                    <option value="BACHILLERATO EN LÍNEA">BACHILLERATO EN L&Iacute;NEA</option>
                                 </select>
                             </div>
 
                             <div id="nombre_escuela" class="col s12 m6 input-field">
                                 <label for="nombre_Escuela">Nombre de la escuela</label>
-                                <input readonly type="text" name="nombre_Escuela" id="nombre_Escuela"> 
+                                <input readonly type="text" name="nombre_Escuela" id="nombre_Escuela" onkeyup="mayuscula(this)"> 
                             </div>
 
                             <div id="box_escuela_1" class="input-field col s12 m6" style="display:none;">
                                 <select id="escuelas" name="escuelas">
-                                    <option value="" onlyread selected>Selecciona escuela</option>
+                                    <option value="" selected>SELECIONA ESCUELA</option>
                                    
                                 </select>
                             </div>
 
                             <div class="col s12 input-field">
                                 <label for="localidad">Localidad</label>
-                                <input readonly type="text" name="localidad" id="localidad"
+                                <input readonly type="text" name="localidad" id="localidad" onkeyup="mayuscula(this)"
                                     data-validetta="required">
                             </div>
 
                             <div id="box_formacion_tecnica" class="col s12 input-field" style="display:none;">
                                 <select name="formacion_tecnica" id="formacion_tecnica">
-                                    <option value="" onlyread selected>Formaci&oacute;n t&eacute;cnica obtenida
+                                    <option value="" selected>FORMACI&Oacute;N T&Eacute;CNICA OBTENIDA
                                     </option>
                                 </select>
                             </div>
 
                             <div id="input_formacion_tecnica" class="col s12 input-field" style="display:none;">
                                 <label for="formacion_tecnica2">Formaci&oacute;n t&eacute;cnica obtenida</label>
-                                <input type="text" name="formacion_tecnica2" id="formacion_tecnica2">
+                                <input type="text" name="formacion_tecnica2" id="formacion_tecnica2" onkeyup="mayuscula(this)">
                             </div>
 
                             <div class="col s12 input-field">
                                 <label for="promedio">Promedio obtenido</label>
-                                <input type="text" name="promedio" id="promedio" value="9" data-validetta="required,number">
+                                <input type="text" name="promedio" id="promedio" value="9" data-validetta="required">
                             </div>
 
                             <div class="col s6 m3" style="float:right;">
@@ -215,26 +215,26 @@
                             <br>
                             <div class="col s12 m6 input-field">
                                 <label for="semestre">Semestre</label>
-                                <input readonly value="2021-1" type="text" id="semestre" name="semestre">
+                                <input readonly value="2021-1" type="text" id="semestre" name="semestre" onkeyup="mayuscula(this)">
                             </div>
 
                             <div class="col s12 m6 input-field">
-                                <select name="programa_academico">
-                                    <option value="" disabled>Programa acad&eacute;mico</option>
-                                    <option value="1" selected>Ing. en Sistemas Computacionales (ISC)</option>
-                                    <option value="2">Ing. en Inteligencia Artificial (IIA)</option>
-                                    <option value="3">Lic. en Ciencia de Datos (LCD)</option>
+                                <select name="programa_academico" data-validetta="required">
+                                    <option value="" selected>PROGRAMA ACAD&Eacute;MICO</option>
+                                    <option value="1">ING. EN SISTEMAS COMPUTACIONALES (ISC)</option>
+                                    <option value="2">ING. EN INTELIGENCIA ARTIFICIAL (IIA)</option>
+                                    <option value="3">LIC. EN CIENCIA DE DATOS (LCD)</option>
                                 </select>
                             </div>
 
                             <div class="col s12 m6 input-field">
-                                <select name="opcion">
-                                    <option value="" disabled>N&uacute;mero de opci&oacute;n asignada
+                                <select name="opcion" data-validetta="required">
+                                    <option value="" selected>N&uacute;mero de opci&oacute;n asignada
                                     </option>
-                                    <option value="1" selected>ESCOM fue mi primer opci&oacute;n</option>
-                                    <option value="2">ESCOM fue mi segunda opci&oacute;n</option>
-                                    <option value="3">ESCOM fue mi tercer opci&oacute;n</option>
-                                    <option value="4">ESCOM no estuvo en mis opciones</option>
+                                    <option value="1">ESCOM FUE MI PRIMER OPCI&Oacute;N</option>
+                                    <option value="2">ESCOM FUE MI SEGUNDA OPCI&Oacute;N</option>
+                                    <option value="3">ESCOM FUE MI TERCER OPCI&Oacute;N</option>
+                                    <option value="4">ESCOM NO ESTUVO EN MIS OPCIONES</option>
                                 </select>
                             </div>
                         </div>
