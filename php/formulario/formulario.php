@@ -49,7 +49,7 @@
     }
     
 
-    if($bachillerato == "Bachillerato general" || $escuelas == 'Otra'){
+    if($bachillerato == "BACHILLERATO GENERAL" || $escuelas == 'OTRA'){
         if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM escuela WHERE nombre ="."'".$nombre_Escuela."'")) == 0){ //Valida que no exista ya una escuela con el mismo nombre
             $sqlInsAlumno = "INSERT INTO escuela (nombre, localidad, tipo) VALUES ("."'".$nombre_Escuela."','".$localidad."','".$bachillerato."')";
             $resInsAlumno = mysqli_real_query($conexion,$sqlInsAlumno);
@@ -67,7 +67,7 @@
         }
     }
 
-    if($bachillerato == "Bachillerato general" || ($bachillerato == "Bachillerato en línea" && $escuelas == "Otra"))
+    if($bachillerato == "BACHILLERATO GENERAL" || ($bachillerato == "BACHILLERATO EN LÍNEA" && $escuelas == "OTRA"))
     {
         if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM alumno_has_escuela WHERE curp_alumno ="."'".$curp."'")) == 0){ //Valida que no exista el mismo alumno con mas de 1 registro en la tabla alumno_has_escuela
             $sqlID_ESCUELA = "SELECT id_escuela FROM escuela WHERE nombre ="."'".$nombre_Escuela."'";
@@ -91,7 +91,7 @@
             //mysqli_free_result($resID_ESCUELA);          
         }
     }
-    elseif($bachillerato == "Bachillerato en línea" && $escuelas != "Otra"){
+    elseif($bachillerato == "BACHILLERATO EN LÍNEA" && $escuelas != "OTRA"){
         if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM alumno_has_escuela WHERE curp_alumno ="."'".$curp."'")) == 0){ //Valida que no exista el mismo alumno con mas de 1 registro en la tabla alumno_has_escuela
             $sqlInsAlumno = "INSERT INTO alumno_has_escuela (curp_alumno, id_escuela, promedio)
             VALUES ("."'".$curp."','".$escuelas."','".$promedio."')";
@@ -110,9 +110,9 @@
         }
     }
 
-    elseif ($bachillerato == "Bachillerato técnico"){
+    elseif ($bachillerato == "BACHILLERATO TÉCNICO"){
 
-        if($escuelas == 'Otra'){
+        if($escuelas == 'OTRA'){
             if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM formacion_tecnica WHERE nombre ="."'".$formacion_tecnica2."'")) == 0){ //Valida que no exista el nombre de una carrera tecnica mas de 1 vez
                 $sqlInsAlumno = "INSERT INTO formacion_tecnica (nombre)
                 VALUES ("."'".$formacion_tecnica2."')";
