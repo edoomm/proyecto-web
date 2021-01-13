@@ -65,25 +65,21 @@ $(document).ready(function () {
                     "<h6>Si colocaste mal un caracter puedes CANCELAR para volver al formulario y editar tu información, si todo es correcto, agrega una contraseña con la que podras iniciar sesión.</h6>" +
                     "<form>" +
                         "<br><div class='row'>" +
-                            "<div class='col s12 input-field'>" +
+                            "<div class='col s12 m6 input-field'>" +
                                 "<label class='active' for='confirma_curp'>Curp</label>" +
                                 "<input readonly type='text' id='confirma_curp' name='confirma_curp' value='" + curp + "'>" +
                             "</div>" +
-                        "</div>" +
-                        "<div class='row'>" +
-                            "<div class='col s12 input-field'>" +
+                            "<div class='col s12 m6 input-field'>" +
                                 "<label class='active' for='confirma_correo'>Correo</label>" +
                                 "<input readonly type='text' id='confirma_correo' name='confirma_correo' value='" + correo + "'>" +
                             "</div>" +
                         "</div>" +
                         "<div class='row'>" +
-                            "<div class='col s12 input-field'>" +
+                            "<div class='col s12 m6 input-field'>" +
                                 "<label for='contrasena'>Contraseña</label>" +
                                 "<input type='password' id='contrasena' name='contrasena'>" +
                             "</div>" +
-                        "</div>" +
-                        "<div class='row'>" +
-                            "<div class='col s12 input-field'>" +
+                            "<div class='col s12 m6 input-field'>" +
                                 "<label for='confirma_contrasena'>Confirma la contraseña</label>" +
                                 "<input type='password' id='confirma_contrasena' name='confirma_contrasena'>" +
                             "</div>" +
@@ -135,13 +131,16 @@ $(document).ready(function () {
                                         });
                                     } else if (AX.cod == 1) {
                                         $.alert({
-                                            title: "",
-                                            content: AX.msj,
+                                            title: AX.msj,
+                                            content: AX.msj2,
                                             buttons: {
                                                 Confirmar: {
                                                     btnClass: 'btn-blue',
                                                     action: function () {
-                                                        location.reload();
+                                                        let nombre = $("#nombre").val();
+                                                        let curp = $("#curp").val();
+                                                        //location.reload();
+                                                        window.location.replace("../php/formulario/pdf.php?curp="+curp+"&nombre="+nombre);
                                                     }
                                                 }
                                             }
@@ -207,7 +206,7 @@ $(document).ready(function () {
         if (bachillerato == "BACHILLERATO TÉCNICO") {
             $("#formacion_tecnica2").val('');
             resetCarreras();
-            if (esc != "Otra") {
+            if (esc != "OTRA") {
                 cambiarCarreras(esc);
             }
             mismoSelect(esc, 1);
@@ -323,13 +322,13 @@ function cambiarEscuelas(bachillerato) {
                     if ((i + 1) < AX.length) {
                         $('#escuelas').append($('<option value="' + (i + 1) + '">' + AX[i] + '</option>'));
                     } else {
-                        $('#escuelas').append($('<option value="' + "Otra" + '">' + AX[i] + '</option>'));
+                        $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[i] + '</option>'));
                     }
                     $('#escuelas').formSelect();
                 }
             } else if (bachillerato == "BACHILLERATO EN LÍNEA") {
                 $('#escuelas').append($('<option value="' + "10" + '">' + AX[0] + '</option>'));
-                $('#escuelas').append($('<option value="' + "Otra" + '">' + AX[1] + '</option>'));
+                $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[1] + '</option>'));
                 $('#escuelas').formSelect();
             }
         }
@@ -337,7 +336,7 @@ function cambiarEscuelas(bachillerato) {
 }
 
 function mismoSelect(esc, n) {
-    if (esc != "Otra") {
+    if (esc != "OTRA") {
         $("#nombre_escuela").css("display", "none");
         $("#localidad").prop("readonly", true);
         M.updateTextFields();

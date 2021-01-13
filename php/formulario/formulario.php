@@ -243,6 +243,7 @@
                         else{
                             $respAX["cod"] = 1;
                             $respAX["msj"] = "¡El registro se realizo correctamente!";
+                            $respAX["msj2"] = "Al cerrar esta ventana vas a poder descargar tu comprobante de horario para tu examen diagnostico.";
                             mysqli_close ($conexion);
                             echo json_encode($respAX);
                             exit(0);
