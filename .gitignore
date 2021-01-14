@@ -105,3 +105,6 @@ Thumbs.db
 !.gitignore
 !.editorconfig
 !.phpcs.xml.dist
+
+# don`t ignore script.sql
+!script.sql
