@@ -151,7 +151,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                     <div class="col l6 m6 s12">
                         <label for="grupo">Grupo</label>
                         <select id="grupo">
-                            <option value="NULL" selected>Sin grupo asignado</option>
+                            <option value="NULL" disabled selected>Sin grupo asignado</option>
                             <?php
                             // fetch Grupo array
                             while ($rowGrupos = mysqli_fetch_array($resultGrupos)) {
@@ -331,7 +331,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                 </li>
             </ul>
             <div class="form-field">
-                <button class="btn-large waves-effect waves-dark blue" style="width: 100%;">Guardar</button>
+                <button class="btn-large waves-effect waves-dark blue" style="width: 100%;" id="btnSave">Guardar</button>
             </div><br>
             <div class="form-field">
                 <button class="btn-large waves-effect waves-dark white red-text" style="width: 100%;" id="btnDelete">Eliminar</button>
@@ -453,7 +453,10 @@ if (mysqli_num_rows($resultAP) != 0) {
                     }
                 },
                 realTime : true,
-                bubblePosition: 'bottom'
+                bubblePosition: 'bottom',
+                onValid : function (e) {
+                    submitForm();
+                }
             });
 
             // hiding when control gets focus
@@ -541,10 +544,6 @@ if (mysqli_num_rows($resultAP) != 0) {
             M.updateTextFields();
         });
     }
-
-    $("#btnDelete").click(function(e) {
-        // e.preventDefault();
-    })
 
     function cambiarEscuelas(bachillerato) {
         $.ajax({
@@ -689,8 +688,39 @@ if (mysqli_num_rows($resultAP) != 0) {
         e.value = e.value.toUpperCase();
     }
 
-    // pa ver que valor da el select
-    $("#bachillerato").on('change', function () {
-        <?php $id_escuela = -1; ?>
-    })
+    /**
+     * Elimina al alumno
+     */
+    $("#btnDelete").click(function(e) {
+        e.preventDefault();
+    });
+
+    /**
+     * Previene el submit del form, pero sigue validando y requiriendo los controles necesarios
+     */
+    $("form").submit(function(e){
+        e.preventDefault();
+    });
+
+    /**
+     * Función llamada desde la propiedad onValid de validetta
+     */
+    function submitForm() {
+        var curp = $("#curp").val();
+
+        var grupo = $("#grupo").val();
+        var aciertos = $("#aciertos").val();
+
+        // grupo y aciertos
+        $.ajax({
+            url: "./group_score.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, grupo: grupo, aciertos: aciertos},
+            success: function (respax) {
+                console.log(respax);
+            }
+        });
+    }
+
 </script>
