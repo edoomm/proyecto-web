@@ -34,9 +34,9 @@ if (mysqli_num_rows($resultAG) != 0) {
 }
 
 // escuela
-define('TIPO_ESCUELA_TEC', 'Bachillerato Técnico');
-define('TIPO_ESCUELA_GEN', 'Bachillerato general');
-define('TIPO_ESCUELA_LIN', 'Bachillerato en línea');
+define('TIPO_ESCUELA_TEC', 'BACHILLERATO TÉCNICO');
+define('TIPO_ESCUELA_GEN', 'BACHILLERATO GENERAL');
+define('TIPO_ESCUELA_LIN', 'BACHILLERATO EN LÍNEA');
 
 $nombre_escuela = "";
 $tipo_escuela = 0;
@@ -263,9 +263,9 @@ if (mysqli_num_rows($resultAP) != 0) {
                             <div class="input-field col s12 m6 l6">
                                 <select id="bachillerato">
                                     <option value="0" disabled selected>Tipo de bachillerato</option>
-                                    <option value="1">Bachillerato general</option>
-                                    <option value="2">Bachillerato t&eacute;cnico</option>
-                                    <option value="3">Bachillerato en l&iacute;nea</option>
+                                    <option value="1">BACHILLERATO GENERAL</option>
+                                    <option value="2">BACHILLERATO T&Eacute;CNICO</option>
+                                    <option value="3">BACHILLERATO EN L&Iacute;NEA</option>
                                 </select>
                             </div>
 
