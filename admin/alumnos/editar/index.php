@@ -197,7 +197,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             <div class="row">
                                 <div class="col s12 m6 l6 input-field">
                                     <label for="fecha-nac">Fecha de nacimiento</label>
-                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" required>
+                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" value="<?php echo $fecha_nacimiento; ?>" required>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
                                     <select id="genero">
@@ -421,8 +421,6 @@ if (mysqli_num_rows($resultAP) != 0) {
                 minDate: new Date(minFecha, 0, 1),
                 maxDate: new Date(maxFecha, 11, 31),
                 yearRange: rango,
-                defaultDate: new Date(2000, 0, 1),
-                setDefaultDate: true,
                 i18n: {
                     months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'AG', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
                     monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
@@ -527,8 +525,6 @@ if (mysqli_num_rows($resultAP) != 0) {
                 }
 
             }
-            
-            $("#fecha-nac").val("<?php echo $fecha_nacimiento; ?>");
 
             $("#grupo").val("<?php echo $grupo_alumno; ?>");
             $("#grupo").formSelect();
@@ -541,6 +537,7 @@ if (mysqli_num_rows($resultAP) != 0) {
 
             $("#programaacad").val("<?php echo $programa_academico; ?>");
             $("#programaacad").formSelect();
+
             M.updateTextFields();
         });
     }
@@ -562,15 +559,27 @@ if (mysqli_num_rows($resultAP) != 0) {
                 if (bachillerato == "BACHILLERATO TÉCNICO") {
                     for (i = 0; i < AX.length; i++) {
                         if ((i + 1) < AX.length) {
-                            $('#escuelas').append($('<option value="' + (i + 1) + '">' + AX[i] + '</option>'));
+                            if (<?php echo $id_escuela; ?> == (i + 1)) {
+                                $('#escuelas').append($('<option value="' + (i + 1) + '" selected>' + AX[i] + '</option>'));    
+                            }
+                            else {
+                                $('#escuelas').append($('<option value="' + (i + 1) + '">' + AX[i] + '</option>'));
+                            }
                         } else {
                             $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[i] + '</option>'));
                         }
                     }
                     $('#escuelas').formSelect();
                 } else if (bachillerato == "BACHILLERATO EN LÍNEA") {
-                    $('#escuelas').append($('<option value="' + "10" + '">' + AX[0] + '</option>'));
-                    $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[1] + '</option>'));
+                    if ("<?php echo $id_escuela; ?>" == "10") {
+                        $('#escuelas').append($('<option value="' + "10" + '" selected>' + AX[0] + '</option>'));
+                        $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[1] + '</option>'));
+                    }
+                    else {
+                        $('#escuelas').append($('<option value="' + "10" + '">' + AX[0] + '</option>'));
+                        $('#escuelas').append($('<option value="' + "OTRA" + '" selected>' + AX[1] + '</option>'));
+                    }
+                    
                     $('#escuelas').formSelect();
                 }
             }
@@ -676,4 +685,9 @@ if (mysqli_num_rows($resultAP) != 0) {
     function mayuscula(e){
         e.value = e.value.toUpperCase();
     }
+
+    // pa ver que valor da el select
+    $("#bachillerato").on('change', function () {
+        <?php $id_escuela = -1; ?>
+    })
 </script>
