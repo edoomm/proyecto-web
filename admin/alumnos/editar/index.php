@@ -594,7 +594,10 @@ if (mysqli_num_rows($resultAP) != 0) {
             success: function (carreras) {
                 let AX = JSON.parse(carreras);
                 for (i = 0; i < AX.length; i++) {
-                    $('#formacion_tecnica').append($('<option value="' + AX[i] + '">' + AX[i] + '</option>'));
+                    if ("<?php echo $nombre_formacion_tecnica; ?>" == AX[i])
+                    $('#formacion_tecnica').append($('<option value="' + AX[i] + '" selected>' + AX[i] + '</option>'));
+                    else
+                        $('#formacion_tecnica').append($('<option value="' + AX[i] + '">' + AX[i] + '</option>'));
                 }
                 $('#formacion_tecnica').formSelect();
             }
