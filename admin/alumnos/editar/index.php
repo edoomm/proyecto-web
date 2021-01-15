@@ -1,5 +1,13 @@
 <?php
 
+if (!isset($_POST["txtCurp"])) {
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $extra = '';
+    header("Location: http://$host$uri/$extra"); // aca hay que cambiarlo por una direccion más arriba
+    exit;
+}
+
 $curp = $_POST["txtCurp"];
 
 include '../../../php/db.php';
