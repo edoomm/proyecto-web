@@ -331,8 +331,8 @@ if (mysqli_num_rows($resultAP) != 0) {
                                 <!-- <input type="text" name="programaacad" id="programaacad" value="<?php echo $programa_academico; ?>"> -->
                             </div>
                             <div class="row input-field">
-                                <label for="opción">Opción</label>
-                                <input type="text" name="opción" id="opción" value="<?php echo $opcion; ?>" required>
+                                <label for="opcion">Opción</label>
+                                <input type="text" name="opcion" id="opcion" value="<?php echo $opcion; ?>" required>
                             </div>
                         </div>
                     </div>
@@ -747,6 +747,21 @@ if (mysqli_num_rows($resultAP) != 0) {
             cache: false,
             data: {curp: curp, nombre: nombre, apepat: apepat, apemat: apemat, genero: genero, fechanac: fechanac, email: email,
                 telcelular: telcelular, telfijo: telfijo, direccion: direccion},
+            success: function (respax) {
+                console.log(respax);
+            }
+        });
+
+        // programa academico
+        var semestre = $("#semestre").val();
+        var programaacad = $("#programaacad").val();
+        var opcion = $("#opcion").val();
+
+        $.ajax({
+            url: "./programa_acad.php",
+            method: "POST",
+            cache: false,
+            data: {curp:curp, semestre: semestre, programaacad: programaacad, opcion: opcion},
             success: function (respax) {
                 console.log(respax);
             }
