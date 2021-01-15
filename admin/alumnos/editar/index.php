@@ -256,7 +256,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <select id="bachillerato" name="bachillerato" data-validetta="required">
-                                        <option value="">TIPO DE BACHILLERATO</option>
+                                        <option value="" disabled>TIPO DE BACHILLERATO</option>
                                         <option value="BACHILLERATO GENERAL">BACHILLERATO GENERAL</option>
                                         <option value="BACHILLERATO TÉCNICO">BACHILLERATO T&Eacute;CNICO</option>
                                         <option value="BACHILLERATO EN LÍNEA">BACHILLERATO EN L&Iacute;NEA</option>
@@ -270,7 +270,7 @@ if (mysqli_num_rows($resultAP) != 0) {
 
                                 <div id="box_escuela_1" class="input-field col s12 m6">
                                     <select id="escuelas" name="escuelas">
-                                        <option value="">SELECIONA ESCUELA</option>
+                                        <option value="" disabled>SELECIONA ESCUELA</option>
                                     
                                     </select>
                                 </div>
@@ -283,7 +283,7 @@ if (mysqli_num_rows($resultAP) != 0) {
 
                                 <div id="box_formacion_tecnica" class="col s12 input-field">
                                     <select id="formacion_tecnica" name="formacion_tecnica">
-                                        <option value="">FORMACI&Oacute;N T&Eacute;CNICA OBTENIDA</option>
+                                        <option value="" disabled>FORMACI&Oacute;N T&Eacute;CNICA OBTENIDA</option>
                                     </select>
                                 </div>
 
@@ -297,6 +297,8 @@ if (mysqli_num_rows($resultAP) != 0) {
                                     <input type="text" name="promedio" id="promedio" value="<?php echo $promedio; ?>" data-validetta="required">
                                 </div>
                             </div>
+
+                            <input type="text" name="escuela_nuevo" id="escuela_nuevo" hidden>
 
                         </div> 
                     </div>
@@ -367,6 +369,10 @@ if (mysqli_num_rows($resultAP) != 0) {
 </html>
 
 <script>
+    let BACH_GEN = "BACHILLERATO GENERAL";
+    let BACH_LIN = "BACHILLERATO EN LÍNEA";
+    let BACH_TEC = "BACHILLERATO TÉCNICO";
+
     $(document).ready(function(){
         // Intializing 
         intializeControls();
@@ -767,7 +773,41 @@ if (mysqli_num_rows($resultAP) != 0) {
             }
         });
 
-        location.reload();
+        // escuela
+        var newEscuela = $("#escuela_nuevo").val();
+        var escuela = $("#nombre_Escuela").val();
+        var tipoBach = $("#bachillerato").val();
+        switch (tipoBach) {
+            case BACH_TEC:
+                if (newEscuela != "")
+                    actualizarBachTec();
+                break;
+        
+            default:
+                if (escuela != "")
+                    actualizarEscuela();
+                break;
+        }
+
+        // location.reload();
+    }
+
+    $("#escuelas").on('change', function(){
+        $("#escuela_nuevo").val(this.value);
+    });
+
+    function actualizarBachTec() {
+        var escuela = $("#escuela_nuevo").val();
+        var formacion = $("#formacion_tecnica").val();
+
+        alert("Cambio en bachillerato técnico\n" + escuela + "\n" + formacion);
+    }
+
+    function actualizarEscuela() {
+        var escuela = $("#nombre_Escuela").val();
+        var formacion = "NULL";
+
+        alert("Cambio en escuela\n" + escuela + "\n" + formacion);
     }
 
 </script>
