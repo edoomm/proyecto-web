@@ -217,11 +217,11 @@ if (mysqli_num_rows($resultAP) != 0) {
                                 </div>
                             </div>
                             <div class="row input-field">
-                                <label for="correo">Correo electronico</label>
-                                <input type="email" name="correo" id="correo" value="<?php echo $correo; ?>" required>
-                                <!-- <input id="email" type="email" class="validate" value="<?php echo $correo; ?>">
+                                <!-- <label for="correo">Correo electronico</label>
+                                <input type="email" name="correo" id="correo" value="<?php echo $correo; ?>" required> -->
+                                <input id="email" type="email" class="validate" value="<?php echo $correo; ?>" required>
                                 <label for="email">Correo electronico</label>
-                                <span class="helper-text" data-error="Incorrecto" data-success="Correcto"></span> -->
+                                <span class="helper-text" data-error="Incorrecto" data-success="Correcto"></span>
                             </div>
                             <div class="row">
                                 <div class="col l6 m6 s12 input-field">
@@ -716,10 +716,10 @@ if (mysqli_num_rows($resultAP) != 0) {
     function submitForm() {
         var curp = $("#curp").val();
 
+        // grupo y aciertos
         var grupo = $("#grupo").val();
         var aciertos = $("#aciertos").val();
 
-        // grupo y aciertos
         $.ajax({
             url: "./group_score.php",
             method: "POST",
@@ -729,6 +729,30 @@ if (mysqli_num_rows($resultAP) != 0) {
                 console.log(respax);
             }
         });
+
+        // información personal
+        var nombre = $("#nombre").val();
+        var apepat = $("#apellidopat").val();
+        var apemat = $("#apellidomat").val();
+        var genero = $("#genero").val();
+        var fechanac = $("#fecha-nac").val();
+        var email = $("#email").val();
+        var telcelular = $("#telcelular").val();
+        var telfijo = $("#telfijo").val();
+        var direccion = $("#direccion").val();
+        
+        $.ajax({
+            url: "./personal_info.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, nombre: nombre, apepat: apepat, apemat: apemat, genero: genero, fechanac: fechanac, email: email,
+                telcelular: telcelular, telfijo: telfijo, direccion: direccion},
+            success: function (respax) {
+                console.log(respax);
+            }
+        });
+
+        location.reload();
     }
 
 </script>
