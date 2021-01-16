@@ -819,9 +819,27 @@ if (mysqli_num_rows($resultAP) != 0) {
     }
 
     function actualizarEscuela(curp, escuela, tipo) {
-        var formacion = "NULL";
+        var localidad = $("#localidad").val();
+        // var formacion = "NULL";
 
-        alert("Cambio en escuela " + tipo + "\n" + escuela + "\n" + formacion);
+        // alert("Cambio en escuela " + tipo + "\n" + escuela + "\n" + formacion);
+        switch(tipo) {
+            case BACH_GEN:
+                $.ajax({
+                    url: "./cambio_gen.php",
+                    method: "POST",
+                    cache: false,
+                    data: {curp: curp, nombre_escuela: escuela, promedio: $("#promedio").val(), localidad: localidad, tipo: tipo},
+                    success: function(respax) {
+                        console.log(respax);
+                    }
+                });
+                break;
+            case BACH_LIN:
+                break;
+            default:
+                console.log("Error [#4.1] al tratar de actualizar la escuela");
+        }
     }
 
 </script>
