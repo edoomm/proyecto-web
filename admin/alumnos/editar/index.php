@@ -250,7 +250,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                 </li>
                 <!-- Escuela de procedencia -->
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">school</i>Escuela de procedencia</div>
+                    <div class="collapsible-header" onclick="updateSchool()"><i class="material-icons">school</i>Escuela de procedencia</div>
                     <div class="collapsible-body">
                         <div class="form-field">
                             <div class="row">
@@ -776,8 +776,6 @@ if (mysqli_num_rows($resultAP) != 0) {
         // escuela
         var newEscuela = $("#escuela_nuevo").val();
 
-        console.log(newEscuela);
-
         var escuela = $("#nombre_Escuela").val();
         var tipoBach = $("#bachillerato").val();
         switch (tipoBach) {
@@ -796,12 +794,16 @@ if (mysqli_num_rows($resultAP) != 0) {
                 break;
         }
 
-        // location.reload();
+        location.reload();
     }
 
     $("#escuelas").on('change', function(){
         $("#escuela_nuevo").val(this.value);
     });
+
+    function updateSchool() {
+        $("#escuela_nuevo").val($("#escuelas").val());
+    }
 
     function actualizarBachTec(curp) {
         var escuela = $("#escuela_nuevo").val();
@@ -820,26 +822,17 @@ if (mysqli_num_rows($resultAP) != 0) {
 
     function actualizarEscuela(curp, escuela, tipo) {
         var localidad = $("#localidad").val();
-        // var formacion = "NULL";
+        var promedio = $("#promedio").val();
 
-        // alert("Cambio en escuela " + tipo + "\n" + escuela + "\n" + formacion);
-        switch(tipo) {
-            case BACH_GEN:
-                $.ajax({
-                    url: "./cambio_gen.php",
-                    method: "POST",
-                    cache: false,
-                    data: {curp: curp, nombre_escuela: escuela, promedio: $("#promedio").val(), localidad: localidad, tipo: tipo},
-                    success: function(respax) {
-                        console.log(respax);
-                    }
-                });
-                break;
-            case BACH_LIN:
-                break;
-            default:
-                console.log("Error [#4.1] al tratar de actualizar la escuela");
-        }
+        $.ajax({
+            url: "./cambio_esc.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, nombre_escuela: escuela, promedio: promedio, localidad: localidad, tipo: tipo},
+            success: function(respax) {
+                console.log(respax);
+            }
+        });
     }
 
 </script>
