@@ -775,17 +775,24 @@ if (mysqli_num_rows($resultAP) != 0) {
 
         // escuela
         var newEscuela = $("#escuela_nuevo").val();
+
+        console.log(newEscuela);
+
         var escuela = $("#nombre_Escuela").val();
         var tipoBach = $("#bachillerato").val();
         switch (tipoBach) {
             case BACH_TEC:
                 if (newEscuela != "")
-                    actualizarBachTec();
+                    actualizarBachTec(curp);
                 break;
-        
+
             default:
+                if (tipoBach == BACH_LIN && newEscuela == "10") {
+                    actualizarEscuela(curp, newEscuela, tipoBach);
+                    escuela = "";
+                }
                 if (escuela != "")
-                    actualizarEscuela();
+                    actualizarEscuela(curp, escuela, tipoBach);
                 break;
         }
 
@@ -796,18 +803,25 @@ if (mysqli_num_rows($resultAP) != 0) {
         $("#escuela_nuevo").val(this.value);
     });
 
-    function actualizarBachTec() {
+    function actualizarBachTec(curp) {
         var escuela = $("#escuela_nuevo").val();
         var formacion = $("#formacion_tecnica").val();
 
-        alert("Cambio en bachillerato técnico\n" + escuela + "\n" + formacion);
+        $.ajax({
+            url: "./cambio_tec.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, escuela: escuela, formacion: formacion, promedio: $("#promedio").val()},
+            success: function(respax) {
+                console.log(respax);
+            }
+        });
     }
 
-    function actualizarEscuela() {
-        var escuela = $("#nombre_Escuela").val();
+    function actualizarEscuela(curp, escuela, tipo) {
         var formacion = "NULL";
 
-        alert("Cambio en escuela\n" + escuela + "\n" + formacion);
+        alert("Cambio en escuela " + tipo + "\n" + escuela + "\n" + formacion);
     }
 
 </script>
