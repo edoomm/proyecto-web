@@ -145,6 +145,7 @@ $(document).ready(function () {
                                                         data:{nombre:nombre+" "+primer_ape,curp:curp,correo:correo},
                                                         cache: false
                                                     }).done(function(respuesta2){
+                                                        console.log(respuesta2);
                                                         let AX2 = JSON.parse(respuesta2);
                                                         if(AX2.cod == 0){
                                                             self.setTitle("Tu registro no está completo.");

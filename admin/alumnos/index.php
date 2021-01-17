@@ -54,9 +54,9 @@
 
                     <div class="sidenav-buttons">
                         <div class="blue lighten-5">
-                            <li><a class="waves-effect blue-text" href="./alumnos.html">Alumno</a></li>
+                            <li><a class="waves-effect blue-text" href="../alumnos/">Alumno</a></li>
                         </div>
-                        <li><a class="waves-effect" href="../reportes.html">Reportes</a></li>
+                        <li><a class="waves-effect" href="../reportes/">Reportes</a></li>
                     </div>
                 </ul>
 

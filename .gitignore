@@ -108,3 +108,6 @@ Thumbs.db
 
 # don`t ignore script.sql
 !script.sql
+
+# ignoramos los pdfs generados
+*.pdf
