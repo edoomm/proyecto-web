@@ -9,6 +9,10 @@
         content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
     <meta name="description" content="">
     <meta name="keywords" content="">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../validetta-1.0.1/dist/validetta.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
 </head>
 
 <body>
@@ -76,6 +80,7 @@
                             </div>
 
                             <div class="input-field col s12 m6 l6">
+                                <label for="genero" class="active">G&eacute;nero</label>
                                 <select id="genero" name="genero" data-validetta="required">
                                     <option value="">G&Eacute;NERO</option>
                                     <option value="M">MASCULINO</option>
@@ -157,6 +162,7 @@
                     <div id="test-swipe-3" class="col s12">
                         <div class="row">
                             <div class="input-field col s12 m6">
+                                <label for="bachillerato" class="active">Bachillerato</label>
                                 <select id="bachillerato" name="bachillerato" data-validetta="required">
                                     <option value="" selected>TIPO DE BACHILLERATO</option>
                                     <option value="BACHILLERATO GENERAL">BACHILLERATO GENERAL</option>
@@ -171,6 +177,7 @@
                             </div>
 
                             <div id="box_escuela_1" class="input-field col s12 m6" style="display:none;">
+                                <label for="escuelas" class="active">Escuela</label>
                                 <select id="escuelas" name="escuelas">
                                     <option value="" selected>SELECIONA ESCUELA</option>
                                    
@@ -184,6 +191,7 @@
                             </div>
 
                             <div id="box_formacion_tecnica" class="col s12 input-field" style="display:none;">
+                                <label for="formacion_tecnica" class="active">Formaci&oacute;n t&eacute;cnica</label>
                                 <select name="formacion_tecnica" id="formacion_tecnica">
                                     <option value="" selected>FORMACI&Oacute;N T&Eacute;CNICA OBTENIDA
                                     </option>
@@ -219,7 +227,8 @@
                             </div>
 
                             <div class="col s12 m6 input-field">
-                                <select name="programa_academico" data-validetta="required">
+                                <label for="programa_academico" class="active">Programa acad&eacute;mico</label>
+                                <select id="programa_academico" name="programa_academico" data-validetta="required">
                                     <option value="" selected>PROGRAMA ACAD&Eacute;MICO</option>
                                     <option value="1">ING. EN SISTEMAS COMPUTACIONALES (ISC)</option>
                                     <option value="2">ING. EN INTELIGENCIA ARTIFICIAL (IIA)</option>
@@ -228,8 +237,9 @@
                             </div>
 
                             <div class="col s12 m6 input-field">
-                                <select name="opcion" data-validetta="required">
-                                    <option value="" selected>N&uacute;mero de opci&oacute;n asignada
+                                <label for="opcion" class="active">Opci&oacute;n</label>
+                                <select id="opcion" name="opcion" data-validetta="required">
+                                    <option value="" selected>N&Uacute;MERO DE OPCI&Oacute;N ASIGNADA
                                     </option>
                                     <option value="1">ESCOM FUE MI PRIMER OPCI&Oacute;N</option>
                                     <option value="2">ESCOM FUE MI SEGUNDA OPCI&Oacute;N</option>
@@ -261,9 +271,5 @@
 <script src="../validetta-1.0.1/dist/validetta.min.js"></script>
 <script src="../validetta-1.0.1/localization/validettaLang-es-ES.js"></script>
 <script src="./formulario.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<link rel="stylesheet" href="../validetta-1.0.1/dist/validetta.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
-
 
 </html>

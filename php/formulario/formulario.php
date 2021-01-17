@@ -243,7 +243,7 @@
                         else{
                             $respAX["cod"] = 1;
                             $respAX["msj"] = "¡El registro se realizo correctamente!";
-                            $respAX["msj2"] = "Al cerrar esta ventana vas a poder descargar tu comprobante de horario para tu examen diagnostico.";
+                            $respAX["msj2"] = "Tus datos ya fueron registrados.";
                             mysqli_close ($conexion);
                             echo json_encode($respAX);
                             exit(0);
@@ -256,8 +256,8 @@
 
     $respAX["cod"] = 2;
     $respAX["msj"] = "Ya existe un registro asociado al curp: "."$curp"." si no fuiste tu quien realizo el registro por favor
-    comunícate al correo... para ayudarte a resolver tu situación, si solo deseas actualizar alguno de tus datos, 
-    debes iniciar sesión y desde tu perfil puedes hacerlo.";
+    comunícate al correo escom.exdiagnostico@gmail.com para ayudarte a resolver tu situación o cualquier duda que tengas, si solo deseas descargar 
+    tu comprobante, debes autenticarte para poder reenviarte el documento, si presionas el botón 'COMPROBANTE' te redirigirá a la página para este proceso.";
     mysqli_close ($conexion);
     echo json_encode($respAX);   
 ?>

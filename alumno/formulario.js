@@ -129,33 +129,55 @@ $(document).ready(function () {
                                                 }
                                             }
                                         });
-                                    } else if (AX.cod == 1) {
-                                        $.alert({
-                                            title: AX.msj,
-                                            content: AX.msj2,
-                                            buttons: {
-                                                Confirmar: {
-                                                    btnClass: 'btn-blue',
-                                                    action: function () {
-                                                        let nombre = $("#nombre").val();
-                                                        let curp = $("#curp").val();
-                                                        //location.reload();
-                                                        window.location.replace("../php/formulario/pdf.php?curp="+curp+"&nombre="+nombre);
+                                    } 
+                                    else if (AX.cod == 1) {
+                                        let nombre = $("#nombre").val();
+                                        let primer_ape = $("#primer_ape").val();
+                                        let curp = $("#curp").val();
+                                        let correo = $("#correo").val();
+                                        $.get("../php/formulario/pdf.php",{curp:curp,nombre:nombre+" "+primer_ape},function(){
+                                            $.confirm({
+                                                content: function(){
+                                                    var self = this;
+                                                    return $.ajax({
+                                                        url: "../php/formulario/correo.php",
+                                                        method: "POST",
+                                                        data:{nombre:nombre+" "+primer_ape,curp:curp,correo:correo},
+                                                        cache: false
+                                                    }).done(function(respuesta2){
+                                                        let AX2 = JSON.parse(respuesta2);
+                                                        if(AX2.cod == 0){
+                                                            self.setTitle("Tu registro no está completo.");
+                                                            self.setContent(AX.msj2+" Pero "+AX2.msj);
+                                                        }
+                                                        else{
+                                                            self.setTitle(AX.msj);
+                                                            self.setContent(AX.msj2+" "+AX2.msj);
+                                                        }
+                                                    }).fail(function(){
+                                                        self.setContent('Ocurrio un error al enviarte tu comprobante, por favor envia un mensaje a escom.exdiagnostico@gmail.com para poder enviarte tu comprobante lo antes posible.');
+                                                    });
+                                                },
+                                                buttons: {
+                                                    Confirmar: {
+                                                        btnClass: 'btn-blue'
                                                     }
+                                                },
+                                                onDestroy(){
+                                                    location.reload();
                                                 }
-                                            }
+                                            });
                                         });
-                                    } else {
+                                    }
+                                    else {
                                         $.alert({
                                             title: "¡¡Atención!!",
                                             content: AX.msj,
                                             buttons: {
-                                                incioSesion: {
+                                                Comprobante: {
                                                     btnClass: 'btn-blue',
-                                                    text: "Iniciar sesión",
                                                     action: function () {
-                                                        $.alert("Nos lleva a la pagina de inicio de sesion");
-                                                        location.reload();
+                                                        window.location.assign("../index.html");
                                                     }
                                                 },
                                                 Confirmar: {

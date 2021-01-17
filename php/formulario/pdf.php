@@ -4,7 +4,7 @@ include "./db.php";
 
 $conexion = open_database();
 $curp = $_GET["curp"];
-$nombre = $_GET["nombre"];
+$nombre = ucwords(strtolower($_GET["nombre"]));
 
 $sqlInsAlumno = "SELECT alumno_has_grupo.curp_alumno, grupo.clave, grupo.horario FROM alumno_has_grupo, grupo WHERE curp_alumno = '$curp' AND alumno_has_grupo.clave_grupo = grupo.clave";
 $resInsAlmno = mysqli_query($conexion,$sqlInsAlumno);
@@ -70,12 +70,13 @@ $pdf->AddPage();
 $pdf->SetFont('Arial','',12);
 $pdf->SetY(80);
 $pdf->Cell(10);
-$pdf->MultiCell(170,10,utf8_decode("Bienvenido a ESCOM $nombre, por favor lleva impresa esta hoja el día de tu examen DIAGNOSTICO, ya que te servirá para ingresar a las instalaciones y para identificar el salón en el que realizaras tu examen. Pon atención en esta hoja al día y la hora que se te asigno, para evitar cualquier confusión."),0,'J',0);
+$pdf->MultiCell(170,10,utf8_decode("Bienvenido a ESCOM ".utf8_decode("$nombre").", por favor lleva impresa esta hoja el día de tu examen DIAGNOSTICO, ya que te servirá para ingresar a las instalaciones y para identificar el salón en el que realizaras tu examen. Pon atención en esta hoja al día y la hora que se te asigno, para evitar cualquier confusión."),0,'J',0);
 $pdf->SetY(130);
 $pdf->Cell(25);
 $pdf->ImprovedTable($header,$data);
 $pdf->SetY(160);
 $pdf->Cell(10);
 $pdf->MultiCell(170,10,utf8_decode("NOTA: Si colocaste mal alguno de tus datos puedes cambiarlo iniciando sesión en tu perfil, de igual forma, si por alguna razón pierdes esta hoja, puedes descargarla nuevamente ingresando al sistema....(link)"),0,'J',0);
-$pdf->Output();
+$enviar = $pdf->Output('F',"$curp".'.pdf',true);
+
 ?>
