@@ -1,5 +1,13 @@
 <?php
 
+if (!isset($_POST["txtCurp"])) {
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $extra = '';
+    header("Location: http://$host$uri/$extra"); // aca hay que cambiarlo por una direccion más arriba
+    exit;
+}
+
 $curp = $_POST["txtCurp"];
 
 include '../../../php/db.php';
@@ -151,7 +159,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                     <div class="col l6 m6 s12">
                         <label for="grupo">Grupo</label>
                         <select id="grupo">
-                            <option value="NULL" selected>Sin grupo asignado</option>
+                            <option value="NULL" disabled selected>Sin grupo asignado</option>
                             <?php
                             // fetch Grupo array
                             while ($rowGrupos = mysqli_fetch_array($resultGrupos)) {
@@ -197,7 +205,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             <div class="row">
                                 <div class="col s12 m6 l6 input-field">
                                     <label for="fecha-nac">Fecha de nacimiento</label>
-                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" required>
+                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" value="<?php echo $fecha_nacimiento; ?>" required>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
                                     <select id="genero">
@@ -209,11 +217,11 @@ if (mysqli_num_rows($resultAP) != 0) {
                                 </div>
                             </div>
                             <div class="row input-field">
-                                <label for="correo">Correo electronico</label>
-                                <input type="email" name="correo" id="correo" value="<?php echo $correo; ?>" required>
-                                <!-- <input id="email" type="email" class="validate" value="<?php echo $correo; ?>">
+                                <!-- <label for="correo">Correo electronico</label>
+                                <input type="email" name="correo" id="correo" value="<?php echo $correo; ?>" required> -->
+                                <input id="email" type="email" class="validate" value="<?php echo $correo; ?>" required>
                                 <label for="email">Correo electronico</label>
-                                <span class="helper-text" data-error="Incorrecto" data-success="Correcto"></span> -->
+                                <span class="helper-text" data-error="Incorrecto" data-success="Correcto"></span>
                             </div>
                             <div class="row">
                                 <div class="col l6 m6 s12 input-field">
@@ -242,13 +250,13 @@ if (mysqli_num_rows($resultAP) != 0) {
                 </li>
                 <!-- Escuela de procedencia -->
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">school</i>Escuela de procedencia</div>
+                    <div class="collapsible-header" onclick="updateSchool()"><i class="material-icons">school</i>Escuela de procedencia</div>
                     <div class="collapsible-body">
                         <div class="form-field">
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <select id="bachillerato" name="bachillerato" data-validetta="required">
-                                        <option value="">TIPO DE BACHILLERATO</option>
+                                        <option value="" disabled>TIPO DE BACHILLERATO</option>
                                         <option value="BACHILLERATO GENERAL">BACHILLERATO GENERAL</option>
                                         <option value="BACHILLERATO TÉCNICO">BACHILLERATO T&Eacute;CNICO</option>
                                         <option value="BACHILLERATO EN LÍNEA">BACHILLERATO EN L&Iacute;NEA</option>
@@ -262,7 +270,7 @@ if (mysqli_num_rows($resultAP) != 0) {
 
                                 <div id="box_escuela_1" class="input-field col s12 m6">
                                     <select id="escuelas" name="escuelas">
-                                        <option value="">SELECIONA ESCUELA</option>
+                                        <option value="" disabled>SELECIONA ESCUELA</option>
                                     
                                     </select>
                                 </div>
@@ -275,7 +283,7 @@ if (mysqli_num_rows($resultAP) != 0) {
 
                                 <div id="box_formacion_tecnica" class="col s12 input-field">
                                     <select id="formacion_tecnica" name="formacion_tecnica">
-                                        <option value="">FORMACI&Oacute;N T&Eacute;CNICA OBTENIDA</option>
+                                        <option value="" disabled>FORMACI&Oacute;N T&Eacute;CNICA OBTENIDA</option>
                                     </select>
                                 </div>
 
@@ -289,6 +297,8 @@ if (mysqli_num_rows($resultAP) != 0) {
                                     <input type="text" name="promedio" id="promedio" value="<?php echo $promedio; ?>" data-validetta="required">
                                 </div>
                             </div>
+
+                            <input type="text" name="escuela_nuevo" id="escuela_nuevo" hidden>
 
                         </div> 
                     </div>
@@ -323,15 +333,15 @@ if (mysqli_num_rows($resultAP) != 0) {
                                 <!-- <input type="text" name="programaacad" id="programaacad" value="<?php echo $programa_academico; ?>"> -->
                             </div>
                             <div class="row input-field">
-                                <label for="opción">Opción</label>
-                                <input type="text" name="opción" id="opción" value="<?php echo $opcion; ?>" required>
+                                <label for="opcion">Opción</label>
+                                <input type="text" name="opcion" id="opcion" value="<?php echo $opcion; ?>" required>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
             <div class="form-field">
-                <button class="btn-large waves-effect waves-dark blue" style="width: 100%;">Guardar</button>
+                <button class="btn-large waves-effect waves-dark blue" style="width: 100%;" id="btnSave">Guardar</button>
             </div><br>
             <div class="form-field">
                 <button class="btn-large waves-effect waves-dark white red-text" style="width: 100%;" id="btnDelete">Eliminar</button>
@@ -359,6 +369,10 @@ if (mysqli_num_rows($resultAP) != 0) {
 </html>
 
 <script>
+    let BACH_GEN = "BACHILLERATO GENERAL";
+    let BACH_LIN = "BACHILLERATO EN LÍNEA";
+    let BACH_TEC = "BACHILLERATO TÉCNICO";
+
     $(document).ready(function(){
         // Intializing 
         intializeControls();
@@ -421,8 +435,6 @@ if (mysqli_num_rows($resultAP) != 0) {
                 minDate: new Date(minFecha, 0, 1),
                 maxDate: new Date(maxFecha, 11, 31),
                 yearRange: rango,
-                defaultDate: new Date(2000, 0, 1),
-                setDefaultDate: true,
                 i18n: {
                     months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'AG', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
                     monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
@@ -455,7 +467,10 @@ if (mysqli_num_rows($resultAP) != 0) {
                     }
                 },
                 realTime : true,
-                bubblePosition: 'bottom'
+                bubblePosition: 'bottom',
+                onValid : function (e) {
+                    submitForm();
+                }
             });
 
             // hiding when control gets focus
@@ -527,8 +542,6 @@ if (mysqli_num_rows($resultAP) != 0) {
                 }
 
             }
-            
-            $("#fecha-nac").val("<?php echo $fecha_nacimiento; ?>");
 
             $("#grupo").val("<?php echo $grupo_alumno; ?>");
             $("#grupo").formSelect();
@@ -541,13 +554,10 @@ if (mysqli_num_rows($resultAP) != 0) {
 
             $("#programaacad").val("<?php echo $programa_academico; ?>");
             $("#programaacad").formSelect();
+
             M.updateTextFields();
         });
     }
-
-    $("#btnDelete").click(function(e) {
-        // e.preventDefault();
-    })
 
     function cambiarEscuelas(bachillerato) {
         $.ajax({
@@ -562,15 +572,27 @@ if (mysqli_num_rows($resultAP) != 0) {
                 if (bachillerato == "BACHILLERATO TÉCNICO") {
                     for (i = 0; i < AX.length; i++) {
                         if ((i + 1) < AX.length) {
-                            $('#escuelas').append($('<option value="' + (i + 1) + '">' + AX[i] + '</option>'));
+                            if (<?php echo $id_escuela; ?> == (i + 1)) {
+                                $('#escuelas').append($('<option value="' + (i + 1) + '" selected>' + AX[i] + '</option>'));    
+                            }
+                            else {
+                                $('#escuelas').append($('<option value="' + (i + 1) + '">' + AX[i] + '</option>'));
+                            }
                         } else {
                             $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[i] + '</option>'));
                         }
                     }
                     $('#escuelas').formSelect();
                 } else if (bachillerato == "BACHILLERATO EN LÍNEA") {
-                    $('#escuelas').append($('<option value="' + "10" + '">' + AX[0] + '</option>'));
-                    $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[1] + '</option>'));
+                    if ("<?php echo $id_escuela; ?>" == "10") {
+                        $('#escuelas').append($('<option value="' + "10" + '" selected>' + AX[0] + '</option>'));
+                        $('#escuelas').append($('<option value="' + "OTRA" + '">' + AX[1] + '</option>'));
+                    }
+                    else {
+                        $('#escuelas').append($('<option value="' + "10" + '">' + AX[0] + '</option>'));
+                        $('#escuelas').append($('<option value="' + "OTRA" + '" selected>' + AX[1] + '</option>'));
+                    }
+                    
                     $('#escuelas').formSelect();
                 }
             }
@@ -585,7 +607,10 @@ if (mysqli_num_rows($resultAP) != 0) {
             success: function (carreras) {
                 let AX = JSON.parse(carreras);
                 for (i = 0; i < AX.length; i++) {
-                    $('#formacion_tecnica').append($('<option value="' + AX[i] + '">' + AX[i] + '</option>'));
+                    if ("<?php echo $nombre_formacion_tecnica; ?>" == AX[i])
+                    $('#formacion_tecnica').append($('<option value="' + AX[i] + '" selected>' + AX[i] + '</option>'));
+                    else
+                        $('#formacion_tecnica').append($('<option value="' + AX[i] + '">' + AX[i] + '</option>'));
                 }
                 $('#formacion_tecnica').formSelect();
             }
@@ -676,4 +701,138 @@ if (mysqli_num_rows($resultAP) != 0) {
     function mayuscula(e){
         e.value = e.value.toUpperCase();
     }
+
+    /**
+     * Elimina al alumno
+     */
+    $("#btnDelete").click(function(e) {
+        e.preventDefault();
+    });
+
+    /**
+     * Previene el submit del form, pero sigue validando y requiriendo los controles necesarios
+     */
+    $("form").submit(function(e){
+        e.preventDefault();
+    });
+
+    /**
+     * Función llamada desde la propiedad onValid de validetta
+     */
+    function submitForm() {
+        var curp = $("#curp").val();
+
+        // grupo y aciertos
+        var grupo = $("#grupo").val();
+        var aciertos = $("#aciertos").val();
+
+        $.ajax({
+            url: "./group_score.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, grupo: grupo, aciertos: aciertos},
+            success: function (respax) {
+                console.log(respax);
+            }
+        });
+
+        // información personal
+        var nombre = $("#nombre").val();
+        var apepat = $("#apellidopat").val();
+        var apemat = $("#apellidomat").val();
+        var genero = $("#genero").val();
+        var fechanac = $("#fecha-nac").val();
+        var email = $("#email").val();
+        var telcelular = $("#telcelular").val();
+        var telfijo = $("#telfijo").val();
+        var direccion = $("#direccion").val();
+        
+        $.ajax({
+            url: "./personal_info.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, nombre: nombre, apepat: apepat, apemat: apemat, genero: genero, fechanac: fechanac, email: email,
+                telcelular: telcelular, telfijo: telfijo, direccion: direccion},
+            success: function (respax) {
+                console.log(respax);
+            }
+        });
+
+        // programa academico
+        var semestre = $("#semestre").val();
+        var programaacad = $("#programaacad").val();
+        var opcion = $("#opcion").val();
+
+        $.ajax({
+            url: "./programa_acad.php",
+            method: "POST",
+            cache: false,
+            data: {curp:curp, semestre: semestre, programaacad: programaacad, opcion: opcion},
+            success: function (respax) {
+                console.log(respax);
+            }
+        });
+
+        // escuela
+        var newEscuela = $("#escuela_nuevo").val();
+
+        var escuela = $("#nombre_Escuela").val();
+        var tipoBach = $("#bachillerato").val();
+        switch (tipoBach) {
+            case BACH_TEC:
+                if (newEscuela != "")
+                    actualizarBachTec(curp);
+                break;
+
+            default:
+                if (tipoBach == BACH_LIN && newEscuela == "10") {
+                    actualizarEscuela(curp, newEscuela, tipoBach);
+                    escuela = "";
+                }
+                if (escuela != "")
+                    actualizarEscuela(curp, escuela, tipoBach);
+                break;
+        }
+
+        location.reload();
+    }
+
+    $("#escuelas").on('change', function(){
+        $("#escuela_nuevo").val(this.value);
+    });
+
+    function updateSchool() {
+        $("#escuela_nuevo").val($("#escuelas").val());
+    }
+
+    function actualizarBachTec(curp) {
+        var escuela = $("#escuela_nuevo").val();
+        var formacion = $("#formacion_tecnica").val();
+
+        $.ajax({
+            url: "./cambio_tec.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, escuela: escuela, formacion: formacion, promedio: $("#promedio").val()},
+            success: function(respax) {
+                console.log(respax);
+            }
+        });
+    }
+
+    function actualizarEscuela(curp, escuela, tipo) {
+        var localidad = $("#localidad").val();
+        var promedio = $("#promedio").val();
+
+        $.ajax({
+            url: "./cambio_esc.php",
+            method: "POST",
+            cache: false,
+            data: {curp: curp, nombre_escuela: escuela, promedio: promedio, localidad: localidad, tipo: tipo},
+            success: function(respax) {
+                console.log(respax);
+            }
+        });
+    }
+
 </script>
