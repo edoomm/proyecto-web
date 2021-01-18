@@ -27,30 +27,30 @@ $(document).ready(function () {
     });
 
     $("form").validetta({
-        // validators: {
-        //     regExp: {
-        //         curp: {
-        //             pattern: /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
-        //             errorMessage: "Ingresa un curp válido."
-        //         },
-        //         fecha_nac: {
-        //             pattern: /^((199[0-9]|200[0-5])(-)(0[1-9]|1[0-2])(-)(0[1-9]|1[0-9]|2[0-9]|3[0-1]))$/,
-        //             errorMessage: "Elige una fecha válida."
-        //         },
-        //         telefono: {
-        //             pattern: /^[2-9]{10}$/,
-        //             errorMenssage: "Proporciona tu número a 10 dígitos."
-        //         },
-        //         cp: {
-        //             pattern: /^[0-9]{5}$/,
-        //             errorMenssage: "Agrega solo los 5 dígitos de tu código postal."
-        //         },
-        //         promedio: {
-        //             pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
-        //             errorMenssage: "Puedes ocupar un número entero o un decimal con máximo 2 decimales."
-        //         }
-        //     }
-        // },
+        validators: {
+            regExp: {
+                curp: {
+                    pattern: /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+                    errorMessage: "Ingresa un curp válido"
+                },
+                fecha : {
+                    pattern: /^(19\d{2}|20(0|1)\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
+                    errorMessage: "Fecha no valida"
+                },
+                promedio : {
+                    pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
+                    errorMessage: "Promedio no valido (formato #.##)"
+                },
+                telef : {
+                    pattern: /^\d{10}$/,
+                    errorMessage: "Ingrese su numero a 10 digitos"
+                },
+                cp : {
+                    pattern: /^\d{5}$/,
+                    errorMessage: "Ingrese un CP valido (5 digitos)"
+                }
+            }
+        },
         realTime: true,
         bubblePosition: 'bottom',
         //bubbleGapTop: 10,
