@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Examples</title>
+    <meta name='viewport'
+        content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- <link rel="stylesheet" href="./validetta-1.0.1/dist/validetta.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
+    <link rel="stylesheet" href="css/validetta.min.css"></link>
+</head>
+
+<body>
+
+    <div class="container">
+        <form id="formulario" method="POST" action="#">
+            <div class="row">
+                <div class="col s12 input-field">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" data-validetta="required">
+                </div>
+
+                <div class="col s12 input-field">
+                    <label for="promedio">Promedio</label>
+                    <input type="text" name="promedio" id="promedio" data-validetta="regExp[prom]">
+                </div>
+
+                <div class="col s12 input-field">
+                    <label id="curp">Curp</label>
+                    <input type="text" name="curp" id="curp" data-validetta="regExp[curp]">
+                </div>
+
+                <div class="col s12 input-field">
+                    <label for="tel">Tel&eacute;fono</label>
+                    <input type="text" name="tel" id="tel" data-validetta="regExp[tel]">
+                </div>
+
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="js/validetta.min.js"></script>
+<!-- <script src="./validetta-1.0.1/localization/validettaLang-es-ES.js"></script> -->
+
+<script>
+    $(document).ready(function(){
+       
+    });
+
+    $(function(){
+        $("#formulario").validetta({
+            validators: {
+                regExp: {
+                    curp: {
+                        pattern: /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+                        errorMessage: "Ingresa un curp válido."
+                    },
+                
+                    tel: {
+                        pattern: /^[2-9]{10}$/,
+                        errorMenssage: "Proporciona tu número a 10 dígitos."
+                    },
+            
+                    prom: {
+                        pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
+                        errorMenssage: "Puedes ocupar un número entero o un decimal con máximo 2 decimales."
+                    }
+                }
+            },
+            realTime: true,
+            //bubblePosition: 'bottom',
+            display : 'inline',
+            errorTemplateClass : 'validetta-inline',
+            onValid: function(e){
+                e.preventDefault();
+                alert("hecho");
+            }
+        });
+    });
+
+</script>
+
+</html>
