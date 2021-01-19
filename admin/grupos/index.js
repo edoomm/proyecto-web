@@ -40,6 +40,9 @@ function intializeValidetta() {
     validateNew();
 }
 
+/**
+ * Función que inicializa las validaciones para el Modal de Nuevo grupo
+ */
 function validateNew() {
     $("#nuevo").validetta({
         validators: {
@@ -106,6 +109,21 @@ function pad(num, size) {
     return num;
 }
 
+/**
+ * Método que encapsula la petición AJAX para insertar un nuevo registro en la BD
+ */
 function submitNew() {
-    alert("Guardar nuevo");
+    var horario = $("#txtFecha").val() + " " + $("#txtHorario").val() + ":00";
+
+    $.ajax({
+        url: "insert.php",
+        method: "POST",
+        data: {clave: $("#txtClave").val(), horario: horario, cupo: $("#txtCupo").val()},
+        cache: false,
+        success: function (respax) {
+            alert(respax);
+            if (respax == "Grupo creado correctamente")
+                window.location.reload();
+        }
+    });
 }

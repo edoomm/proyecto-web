@@ -237,7 +237,5 @@ if (!isset($_SESSION["id"])) {
 </html>
 
 <script>
-    $(document).ready(function () {
-        
-    });
+    
 </script>
