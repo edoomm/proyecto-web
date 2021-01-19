@@ -464,7 +464,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             errorMessage: "Promedio no valido"
                         },
                         fecha : {
-                            pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
+                            pattern: /^(19\d{2}|20(0|1)\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
                             errorMessage: "Fecha no valida"
                         }
                     }
