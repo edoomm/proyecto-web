@@ -38,6 +38,7 @@ function intializeTableSearch() {
 
 function intializeValidetta() {
     validateNew();
+    validateEdit();
 }
 
 /**
@@ -70,6 +71,33 @@ function validateNew() {
         onValid : function (e) {
             e.preventDefault();
             submitNew();
+        },
+        onError : function (e) {
+            // e.preventDefault();
+            alert("No todos los campos son validos");
+        }
+    });
+}
+
+function validateEdit() {
+    $("#editar").validetta({
+        validators: {
+            regExp: {
+                fechahorario : {
+                    pattern: /^(2[0-1][2-9]\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01]) {1}(0{1}\d{1}|1{1}\d{1}|2{1}[0-3]{1}):[0-5]{1}\d{1}:[0-5]{1}\d{1}$$/,
+                    errorMessage: "Horario no valido"
+                },
+                cupo : {
+                    pattern: /^([1-9]{1}|[1-9]{1}\d{1})$/,
+                    errorMessage: "Rango valido [1,99]"
+                }
+            }
+        },
+        realTime : true,
+        bubblePosition: 'bottom',
+        onValid : function (e) {
+            e.preventDefault();
+            submitEdit();
         },
         onError : function (e) {
             // e.preventDefault();
@@ -123,6 +151,20 @@ function submitNew() {
         success: function (respax) {
             alert(respax);
             if (respax == "Grupo creado correctamente")
+                window.location.reload();
+        }
+    });
+}
+
+function submitEdit() {
+    $.ajax({
+        url: "update.php",
+        method: "POST",
+        data: {clave: $("#clave").val(), horario: $("#horario").val(), cupo: $("#cupo").val()},
+        cache: false,
+        success: function (respax) {
+            alert(respax);
+            if (respax == "Grupo guardado correctamente")
                 window.location.reload();
         }
     });

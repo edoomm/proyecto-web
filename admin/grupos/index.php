@@ -203,13 +203,13 @@ if (!isset($_SESSION["id"])) {
                             <div class="row">
                                 <label>Horario</label>
                                 <div class="input-field col s12">
-                                    <input id="horario" type="text" class="validate" required>
+                                    <input id="horario" type="text" class="validate" data-validetta="regExp[fechahorario]" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <label>Cupo</label>
                                 <div class="input-field col s12">
-                                    <input id="cupo" type="text" class="validate" required>
+                                    <input id="cupo" type="text" class="validate" data-validetta="regExp[cupo]" required>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +235,3 @@ if (!isset($_SESSION["id"])) {
 </div>
 
 </html>
-
-<script>
-    
-</script>
