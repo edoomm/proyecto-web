@@ -67,6 +67,7 @@ if (!isset($_SESSION["id"])) {
                             <li><a class="waves-effect blue-text" href="../alumnos/">Alumno</a></li>
                         </div>
                         <li><a class="waves-effect" href="../reportes/">Reportes</a></li>
+                        <li><a class="waves-effect" href="../grupos/">Grupos</a></li>
                     </div>
                 </ul>
 
