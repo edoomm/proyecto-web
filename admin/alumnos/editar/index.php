@@ -1,10 +1,13 @@
 <?php
 
+session_start();
+if (!isset($_SESSION["id"])) {
+    header("location:../../");
+    exit;
+}
+
 if (!isset($_POST["txtCurp"])) {
-    $host  = $_SERVER['HTTP_HOST'];
-    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $extra = '';
-    header("Location: http://$host$uri/$extra"); // aca hay que cambiarlo por una direccion más arriba
+    header("Location:../");
     exit;
 }
 
@@ -137,7 +140,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                 <ul id="nav-mobile" class="right">
                     <div class="right">
                         <li><a href="#">Acerca de</a></li>
-                        <li><a href="#">Salir</a></li>
+                        <li><a href="../../logout.php?nombreSesion=id">Salir</a></li>
                     </div>
                 </ul>
             </div>

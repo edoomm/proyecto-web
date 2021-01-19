@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if (!isset($_SESSION["id"])) {
+    header("location:../");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -31,7 +41,7 @@
                 </div>
                 <ul id="nav-mobile" class="right">
                     <li><a href="#">Acerca de</a></li>
-                    <li><a href="../../">Salir</a></li>
+                    <li><a href="../logout.php?nombreSesion=id">Salir</a></li>
                 </ul>
             </div>
         </nav>
