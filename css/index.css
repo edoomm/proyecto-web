@@ -52,7 +52,7 @@ body{
 }
 
 .header-content p{
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     display: block;
     padding-bottom: 2rem;
 }
@@ -78,7 +78,6 @@ body{
 
 @media(max-width:375px){
     .container {
-        padding-right: 3rem;
-        padding-left: 0rem;
+        padding-left: 0.4rem;
     }
 }
