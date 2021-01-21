@@ -459,3 +459,12 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`usuario`, `contrasena`) VALUES
 ('admin', '123');
+
+CREATE TABLE `dia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL UNIQUE,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `dia` (`fecha`) VALUES
+('2021-02-22'), ('2021-02-23'), ('2021-02-24');
