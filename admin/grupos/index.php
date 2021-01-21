@@ -27,6 +27,8 @@ if (!isset($_SESSION["id"])) {
     <link rel="stylesheet" href="../../css/validetta.min.css">
     <!-- local styles -->
     <link rel="stylesheet" href="../../css/admin.css">
+    <!-- Jquery Confirm -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
 </head>
 
 <body>
@@ -234,7 +236,14 @@ if (!isset($_SESSION["id"])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input class="modal-action waves-effect waves-green btn-flat" type="submit" value="Guardar">
+                        <div class="row">
+                            <div class="col s6">
+                                <a id="eliminarGrupo" class="waves-effect waves-light btn white red-text">Eliminar</a>
+                            </div>
+                            <div class="col s6">
+                                <input class="modal-action waves-effect waves-green btn-flat" type="submit" value="Guardar">
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -250,6 +259,8 @@ if (!isset($_SESSION["id"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <!-- Validetta -->
     <script src="../../js/validetta.min.js"></script>
+    <!-- JQuery Confirm -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
     <script src="./index.js"></script>
 </div>
 
@@ -336,6 +347,44 @@ if (!isset($_SESSION["id"])) {
                 else {
                     alert(respax);
                 }
+            }
+        });
+    }
+
+    $("#eliminarGrupo").click(function (e) {
+        e.preventDefault();
+        // confirma con JQuery Confirm
+        $.confirm({
+            backgroundDismiss: true,
+            title: '¡Atención!',
+            content: '¿Está seguro de querer borrar el grupo ' + $("#clave").val() + '?',
+            buttons: {
+                Confirmar: {
+                    text: 'Eliminar',
+                    btnClass: 'btn-red',
+                    action: eliminarGrupo
+                },
+                Cancelar: {
+                    btnClass: 'white blue-text'
+                }
+            }
+        });
+    });
+
+    /**
+     * Elimina al grupo previa confirmación
+     */
+    function eliminarGrupo() {
+        $.ajax({
+            url: "delete.php",
+            method: "POST",
+            cache: false,
+            data: {clave: $("#clave").val()},
+            success: function (respax) {
+                if (respax == "true")
+                    window.location.reload();
+                else
+                    alert(respax);
             }
         });
     }
