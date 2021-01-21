@@ -6,11 +6,6 @@ $(document).ready(function () {
     intializeTableSearch();
 
     intializeValidetta();
-
-    // se coloca la fecha de hoy en el modal
-    var today = new Date();
-    var fecha = today.getFullYear() + "-" + pad(today.getMonth() + 1, 2) + "-" + pad(today.getDate());
-    $("#txtFecha").val(fecha);
 })
 
 function intializeTableSearch() {
@@ -41,43 +36,31 @@ function intializeValidetta() {
     validateEdit();
 }
 
-/**
- * Función que inicializa las validaciones para el Modal de Nuevo grupo
- */
-function validateNew() {
-    $("#nuevo").validetta({
-        validators: {
-            regExp: {
-                clave : {
-                    pattern: /^\d{4}-\d{2}$/,
-                    errorMessage: "Clave no valida (formato: ####-##)"
-                },
-                fecha : {
-                    pattern: /^(2[0-1][2-9]\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
-                    errorMessage: "Fecha no valida"
-                },
-                horario : {
-                    pattern: /^(\d{1}|1{1}\d{1}|2{1}[0-3]{1}):[0-5]{1}\d{1}$/,
-                    errorMessage: "Horario no valido (formato de 24 hrs)"
-                },
-                cupo : {
-                    pattern: /^([1-9]{1}|[1-9]{1}\d{1})$/,
-                    errorMessage: "Rango valido [1,99]"
-                }
-            }
-        },
-        realTime : true,
-        bubblePosition: 'bottom',
-        onValid : function (e) {
-            e.preventDefault();
-            submitNew();
-        },
-        onError : function (e) {
-            // e.preventDefault();
-            alert("No todos los campos son validos");
-        }
-    });
-}
+// /**
+//  * Función que inicializa las validaciones para el Modal de Nuevo día
+//  */
+// function validateNew() {
+//     $("#nuevoDia").validetta({
+//         validators: {
+//             regExp: {
+//                 fecha : {
+//                     pattern: /^(2[0-1][2-9]\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
+//                     errorMessage: "Fecha no valida"
+//                 }
+//             }
+//         },
+//         realTime : true,
+//         bubblePosition: 'bottom',
+//         onValid : function (e) {
+//             e.preventDefault();
+//             // submitNew();
+//         },
+//         onError : function (e) {
+//             // e.preventDefault();
+//             alert("No todos los campos son validos");
+//         }
+//     });
+// }
 
 function validateEdit() {
     $("#editar").validetta({

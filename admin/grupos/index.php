@@ -69,47 +69,26 @@ if (!isset($_SESSION["id"])) {
             </div>
         </div>
 
-        <!-- Dashboard -->
         <div class="container">
             <div class="row header-dashboard-students">
                 <div class="col s12 m6 l6">
-                    <h4>Registro de grupos</h4>
+                    <h4>Días en el que se llevará el examen</h4>
                 </div>
                 <div class="col s12 m6 l6 new-button-dashboard">
                     <!-- Modal trigger -->
                     <button class="waves-effect waves-light btn white blue-text modal-trigger"
-                        data-target="modalNuevoGrupo">Nuevo</button>
+                        data-target="modalNuevoDia">Añadir</button>
                 </div>
                 <!-- Modal Structure -->
-                <div id="modalNuevoGrupo" class="modal">
-                    <form class="col s12" id="nuevo">
+                <div id="modalNuevoDia" class="modal">
+                    <form class="col s12" id="newDay">
                         <div class="modal-content">
-                            <h4>Añadir nuevo grupo</h4>
+                            <h4>Añadir nuevo día</h4>
 
-                            <div class="row">
-                                <div class="row modal-form-row">
-                                    <div class="input-field col s12">
-                                        <input id="txtClave" type="text" class="validate" data-validetta="regExp[clave]" required>
-                                        <label for="txtClave">Clave</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="txtFecha" type="text" class="validate" data-validetta="regExp[fecha]" required>
-                                        <label for="txtFecha">Fecha</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="txtHorario" type="text" class="validate" data-validetta="regExp[horario]" required>
-                                        <label for="txtHorario">Horario</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="txtCupo" type="text" class="validate" value="20" data-validetta="regExp[cupo]" required>
-                                        <label for="txtCupo">Cupo</label>
-                                    </div>
+                            <div class="row modal-form-row">
+                                <div class="input-field col s12">
+                                    <input id="txtDate" type="text" class="validate" data-validetta="regExp[date]" required>
+                                    <label for="txtDate">Fecha</label>
                                 </div>
                             </div>
                         </div>
@@ -118,6 +97,50 @@ if (!isset($_SESSION["id"])) {
                         </div>
                     </form>
                 </div>
+
+                <table id="tblDias" class="striped">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        include '../../php/db.php';
+                        $conn = open_database();
+
+                        $query = "SELECT fecha FROM Dia ORDER BY fecha DESC";
+                        $result = mysqli_query($conn, $query);
+
+                        if (mysqli_num_rows($result) == 0) {
+                        ?>
+                        <tr>
+                            <td>Sin registros disponibles</td>
+                            <td>-</td>
+                        </tr>
+                        <?php
+                        }
+                        else
+                            while ($row = mysqli_fetch_array($result)) {
+                                $fecha = $row["fecha"];
+                        ?>
+                        <tr>
+                            <td><?php echo $fecha; ?></td>
+                            <td><a href="javascript:void(0)" onclick="eliminarDia(this)"> <i class="material-icons">delete_forever</i> </a></td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Dashboard -->
+        <div class="container">
+            <div class="row header-dashboard-students">
+                <h4>Registro de grupos</h4>
             </div>
 
             <div class="row">
@@ -138,9 +161,6 @@ if (!isset($_SESSION["id"])) {
 
                 <tbody>
                     <?php
-                    include '../../php/db.php';
-                    $conn = open_database();
-
                     $query = "SELECT clave, horario, cupo FROM Grupo ORDER BY horario DESC";
                     $result = mysqli_query($conn, $query);
 
@@ -234,3 +254,90 @@ if (!isset($_SESSION["id"])) {
 </div>
 
 </html>
+
+<script>
+    $(document).ready(function () {
+        intializeNewDay();
+    })
+
+    /**
+     * Función que inicializa los controles para añadir un nuevo día
+     */
+    function intializeNewDay() {
+        validateNewDay();
+        var today = new Date();
+        var todayStr = today.getFullYear() + "-" + pad(today.getMonth() + 1, 2) + "-" + pad(today.getDate(), 2);
+        $("#txtDate").val(todayStr);
+    }
+
+    /**
+     * Función que inicializa las validaciones del form newDay
+     */
+    function validateNewDay() {
+        $("#newDay").validetta({
+            validators: {
+                regExp: {
+                    date: {
+                        pattern: /^(2[0-1][2-9]\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
+                        errorMessage: "Fecha no valida"
+                    }
+                }
+            },
+            realTime : true,
+            bubblePosition: 'bottom',
+            onValid : function (e) {
+                e.preventDefault();
+                submitNewDay();
+            },
+            onError : function (e) {
+                // e.preventDefault();
+                alert("No todos los campos son validos");
+            }
+        });
+    }
+
+    /**
+     * Ingresa un nuevo dia a la base de datos
+     */
+    function submitNewDay() {
+        $.ajax({
+            url: "./insertDia.php",
+            method: "POST",
+            cache: false,
+            data: {fecha: $("#txtDate").val()},
+            success: function (respax) {
+                if (respax == "true") {
+                    window.location.reload();
+                }
+                else {
+                    alert(respax);
+                }
+            }
+        });
+    }
+
+    /**
+     * Elimina el día que el ususario clickea
+     */
+    function eliminarDia(a) {
+        var tableAux = a.parentNode.parentNode.parentNode.parentNode;
+        var rowNumber = a.parentNode.parentNode.rowIndex;
+
+        var fecha = tableAux.rows[rowNumber].cells[0].innerHTML;
+        $.ajax({
+            url: "deleteDia.php",
+            cache: false,
+            method: "POST",
+            data: {fecha: fecha},
+            success: function (respax) {
+                if (respax == "true") {
+                    window.location.reload();
+                }
+                else {
+                    alert(respax);
+                }
+            }
+        });
+    }
+
+</script>
