@@ -632,7 +632,24 @@ if (!isset($_SESSION["id"])) {
     }
 
     function eliminarEdifico(a) {
-        
+        var tableAux = a.parentNode.parentNode.parentNode.parentNode;
+        var rowNumber = a.parentNode.parentNode.rowIndex;
+
+        var edificio = tableAux.rows[rowNumber].cells[0].innerHTML;
+        $.ajax({
+            url: "deleteEdificio.php",
+            cache: false,
+            method: "POST",
+            data: {edificio: edificio},
+            success: function (respax) {
+                if (respax == "true") {
+                    window.location.reload();
+                }
+                else {
+                    alert(respax);
+                }
+            }
+        });
     }
 
 </script>
