@@ -723,7 +723,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                     action: eliminarAlumno
                 },
                 Cancelar: {
-                    btnClass: 'btn-blue'
+                    btnClass: 'white blue-text'
                 }
             }
         });
