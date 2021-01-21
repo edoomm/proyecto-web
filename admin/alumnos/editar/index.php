@@ -141,7 +141,6 @@ if (mysqli_num_rows($resultAP) != 0) {
                 </ul>
                 <ul id="nav-mobile" class="right">
                     <div class="right">
-                        <li><a href="#">Acerca de</a></li>
                         <li><a href="../../logout.php?nombreSesion=id">Salir</a></li>
                     </div>
                 </ul>
