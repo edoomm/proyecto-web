@@ -6,6 +6,9 @@ if (!isset($_SESSION["id"])) {
     exit;
 }
 
+//         $horas = array("10:00:00","12:00:00","14:00:00","16:00:00");
+//         $grupos = array("1101","1102","1103","1104","1105");
+
 ?>
 
 <!DOCTYPE html>
@@ -71,10 +74,11 @@ if (!isset($_SESSION["id"])) {
             </div>
         </div>
 
+        <!-- Dias -->
         <div class="container">
             <div class="row header-dashboard-students">
                 <div class="col s12 m6 l6">
-                    <h4>Días en el que se llevará el examen</h4>
+                    <h5>Días en el que se llevará el examen</h5>
                 </div>
                 <div class="col s12 m6 l6 new-button-dashboard">
                     <!-- Modal trigger -->
@@ -139,6 +143,73 @@ if (!isset($_SESSION["id"])) {
                 </table>
             </div>
         </div>
+        <!-- Horarios -->
+        <div class="container">
+            <div class="row header-dashboard-students">
+                <div class="col s12 m6 l6">
+                    <h5>Horarios en el que se llevará el examen</h5>
+                </div>
+                <div class="col s12 m6 l6 new-button-dashboard">
+                    <!-- Modal trigger -->
+                    <button class="waves-effect waves-light btn white blue-text modal-trigger"
+                        data-target="modalNuevoHorario">Añadir</button>
+                </div>
+                <!-- Modal Structure -->
+                <div id="modalNuevoHorario" class="modal">
+                    <form class="col s12" id="newHorario">
+                        <div class="modal-content">
+                            <h4>Añadir nueva hora</h4>
+
+                            <div class="row modal-form-row">
+                                <div class="input-field col s12">
+                                    <input id="txtHora" type="text" class="validate" placeholder="Ejemplo: 09:00" data-validetta="regExp[hora]" required>
+                                    <label for="txtHora">Hora</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input class="modal-action waves-effect waves-green btn-flat" type="submit" value="Añadir">
+                        </div>
+                    </form>
+                </div>
+
+                <table id="tblHoras" class="striped">
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        $query = "SELECT hora FROM Horario";
+                        $result = mysqli_query($conn, $query);
+
+                        if (mysqli_num_rows($result) == 0) {
+                        ?>
+                        <tr>
+                            <td>Sin registros disponibles</td>
+                            <td>-</td>
+                        </tr>
+                        <?php
+                        }
+                        else
+                            while ($row = mysqli_fetch_array($result)) {
+                                $hora = $row["hora"];
+                        ?>
+                        <tr>
+                            <td><?php echo $hora; ?></td>
+                            <td><a href="javascript:void(0)" onclick="eliminarHorario(this)"> <i class="material-icons">delete_forever</i> </a></td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Dashboard -->
         <div class="container">
             <div class="row header-dashboard-students">
@@ -269,6 +340,7 @@ if (!isset($_SESSION["id"])) {
 <script>
     $(document).ready(function () {
         intializeNewDay();
+        intializeValidationNewHour();
     })
 
     /**
@@ -279,6 +351,29 @@ if (!isset($_SESSION["id"])) {
         var today = new Date();
         var todayStr = today.getFullYear() + "-" + pad(today.getMonth() + 1, 2) + "-" + pad(today.getDate(), 2);
         $("#txtDate").val(todayStr);
+    }
+
+    function intializeValidationNewHour() {
+        $("#newHorario").validetta({
+            validators: {
+                regExp: {
+                    hora: {
+                        pattern: /^(0{1}\d{1}|1{1}\d{1}|2{1}[0-3]{1}):[0-5]{1}\d{1}$/,
+                        errorMessage: "Horario no valido (formato 24 hrs)"
+                    }
+                }
+            },
+            realTime : true,
+            bubblePosition: 'bottom',
+            onValid : function (e) {
+                e.preventDefault();
+                submitNewHour();
+            },
+            onError : function (e) {
+                // e.preventDefault();
+                alert("No todos los campos son validos");
+            }
+        })
     }
 
     /**
@@ -317,6 +412,24 @@ if (!isset($_SESSION["id"])) {
             cache: false,
             data: {fecha: $("#txtDate").val()},
             success: function (respax) {
+                if (respax == "true") {
+                    window.location.reload();
+                }
+                else {
+                    alert(respax);
+                }
+            }
+        });
+    }
+
+    function submitNewHour() {
+        $.ajax({
+            url: "./insertHora.php",
+            method: "POST",
+            cache: false,
+            data: {hora: $("#txtHora").val()},
+            success: function (respax) {
+                console.log(respax);
                 if (respax == "true") {
                     window.location.reload();
                 }

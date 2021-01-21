@@ -32,35 +32,8 @@ function intializeTableSearch() {
 }
 
 function intializeValidetta() {
-    validateNew();
     validateEdit();
 }
-
-// /**
-//  * Función que inicializa las validaciones para el Modal de Nuevo día
-//  */
-// function validateNew() {
-//     $("#nuevoDia").validetta({
-//         validators: {
-//             regExp: {
-//                 fecha : {
-//                     pattern: /^(2[0-1][2-9]\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
-//                     errorMessage: "Fecha no valida"
-//                 }
-//             }
-//         },
-//         realTime : true,
-//         bubblePosition: 'bottom',
-//         onValid : function (e) {
-//             e.preventDefault();
-//             // submitNew();
-//         },
-//         onError : function (e) {
-//             // e.preventDefault();
-//             alert("No todos los campos son validos");
-//         }
-//     });
-// }
 
 function validateEdit() {
     $("#editar").validetta({
