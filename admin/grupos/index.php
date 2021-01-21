@@ -209,6 +209,72 @@ if (!isset($_SESSION["id"])) {
                 </table>
             </div>
         </div>
+        <!-- Edificios -->
+        <div class="container">
+            <div class="row header-dashboard-students">
+                <div class="col s12 m6 l6">
+                    <h5>Edificios en los que se llevará el examen</h5>
+                </div>
+                <div class="col s12 m6 l6 new-button-dashboard">
+                    <!-- Modal trigger -->
+                    <button class="waves-effect waves-light btn white blue-text modal-trigger"
+                        data-target="modalNuevoEdificio">Añadir</button>
+                </div>
+                <!-- Modal Structure -->
+                <div id="modalNuevoEdificio" class="modal">
+                    <form class="col s12" id="newEdificio">
+                        <div class="modal-content">
+                            <h4>Añadir nuevo edificio</h4>
+
+                            <div class="row modal-form-row">
+                                <div class="input-field col s12">
+                                    <input id="txtEdificio" type="text" class="validate" placeholder="Ejemplo: 1100" data-validetta="regExp[clave]" required>
+                                    <label for="txtEdificio">Edificio</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input class="modal-action waves-effect waves-green btn-flat" type="submit" value="Añadir">
+                        </div>
+                    </form>
+                </div>
+
+                <table id="tblHoras" class="striped">
+                    <thead>
+                        <tr>
+                            <th>Edificio</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        $query = "SELECT edificio FROM Edificio";
+                        $result = mysqli_query($conn, $query);
+
+                        if (mysqli_num_rows($result) == 0) {
+                        ?>
+                        <tr>
+                            <td>Sin registros disponibles</td>
+                            <td>-</td>
+                        </tr>
+                        <?php
+                        }
+                        else
+                            while ($row = mysqli_fetch_array($result)) {
+                                $edificio = $row["edificio"];
+                        ?>
+                        <tr>
+                            <td><?php echo $edificio; ?></td>
+                            <td><a href="javascript:void(0)" onclick="eliminarEdifico(this)"> <i class="material-icons">delete_forever</i> </a></td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <!-- Dashboard -->
         <div class="container">
@@ -341,6 +407,7 @@ if (!isset($_SESSION["id"])) {
     $(document).ready(function () {
         intializeNewDay();
         intializeValidationNewHour();
+        intializeValidationNewEdificio();
     })
 
     /**
@@ -373,7 +440,30 @@ if (!isset($_SESSION["id"])) {
                 // e.preventDefault();
                 alert("No todos los campos son validos");
             }
-        })
+        });
+    }
+
+    function intializeValidationNewEdificio() {
+        $("#newEdificio").validetta({
+            validators: {
+                regExp: {
+                    clave: {
+                        pattern: /^\d{1,4}$/,
+                        errorMessage: "Rango aceptado [0, 9999]"
+                    }
+                }
+            },
+            realTime : true,
+            bubblePosition: 'bottom',
+            onValid : function (e) {
+                e.preventDefault();
+                submitNewEdificio();
+            },
+            onError : function (e) {
+                // e.preventDefault();
+                alert("No todos los campos son validos");
+            }
+        });
     }
 
     /**
@@ -428,6 +518,24 @@ if (!isset($_SESSION["id"])) {
             method: "POST",
             cache: false,
             data: {hora: $("#txtHora").val()},
+            success: function (respax) {
+                console.log(respax);
+                if (respax == "true") {
+                    window.location.reload();
+                }
+                else {
+                    alert(respax);
+                }
+            }
+        });
+    }
+
+    function submitNewEdificio() {
+        $.ajax({
+            url: "./insertEdificio.php",
+            method: "POST",
+            cache: false,
+            data: {edificio: pad(parseInt($("#txtEdificio").val()), 4)},
             success: function (respax) {
                 console.log(respax);
                 if (respax == "true") {
@@ -521,6 +629,10 @@ if (!isset($_SESSION["id"])) {
                 }
             }
         });
+    }
+
+    function eliminarEdifico(a) {
+        
     }
 
 </script>
