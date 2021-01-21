@@ -22,7 +22,7 @@ $(document).ready(function () {
         let parent = $(this).parent();
         if(parent.hasClass("validetta-error") == true){
             parent.removeClass("validetta-error");
-            parent.find("span.validetta-bubble").remove();
+            parent.find("span.validetta-inline").remove();
         }
     });
 
@@ -52,7 +52,9 @@ $(document).ready(function () {
             }
         },
         realTime: true,
-        bubblePosition: 'bottom',
+        display : 'inline',
+        errorTemplateClass : 'validetta-inline',
+        //bubblePosition: 'bottom',
         //bubbleGapTop: 10,
         //bubbleGapLeft: -5,
         onValid: function (e) {
@@ -165,7 +167,8 @@ $(document).ready(function () {
                                                     }
                                                 },
                                                 onDestroy(){
-                                                    location.reload();
+                                                    //location.reload();
+                                                    window.location.assign("../");
                                                 }
                                             });
                                         });
@@ -178,12 +181,14 @@ $(document).ready(function () {
                                                 Comprobante: {
                                                     btnClass: 'btn-blue',
                                                     action: function () {
-                                                        window.location.assign("../index.html");
+                                                        //location.reload();
+                                                        window.location.assign("./consultar/");
                                                     }
                                                 },
                                                 Confirmar: {
                                                         action: function () {
-                                                        location.reload();
+                                                        //location.reload();
+                                                        window.location.assign("../");
                                                     }
                                                 }
                                             }
@@ -321,7 +326,7 @@ function cambiarUbicacion(escuela) {
             let parent = $("#localidad").parent();
             if(parent.hasClass("validetta-error") == true){
                 parent.removeClass("validetta-error");
-                parent.find("span.validetta-bubble").remove();
+                parent.find("span.validetta-inline").remove();
             }
             M.updateTextFields();
         }

@@ -12,7 +12,7 @@ $result = mysqli_query($link, $query);
 if (mysqli_num_rows($result) == 0)
     echo "false";
 else 
-    echo "true";
+    echo json_encode(mysqli_fetch_array($result));
 
 mysqli_close($link);
 

@@ -1,6 +1,6 @@
 <?php
 require('../../fpdf/fpdf.php');
-include "./db.php";
+include "../db.php";
 
 $conexion = open_database();
 $curp = $_GET["curp"];
@@ -76,7 +76,7 @@ $pdf->Cell(25);
 $pdf->ImprovedTable($header,$data);
 $pdf->SetY(160);
 $pdf->Cell(10);
-$pdf->MultiCell(170,10,utf8_decode("NOTA: Si colocaste mal alguno de tus datos puedes cambiarlo iniciando sesión en tu perfil, de igual forma, si por alguna razón pierdes esta hoja, puedes descargarla nuevamente ingresando al sistema....(link)"),0,'J',0);
+$pdf->MultiCell(170,10,utf8_decode("NOTA: Si colocaste mal alguno de tus datos puedes cambiarlo iniciando sesión en tu perfil, de igual forma, si por alguna razón pierdes esta hoja, puedes descargarla nuevamente ingresando en la página web."),0,'J',0);
 $enviar = $pdf->Output('F',"$curp".'.pdf',true);
 
 ?>

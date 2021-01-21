@@ -1,5 +1,5 @@
 <?php
-    include "./db.php";
+    include "../db.php";
     $conexion = open_database();
     
     $mySelect = $_POST["escuela"];

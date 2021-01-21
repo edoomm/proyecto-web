@@ -46,7 +46,6 @@
                             class="material-icons">menu</i></a>
                 </div>
                 <ul id="nav-mobile" class="right">
-                    <li><a href="#">Acerca de</a></li>
                     <li><a href="../logout.php?nombreSesion=id">Salir</a></li>
                 </ul>
             </div>
@@ -204,7 +203,7 @@
 
         var ctx = document.getElementById('myChart');
         var myChart = new Chart(ctx, {
-            type: 'doughnut',
+            type: 'polarArea',
             data: {
                 labels: <?php echo json_encode($tabla_opciones);?>,
                 datasets: [{
