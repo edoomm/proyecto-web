@@ -276,6 +276,10 @@ if (!isset($_SESSION["id"])) {
             </div>
         </div>
 
+        <div class="container" style="padding: 15px;">
+        <hr>
+        </div>
+
         <!-- Dashboard -->
         <div class="container">
             <div class="row header-dashboard-students">
