@@ -9,7 +9,7 @@ function open_database() {
     $conn = mysqli_connect($host, $user, $pwd, $db);
     mysqli_set_charset($conn, "utf8");
 
-    if (mysqli_connect_errno($conn))
+    if (mysqli_connect_errno())
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
 
     return $conn;
