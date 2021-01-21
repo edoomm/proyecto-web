@@ -54,29 +54,29 @@
                             <br>
                             <div class="col s12 input-field">
                                 <label for="curp">Curp</label>
-                                <input type="text" id="curp" name="curp" value="CERI000722HDFRVNA9" onkeyup="mayuscula(this)"
-                                    data-validetta="required">
+                                <input type="text" id="curp" name="curp" onkeyup="mayuscula(this)"
+                                    data-validetta="regExp[curp]" required>
                             </div>
 
                             <div class="col s12 m12 l4 input-field">
                                 <label for="nombre">Nombre(s)</label>
-                                <input type="text" id="nombre" name="nombre" value="Ian" onkeyup="mayuscula(this)" data-validetta="required">
+                                <input type="text" id="nombre" name="nombre" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 l4 input-field">
                                 <label for="primer_ape">Primer apellido</label>
-                                <input type="text" id="primer_ape" name="primer_ape" value="Ceron" onkeyup="mayuscula(this)" data-validetta="required">
+                                <input type="text" id="primer_ape" name="primer_ape" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 l4 input-field">
                                 <label for="segundo_ape">Segundo apellido</label>
-                                <input type="text" id="segundo_ape" name="segundo_ape" value="Rivera" onkeyup="mayuscula(this)" data-validetta="required">
+                                <input type="text" id="segundo_ape" name="segundo_ape" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 l6 input-field">
                                 <label for="fecha_nac">Fecha de nacimiento</label>
-                                <input type="text" class="datepicker" id="fecha_nac" name="fecha_nac" value="2000-07-22"
-                                    data-validetta="required">
+                                <input type="text" class="datepicker" id="fecha_nac" name="fecha_nac"
+                                    data-validetta="regExp[fecha]" required>
                             </div>
 
                             <div class="input-field col s12 m6 l6">
@@ -91,18 +91,18 @@
 
                             <div class="col s12 m12 input-field">
                                 <label for="correo">Correo electr&oacute;nico</label>
-                                <input type="text" id="correo" name="correo" value="Ian.cr@outlook.com" onkeyup="mayuscula(this)" data-validetta="required,email">
+                                <input type="text" id="correo" name="correo" onkeyup="mayuscula(this)" data-validetta="required,email">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="telefono_fijo">Tel&eacute;fono fijo (opcional)</label>
-                                <input type="text" id="telefono_fijo" name="telefono_fijo" data-validetta="number">
+                                <input type="text" id="telefono_fijo" name="telefono_fijo" data-validetta="regExp[telef]">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="telefono_cel">Tel&eacute;fono celular</label>
-                                <input type="text" id="telefono_cel" name="telefono_cel" value="5544562483"
-                                    data-validetta="required,number">
+                                <input type="text" id="telefono_cel" name="telefono_cel"
+                                    data-validetta="regExp[telef]" required>
                             </div>
 
                             <div class="col s6 m3" style="float:right;">
@@ -116,7 +116,7 @@
                             <br>
                             <div class="col s12 input-field">
                                 <label for="calle">Calle</label>
-                                <input type="text" id="calle" name="calle" value="Avenida Colinas" onkeyup="mayuscula(this)" data-validetta="required">
+                                <input type="text" id="calle" name="calle" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 input-field">
@@ -126,27 +126,27 @@
 
                             <div class="col s12 m6 input-field">
                                 <label for="numero_ext">N&uacute;mero exterior</label>
-                                <input type="text" id="numero_ext" name="numero_ext" value="73" data-validetta="required,number">
+                                <input type="text" id="numero_ext" name="numero_ext" data-validetta="required,number">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="cp">C&oacute;digo postal</label>
-                                <input type="text" id="cp" name="cp" value="53218" data-validetta="required,number">
+                                <input type="text" id="cp" name="cp" data-validetta="regExp[cp]" required>
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="colonia">Colonia</label>
-                                <input type="text" id="colonia" name="colonia" value="Colinas de San Mateo" onkeyup="mayuscula(this)" data-validetta="required">
+                                <input type="text" id="colonia" name="colonia" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="municipio">Municipio</label>
-                                <input type="text" id="municipio" name="municipio" value="Naucalpan" onkeyup="mayuscula(this)" data-validetta="required">
+                                <input type="text" id="municipio" name="municipio" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s12 m6 input-field">
                                 <label for="estado">Estado</label>
-                                <input type="text" id="estado" name="estado" value="Estado de México" onkeyup="mayuscula(this)" data-validetta="required">
+                                <input type="text" id="estado" name="estado" onkeyup="mayuscula(this)" data-validetta="required">
                             </div>
 
                             <div class="col s6 m3" style="float:right;">
@@ -205,7 +205,7 @@
 
                             <div class="col s12 input-field">
                                 <label for="promedio">Promedio obtenido</label>
-                                <input type="text" name="promedio" id="promedio" value="9" data-validetta="required">
+                                <input type="text" name="promedio" id="promedio" data-validetta="regExp[promedio]" required>
                             </div>
 
                             <div class="col s6 m3" style="float:right;">

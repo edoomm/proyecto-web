@@ -21,62 +21,31 @@
 <body ng-app="mainModule" ng-controller="mainController">
     <div id="login-page" class="row">
         <div class="col s12 z-depth-6 card-panel">
-            <form class="login-form">
+            <form class="login-form" id="formLogin">
                 <div class="row">
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">person</i>
-                        <input class="validate" id="noEmpleado" type="text">
+                        <input class="validate" id="noEmpleado" type="text" required>
                         <label for="noEmpleado" data-error="Fallo" data-success="Correcto">Número de empleado</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock_outline</i>
-                        <input id="contrasena" type="password">
+                        <input id="contrasena" type="password" required>
                         <label for="contrasena">Contraseña</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <a href="./alumnos/" class="btn waves-effect waves-light col s12">Entrar</a>
+                        <!-- <a href="./alumnos/" class="btn waves-effect waves-light col s12">Entrar</a> -->
+                        <input type="submit" class="btn waves-effect waves-light col s12" value="Entrar">
                     </div>
                 </div>
-                <div class="row" style="padding-top: 5%;">
-                    <center>
-                        <button class="waves-effect waves-light btn white blue-text modal-trigger"
-                            data-target="modalNuevoAlumno">Olvide la contraseña</button>
-                    </center>
-                </div>
-                <!-- Modal Structure -->
-                <div id="modalNuevoAlumno" class="modal">
-                    <div class="modal-content">
-                        <h4>Recuperar contraseña</h4>
-
-                        <div class="row">
-                            <form class="col s12">
-                                <div class="row modal-form-row">
-                                    <div class="input-field col s12">
-                                        <input id="txtNoEmpl" type="text" class="validate">
-                                        <label for="txtNoEmpl">Número de empleado</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input class="validate" id="txtCorreo" type="email">
-                                        <label for="txtCorreo" data-error="Correo no valido" data-success="Correo valido">Email</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Recuperar</a>
-                    </div>
-                </div>
+            </form>
         </div>
-        </form>
     </div>
     </div>
 
@@ -90,6 +59,23 @@
 
 <script>
     $(document).ready(function () {
-        $('.modal-trigger').leanModal();
+        $("#formLogin").submit(function (e) {
+            $.ajax({
+                url: "./login.php",
+                method: "POST",
+                data: {usuario: $("#noEmpleado").val(), contrasena: $("#contrasena").val()},
+                cache: false,
+                success: function (respax) {
+                    if (respax == "true") {
+                        window.location.replace("./alumnos/");
+                    }
+                    else {
+                        alert("Credenciales incorrectas");
+                    }
+                }
+            });
+
+            e.preventDefault();
+        }); 
     });
 </script>

@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if (!isset($_SESSION["id"])) {
+    header("location:../");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -31,7 +41,7 @@
                 </div>
                 <ul id="nav-mobile" class="right">
                     <li><a href="#">Acerca de</a></li>
-                    <li><a href="../../">Salir</a></li>
+                    <li><a href="../logout.php?nombreSesion=id">Salir</a></li>
                 </ul>
             </div>
         </nav>
@@ -57,6 +67,7 @@
                             <li><a class="waves-effect blue-text" href="../alumnos/">Alumno</a></li>
                         </div>
                         <li><a class="waves-effect" href="../reportes/">Reportes</a></li>
+                        <li><a class="waves-effect" href="../grupos/">Grupos</a></li>
                     </div>
                 </ul>
 
@@ -71,40 +82,7 @@
                 </div>
                 <div class="col s12 m6 l6 new-button-dashboard">
                     <!-- Modal trigger -->
-                    <button class="waves-effect waves-light btn white blue-text modal-trigger"
-                        data-target="modalNuevoAlumno">Nuevo</button>
-                </div>
-                <!-- Modal Structure -->
-                <div id="modalNuevoAlumno" class="modal">
-                    <div class="modal-content">
-                        <h4>Añadir nuevo alumno</h4>
-
-                        <div class="row">
-                            <form class="col s12">
-                                <div class="row modal-form-row">
-                                    <div class="input-field col s12">
-                                        <input id="txtNombre" type="text" class="validate">
-                                        <label for="txtNombre">Nombre(s)</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="txtApellidoPat" type="text" class="validate">
-                                        <label for="txtApellidoPat">Apellido paterno</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="txtApellidoMat" type="text" class="validate">
-                                        <label for="txtApellidoMat">Apellido materno</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Añadir</a>
-                    </div>
+                    <a href="../../alumno/" class="waves-effect waves-light btn white blue-text modal-trigger">Nuevo</a>
                 </div>
             </div>
 

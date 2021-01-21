@@ -449,3 +449,13 @@ ALTER TABLE `escuela_has_formacion`
 UPDATE escuela SET nombre = upper(nombre), localidad = upper(localidad), tipo = upper(tipo);
 UPDATE formacion_tecnica SET nombre = upper(nombre);
 UPDATE programa_academico SET nombre = upper(nombre);
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(70) CHARACTER SET utf8 NOT NULL,
+  `contrasena` VARCHAR(32)  CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `admin` (`usuario`, `contrasena`) VALUES
+('admin', '123');
