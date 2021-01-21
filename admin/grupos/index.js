@@ -120,25 +120,6 @@ function pad(num, size) {
     return num;
 }
 
-/**
- * Método que encapsula la petición AJAX para insertar un nuevo registro en la BD
- */
-function submitNew() {
-    var horario = $("#txtFecha").val() + " " + $("#txtHorario").val() + ":00";
-
-    $.ajax({
-        url: "insert.php",
-        method: "POST",
-        data: {clave: $("#txtClave").val(), horario: horario, cupo: $("#txtCupo").val()},
-        cache: false,
-        success: function (respax) {
-            alert(respax);
-            if (respax == "Grupo creado correctamente")
-                window.location.reload();
-        }
-    });
-}
-
 function submitEdit() {
     $.ajax({
         url: "update.php",
@@ -147,8 +128,10 @@ function submitEdit() {
         cache: false,
         success: function (respax) {
             alert(respax);
-            if (respax == "Grupo guardado correctamente")
+            if (respax == "Grupo guardado correctamente") {
+                alert("Asegurese de notificarle a los alumnos inscritos a este grupo que se ha cambiado la información de este mismo");
                 window.location.reload();
+            }
         }
     });
 }
