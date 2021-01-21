@@ -1,4 +1,11 @@
 <?php
+
+    session_start();
+    if (!isset($_SESSION["id"])) {
+        header("location:../");
+        exit;
+    }
+
     include "./general.php";
     include "./escuelas_procedencia.php";
     include "./aciertos_obtenidos.php";
@@ -40,7 +47,7 @@
                 </div>
                 <ul id="nav-mobile" class="right">
                     <li><a href="#">Acerca de</a></li>
-                    <li><a href="../../">Salir</a></li>
+                    <li><a href="../logout.php?nombreSesion=id">Salir</a></li>
                 </ul>
             </div>
         </nav>
@@ -66,6 +73,7 @@
                         <div class="blue lighten-5">
                             <li><a class="waves-effect blue-text" href="./">Reportes</a></li>
                         </div>
+                        <li><a class="waves-effect" href="../grupos/">Grupos</a></li>
                     </div>
                 </ul>
             </div>

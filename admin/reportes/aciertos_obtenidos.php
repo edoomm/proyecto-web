@@ -23,7 +23,7 @@
     for($i = 0; $i < $num_filas; $i++){
         $fin_rango += $rango;
 
-        $sql_numAlumnos = "SELECT COUNt(aciertos) FROM alumno_has_grupo WHERE aciertos >= $inicio_rango AND aciertos <= $fin_rango";
+        $sql_numAlumnos = "SELECT COUNT(aciertos) FROM alumno_has_grupo WHERE aciertos >= $inicio_rango AND aciertos <= $fin_rango";
         $res_numAlumnos = mysqli_fetch_row(mysqli_query($conexion,$sql_numAlumnos));
         array_push($data_numAlumnos,$res_numAlumnos[0]);
         $contador += $res_numAlumnos[0];
