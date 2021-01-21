@@ -460,6 +460,8 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`usuario`, `contrasena`) VALUES
 ('admin', '123');
 
+-- Tablas para la administración de horas y grupos
+
 CREATE TABLE `dia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL UNIQUE,
@@ -468,3 +470,12 @@ CREATE TABLE `dia` (
 
 INSERT INTO `dia` (`fecha`) VALUES
 ('2021-02-22'), ('2021-02-23'), ('2021-02-24');
+
+CREATE TABLE `horario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `hora` VARCHAR(8) UNIQUE,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `horario` (`hora`) VALUES
+("10:00:00"), ("12:00:00"), ("14:00:00"), ("16:00:00")
