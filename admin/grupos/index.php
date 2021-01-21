@@ -502,4 +502,25 @@ if (!isset($_SESSION["id"])) {
         });
     }
 
+    function eliminarHorario(a) {
+        var tableAux = a.parentNode.parentNode.parentNode.parentNode;
+        var rowNumber = a.parentNode.parentNode.rowIndex;
+
+        var hora = tableAux.rows[rowNumber].cells[0].innerHTML;
+        $.ajax({
+            url: "deleteHora.php",
+            cache: false,
+            method: "POST",
+            data: {hora: hora},
+            success: function (respax) {
+                if (respax == "true") {
+                    window.location.reload();
+                }
+                else {
+                    alert(respax);
+                }
+            }
+        });
+    }
+
 </script>
