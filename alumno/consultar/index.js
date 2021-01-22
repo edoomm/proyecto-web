@@ -2,25 +2,6 @@ $(document).ready(function(){
     $("#input_correo").hide();
 });
 
-$("#auth").submit(function (e) {
-    e.preventDefault();
-    $.ajax({
-        url: "consultar.php",
-        method: "POST",
-        cache: false,
-        data: {curp: $("#curp").val(), contra: $("#password").val()},
-        success: function (respax) {
-            if (respax != "false") {
-                let AX = JSON.parse(respax);
-                enviarCorreo(AX.curp,AX.nombre,AX.primer_apellido,AX.correo);
-            }
-            else {
-                alert("CURP o contraseña incorrectos");
-            }
-        }
-    });
-});
-
   /**
    * Función que enviará el comprobante al correo, si pone un correo en el formulario se enviará a ese correo, esto siendo útil si el alumno pierde acceso al correo con el que se había registrado
    * (Tal vez también se puede actualizar el correo registrado en dado caso)
