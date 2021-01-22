@@ -478,7 +478,7 @@ CREATE TABLE `horario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `horario` (`hora`) VALUES
-("10:00:00"), ("12:00:00"), ("14:00:00"), ("16:00:00")
+("10:00:00"), ("12:00:00"), ("14:00:00"), ("16:00:00");
 
 CREATE TABLE `edificio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

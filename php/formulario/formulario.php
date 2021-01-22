@@ -211,10 +211,30 @@
     //ASIGNACION DEL GRUPO
     
     if(mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM alumno_has_grupo WHERE curp_alumno ="."'".$curp."'")) == 0){  //Valida que el alumno no tenga un grupo ya asignado
-        $dias = array("2021-02-22","2021-02-23","2021-02-24");
-        $horas = array("10:00:00","12:00:00","14:00:00","16:00:00");
-        $grupos = array("1101","1102","1103","1104","1105");
-    
+        
+        $sql_dias = "SELECT fecha FROM dia";
+        $res_sqlDias = mysqli_query($conexion,$sql_dias);
+        $sql_horas = "SELECT hora FROM horario";
+        $res_sqlHoras = mysqli_query($conexion,$sql_horas);
+        $sql_grupos = "SELECT edificio FROM edificio";
+        $res_sqlGrupos = mysqli_query($conexion,$sql_grupos);
+        
+        $dias = array();
+        $horas = array();
+        $grupos = array();
+        
+        while($row = mysqli_fetch_array($res_sqlDias,MYSQLI_BOTH)){
+            array_push($dias,$row[0]);
+        }
+
+        while($row2 = mysqli_fetch_array($res_sqlHoras,MYSQLI_BOTH)){
+            array_push($horas,$row2[0]);
+        }  
+        
+        while($row3 = mysqli_fetch_array($res_sqlGrupos,MYSQLI_BOTH)){
+            array_push($grupos,$row3[0]);
+        }
+
         for($i = 0; $i < count($dias); $i++){
             for($j = 0; $j < count($horas); $j++){
                 for($k = 0; $k < count($grupos); $k++){
