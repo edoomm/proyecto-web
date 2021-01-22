@@ -1,6 +1,41 @@
 $(document).ready(function(){
     $("#input_correo").hide();
+    $("form").validetta({
+        validators: {
+              regExp: {
+                  curp: {
+                      pattern: /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+                      errorMessage: "Ingresa un curp válido"
+                  }
+              }
+        },
+        realTime: true,
+        display : 'inline',
+        errorTemplateClass : 'validetta-inline',
+        onValid: function(e) {
+            e.preventDefault();
+            consultar();
+        }
+    });
 });
+
+    function consultar() {
+        $.ajax({
+            url: "./consultar.php",
+            method: "POST",
+            cache: false,
+            data: {curp: $("#curp").val(), contra: $("#password").val()},
+            success: function (respax){
+                if (respax != "false") {
+                    let AX = JSON.parse(respax);
+                    enviarCorreo(AX.curp,AX.nombre,AX.primer_apellido,AX.correo);
+                }
+                else {
+                    alert("CURP o contraseña incorrectos");
+                }
+            }
+        });
+    }
 
   /**
    * Función que enviará el comprobante al correo, si pone un correo en el formulario se enviará a ese correo, esto siendo útil si el alumno pierde acceso al correo con el que se había registrado

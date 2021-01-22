@@ -41,32 +41,32 @@
         </div>
 
         <div class="container" style="padding-top: 20px;">
-            <form class="col s12" id="auth">
+            <form class="col s12">
 
               <div class="row">
                 <div class="input-field col s12">
-                  <input id="curp" type="text" class="validate" data-validetta="regExp[curp]" required>
+                  <input id="curp" type="text" data-validetta="regExp[curp]">
                   <label for="curp">CURP</label>
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-field col s12">
-                  <input id="password" type="password" class="validate" required>
+                  <input id="password" type="password" data-validetta="required">
                   <label for="password">Contraseña</label>
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-field col s12" id="input_correo">
-                  <input id="email" type="email" class="validate">
+                  <input id="email" type="text" data-validetta="email">
                   <label for="email">Correo alternativo</label>
                 </div>
               </div>
 
               <div class="row center-align">
                 <!-- <a class="btn waves-effect waves-light white black-text">Tengo problemas con el correo que registre</a> -->
-                <input class="btn waves-effect waves-light white" type="submit" value="Enviar">
+                <button class="btn waves-effect waves-light white black-text" type="submit">Enviar</button>
               </div>
               <br>
               <div class="row center-aling">
@@ -77,71 +77,13 @@
             </form>
         </div>
     </main>
-
-    <div class="scripts">
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
-        <script src="../../validetta-1.0.1/dist/validetta.min.js"></script>
-        <script src="../../validetta-1.0.1/localization/validettaLang-es-ES.js"></script>
-        <script src="./index.js"></script>
-    </div>
 </body>
 
-</html>
-<script>
-  $(document).ready(function () {
-    $("#auth").validetta({
-      validators: {
-            regExp: {
-                curp: {
-                    pattern: /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
-                    errorMessage: "Ingresa un curp válido"
-                },
-                fecha : {
-                    pattern: /^(19\d{2}|20(0|1)\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
-                    errorMessage: "Fecha no valida"
-                },
-                promedio : {
-                    pattern: /^(10)$|(^(\b[0-9]\b)(\.\b[0-9]{1,2}\b)?$)/,
-                    errorMessage: "Promedio no valido (formato #.##)"
-                },
-                telef : {
-                    pattern: /^\d{10}$/,
-                    errorMessage: "Ingrese su numero a 10 digitos"
-                },
-                cp : {
-                    pattern: /^\d{5}$/,
-                    errorMessage: "Ingrese un CP valido (5 digitos)"
-                }
-            }
-        },
-        realTime: true,
-        display : 'inline',
-        errorTemplateClass : 'validetta-inline',
-        onsucces: function (e) {
-          e.preventDefault();
-          consultar();
-        }
-    });
-  })
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
+  <script src="../../validetta-1.0.1/dist/validetta.min.js"></script>
+  <script src="../../validetta-1.0.1/localization/validettaLang-es-ES.js"></script>
+  <script src="./consultar.js"></script>
 
-  function consultar() {
-    e.preventDefault();
-    $.ajax({
-        url: "consultar.php",
-        method: "POST",
-        cache: false,
-        data: {curp: $("#curp").val(), contra: $("#password").val()},
-        success: function (respax) {
-            if (respax != "false") {
-                let AX = JSON.parse(respax);
-                enviarCorreo(AX.curp,AX.nombre,AX.primer_apellido,AX.correo);
-            }
-            else {
-                alert("CURP o contraseña incorrectos");
-            }
-        }
-    });
-  }
-</script>
+</html>

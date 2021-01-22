@@ -3,7 +3,7 @@
 function open_database() {
     $host = "localhost";
     $user = "root";
-    $pwd = "1234";
+    $pwd = "";
     $db = "sistema_registro";
 
     $conn = mysqli_connect($host, $user, $pwd, $db);
