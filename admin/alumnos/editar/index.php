@@ -209,7 +209,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             <div class="row">
                                 <div class="col s12 m6 l6 input-field">
                                     <label for="fecha-nac">Fecha de nacimiento</label>
-                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" value="<?php echo $fecha_nacimiento; ?>" required>
+                                    <input type="text" class="datepicker" id="fecha-nac" name="fecha-nac" value="<?php echo $fecha_nacimiento; ?>" data-validetta="regExp[fecha]" required>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
                                     <select id="genero">
@@ -230,11 +230,11 @@ if (mysqli_num_rows($resultAP) != 0) {
                             <div class="row">
                                 <div class="col l6 m6 s12 input-field">
                                     <label for="telfijo">Teléfono fijo</label>
-                                    <input type="text" name="telfijo" id="telfijo" value="<?php echo $telefono_casa; ?>">
+                                    <input type="text" name="telfijo" id="telfijo" value="<?php echo $telefono_casa; ?>" data-validetta="regExp[telef]">
                                 </div>
                                 <div class="col l6 m6 s12 input-field">
                                     <label for="telcelular">Teléfono celular</label>
-                                    <input type="text" name="telcelular" id="telcelular" value="<?php echo $telefono_celular; ?>" required>
+                                    <input type="text" name="telcelular" id="telcelular" value="<?php echo $telefono_celular; ?>" data-validetta="regExp[telef]" required>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +298,7 @@ if (mysqli_num_rows($resultAP) != 0) {
 
                                 <div class="col s12 input-field">
                                     <label for="promedio">Promedio obtenido</label>
-                                    <input type="text" name="promedio" id="promedio" value="<?php echo $promedio; ?>" data-validetta="required">
+                                    <input type="text" name="promedio" id="promedio" value="<?php echo $promedio; ?>" data-validetta="regExp[promedio]" required>
                                 </div>
                             </div>
 
@@ -338,7 +338,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                             </div>
                             <div class="row input-field">
                                 <label for="opcion">Opción</label>
-                                <input type="text" name="opcion" id="opcion" value="<?php echo $opcion; ?>" required>
+                                <input type="number" name="opcion" id="opcion" value="<?php echo $opcion; ?>" required>
                             </div>
                         </div>
                     </div>
@@ -466,6 +466,10 @@ if (mysqli_num_rows($resultAP) != 0) {
                         fecha : {
                             pattern: /^(19\d{2}|20(0|1)\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
                             errorMessage: "Fecha no valida"
+                        },
+                        telef : {
+                            pattern: /^\d{10}$/,
+                            errorMessage: "Ingrese su numero a 10 digitos"
                         }
                     }
                 },
@@ -831,7 +835,7 @@ if (mysqli_num_rows($resultAP) != 0) {
                 break;
         }
 
-        location.reload();
+        window.location.replace("../");
     }
 
     $("#escuelas").on('change', function(){

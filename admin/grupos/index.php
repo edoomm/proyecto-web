@@ -391,6 +391,8 @@ if (!isset($_SESSION["id"])) {
         </div>
     </main>
 
+    <br><br><br>
+
 </body>
 
 <div class="scripts">
