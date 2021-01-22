@@ -3,8 +3,8 @@
 function open_database() {
     $host = "localhost";
     $user = "root";
-    $pwd = "";
-    $db = "sistema_registro2";
+    $pwd = "1234";
+    $db = "sistema_registro";
 
     $conn = mysqli_connect($host, $user, $pwd, $db);
     mysqli_set_charset($conn, "utf8");

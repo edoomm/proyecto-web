@@ -13,7 +13,7 @@
     if($res_alumSIEX[0] > 0){ //validamos que si exista al menos 1 registro y que ya tenga la calificacion de su examen
         
         $numero_preguntas = 60;
-        $rango = 40;
+        $rango = 10;
         
         $num_filas = intdiv($numero_preguntas,$rango);
         $restante = $numero_preguntas%$rango;

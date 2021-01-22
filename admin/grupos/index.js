@@ -6,6 +6,10 @@ $(document).ready(function () {
     intializeTableSearch();
 
     intializeValidetta();
+
+    intializeNewDay();
+    intializeValidationNewHour();
+    intializeValidationNewEdificio();
 })
 
 function intializeTableSearch() {
@@ -102,8 +106,249 @@ function submitEdit() {
         success: function (respax) {
             alert(respax);
             if (respax == "Grupo guardado correctamente") {
-                alert("Asegurese de notificarle a los alumnos inscritos a este grupo que se ha cambiado la información de este mismo");
                 window.location.reload();
+            }
+        }
+    });
+}
+
+/**
+ * Función que inicializa los controles para añadir un nuevo día
+ */
+function intializeNewDay() {
+    validateNewDay();
+    var today = new Date();
+    var todayStr = today.getFullYear() + "-" + pad(today.getMonth() + 1, 2) + "-" + pad(today.getDate(), 2);
+    $("#txtDate").val(todayStr);
+}
+
+function intializeValidationNewHour() {
+    $("#newHorario").validetta({
+        validators: {
+            regExp: {
+                hora: {
+                    pattern: /^(0{1}\d{1}|1{1}\d{1}|2{1}[0-3]{1}):[0-5]{1}\d{1}$/,
+                    errorMessage: "Horario no valido (formato 24 hrs)"
+                }
+            }
+        },
+        realTime : true,
+        bubblePosition: 'bottom',
+        onValid : function (e) {
+            e.preventDefault();
+            submitNewHour();
+        },
+        onError : function (e) {
+            // e.preventDefault();
+            alert("No todos los campos son validos");
+        }
+    });
+}
+
+function intializeValidationNewEdificio() {
+    $("#newEdificio").validetta({
+        validators: {
+            regExp: {
+                clave: {
+                    pattern: /^\d{1,4}$/,
+                    errorMessage: "Rango aceptado [0, 9999]"
+                }
+            }
+        },
+        realTime : true,
+        bubblePosition: 'bottom',
+        onValid : function (e) {
+            e.preventDefault();
+            submitNewEdificio();
+        },
+        onError : function (e) {
+            // e.preventDefault();
+            alert("No todos los campos son validos");
+        }
+    });
+}
+
+/**
+ * Función que inicializa las validaciones del form newDay
+ */
+function validateNewDay() {
+    $("#newDay").validetta({
+        validators: {
+            regExp: {
+                date: {
+                    pattern: /^(2[0-1][2-9]\d)-(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])$/,
+                    errorMessage: "Fecha no valida"
+                }
+            }
+        },
+        realTime : true,
+        bubblePosition: 'bottom',
+        onValid : function (e) {
+            e.preventDefault();
+            submitNewDay();
+        },
+        onError : function (e) {
+            // e.preventDefault();
+            alert("No todos los campos son validos");
+        }
+    });
+}
+
+/**
+ * Ingresa un nuevo dia a la base de datos
+ */
+function submitNewDay() {
+    $.ajax({
+        url: "./insertDia.php",
+        method: "POST",
+        cache: false,
+        data: {fecha: $("#txtDate").val()},
+        success: function (respax) {
+            if (respax == "true") {
+                window.location.reload();
+            }
+            else {
+                alert(respax);
+            }
+        }
+    });
+}
+
+function submitNewHour() {
+    $.ajax({
+        url: "./insertHora.php",
+        method: "POST",
+        cache: false,
+        data: {hora: $("#txtHora").val()},
+        success: function (respax) {
+            console.log(respax);
+            if (respax == "true") {
+                window.location.reload();
+            }
+            else {
+                alert(respax);
+            }
+        }
+    });
+}
+
+function submitNewEdificio() {
+    $.ajax({
+        url: "./insertEdificio.php",
+        method: "POST",
+        cache: false,
+        data: {edificio: pad(parseInt($("#txtEdificio").val()), 4)},
+        success: function (respax) {
+            console.log(respax);
+            if (respax == "true") {
+                window.location.reload();
+            }
+            else {
+                alert(respax);
+            }
+        }
+    });
+}
+
+/**
+ * Elimina el día que el ususario clickea
+ */
+function eliminarDia(a) {
+    var tableAux = a.parentNode.parentNode.parentNode.parentNode;
+    var rowNumber = a.parentNode.parentNode.rowIndex;
+
+    var fecha = tableAux.rows[rowNumber].cells[0].innerHTML;
+    $.ajax({
+        url: "deleteDia.php",
+        cache: false,
+        method: "POST",
+        data: {fecha: fecha},
+        success: function (respax) {
+            if (respax == "true") {
+                window.location.reload();
+            }
+            else {
+                alert(respax);
+            }
+        }
+    });
+}
+
+$("#eliminarGrupo").click(function (e) {
+    e.preventDefault();
+    // confirma con JQuery Confirm
+    $.confirm({
+        backgroundDismiss: true,
+        title: '¡Atención!',
+        content: '¿Está seguro de querer borrar el grupo ' + $("#clave").val() + '?',
+        buttons: {
+            Confirmar: {
+                text: 'Eliminar',
+                btnClass: 'btn-red',
+                action: eliminarGrupo
+            },
+            Cancelar: {
+                btnClass: 'white blue-text'
+            }
+        }
+    });
+});
+
+/**
+ * Elimina al grupo previa confirmación
+ */
+function eliminarGrupo() {
+    $.ajax({
+        url: "delete.php",
+        method: "POST",
+        cache: false,
+        data: {clave: $("#clave").val()},
+        success: function (respax) {
+            if (respax == "true")
+                window.location.reload();
+            else
+                alert(respax);
+        }
+    });
+}
+
+function eliminarHorario(a) {
+    var tableAux = a.parentNode.parentNode.parentNode.parentNode;
+    var rowNumber = a.parentNode.parentNode.rowIndex;
+
+    var hora = tableAux.rows[rowNumber].cells[0].innerHTML;
+    $.ajax({
+        url: "deleteHora.php",
+        cache: false,
+        method: "POST",
+        data: {hora: hora},
+        success: function (respax) {
+            if (respax == "true") {
+                window.location.reload();
+            }
+            else {
+                alert(respax);
+            }
+        }
+    });
+}
+
+function eliminarEdifico(a) {
+    var tableAux = a.parentNode.parentNode.parentNode.parentNode;
+    var rowNumber = a.parentNode.parentNode.rowIndex;
+
+    var edificio = tableAux.rows[rowNumber].cells[0].innerHTML;
+    $.ajax({
+        url: "deleteEdificio.php",
+        cache: false,
+        method: "POST",
+        data: {edificio: edificio},
+        success: function (respax) {
+            if (respax == "true") {
+                window.location.reload();
+            }
+            else {
+                alert(respax);
             }
         }
     });
